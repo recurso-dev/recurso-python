@@ -149,6 +149,10 @@ pipx run openapi-python-client generate \
 Note: the generator emits benign warnings for the `GET /openapi.yaml` and SAML-metadata endpoints
 (non-JSON response bodies); those responses are simply omitted from the generated client.
 
+After regenerating, re-apply the one intentional deviation from the generated output:
+`raise_on_unexpected_status` must default to `True` in both clients in `recurso/client.py`
+(the generator emits `False`, which makes API errors silently return `None`).
+
 ## Testing
 
 A no-network smoke test verifies the package imports and key endpoint signatures exist:
