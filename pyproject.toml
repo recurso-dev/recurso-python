@@ -2,7 +2,7 @@
 name = "recurso"
 version = "1.1.0"
 description = "A client library for accessing Recurso API"
-authors = []
+authors = ["Recurso <cloud@recurso.dev>"]
 readme = "README.md"
 packages = [
     { include = "recurso" },
