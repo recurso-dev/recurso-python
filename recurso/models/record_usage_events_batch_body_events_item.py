@@ -10,31 +10,31 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.record_usage_event_body_properties import RecordUsageEventBodyProperties
+    from ..models.record_usage_events_batch_body_events_item_properties import (
+        RecordUsageEventsBatchBodyEventsItemProperties,
+    )
 
 
-T = TypeVar("T", bound="RecordUsageEventBody")
+T = TypeVar("T", bound="RecordUsageEventsBatchBodyEventsItem")
 
 
 @_attrs_define
-class RecordUsageEventBody:
+class RecordUsageEventsBatchBodyEventsItem:
     """
     Attributes:
         subscription_id (UUID):
         customer_id (UUID):
         dimension (str):
         quantity (int):
-        properties (RecordUsageEventBodyProperties | Unset): Optional free-form attributes (max 20; keys ≤100 chars,
-            values ≤255). The `unique` billable-metric aggregation counts distinct values of one property.
-        transaction_id (str | Unset): Optional idempotency key: a retried event with the same (subscription,
-            transaction_id) collapses to the original (200 with status "duplicate" and the original event_id).
+        properties (RecordUsageEventsBatchBodyEventsItemProperties | Unset):
+        transaction_id (str | Unset):
     """
 
     subscription_id: UUID
     customer_id: UUID
     dimension: str
     quantity: int
-    properties: RecordUsageEventBodyProperties | Unset = UNSET
+    properties: RecordUsageEventsBatchBodyEventsItemProperties | Unset = UNSET
     transaction_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -72,7 +72,9 @@ class RecordUsageEventBody:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.record_usage_event_body_properties import RecordUsageEventBodyProperties
+        from ..models.record_usage_events_batch_body_events_item_properties import (
+            RecordUsageEventsBatchBodyEventsItemProperties,
+        )
 
         d = dict(src_dict)
         subscription_id = UUID(d.pop("subscription_id"))
@@ -84,15 +86,15 @@ class RecordUsageEventBody:
         quantity = d.pop("quantity")
 
         _properties = d.pop("properties", UNSET)
-        properties: RecordUsageEventBodyProperties | Unset
+        properties: RecordUsageEventsBatchBodyEventsItemProperties | Unset
         if isinstance(_properties, Unset):
             properties = UNSET
         else:
-            properties = RecordUsageEventBodyProperties.from_dict(_properties)
+            properties = RecordUsageEventsBatchBodyEventsItemProperties.from_dict(_properties)
 
         transaction_id = d.pop("transaction_id", UNSET)
 
-        record_usage_event_body = cls(
+        record_usage_events_batch_body_events_item = cls(
             subscription_id=subscription_id,
             customer_id=customer_id,
             dimension=dimension,
@@ -101,8 +103,8 @@ class RecordUsageEventBody:
             transaction_id=transaction_id,
         )
 
-        record_usage_event_body.additional_properties = d
-        return record_usage_event_body
+        record_usage_events_batch_body_events_item.additional_properties = d
+        return record_usage_events_batch_body_events_item
 
     @property
     def additional_keys(self) -> list[str]:

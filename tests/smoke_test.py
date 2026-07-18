@@ -125,6 +125,36 @@ def main() -> int:
 
     check("metering endpoints exist with expected signatures", metering_endpoints)
 
+    # --- wallets, commitments, alerts, batch, audit (Lago-parity B/C) ----
+    def commerce_endpoints():
+        from recurso.api.account import list_audit_logs
+        from recurso.api.metering import create_usage_alert, delete_usage_alert, list_usage_alerts
+        from recurso.api.subscriptions import set_subscription_commitment
+        from recurso.api.usage import record_usage_events_batch
+        from recurso.api.wallets import (
+            create_wallet,
+            get_wallet,
+            list_customer_wallets,
+            list_wallet_transactions,
+            top_up_wallet,
+            update_wallet_auto_recharge,
+        )
+
+        assert_endpoint(create_wallet, sync_params=["client", "body"])
+        assert_endpoint(get_wallet, sync_params=["id", "client"])
+        assert_endpoint(list_customer_wallets, sync_params=["id", "client"])
+        assert_endpoint(top_up_wallet, sync_params=["id", "client", "body"])
+        assert hasattr(list_wallet_transactions, "sync_detailed")
+        assert_endpoint(update_wallet_auto_recharge, sync_params=["id", "client", "body"])
+        assert_endpoint(set_subscription_commitment, sync_params=["id", "client", "body"])
+        assert_endpoint(create_usage_alert, sync_params=["client", "body"])
+        assert hasattr(list_usage_alerts, "sync_detailed")
+        assert hasattr(delete_usage_alert, "sync_detailed")
+        assert_endpoint(record_usage_events_batch, sync_params=["client", "body"])
+        assert hasattr(list_audit_logs, "sync_detailed")
+
+    check("wallet/commitment/alert/batch/audit endpoints exist", commerce_endpoints)
+
     def metering_models():
         from recurso.models import BillableMetricInput, ChargeInput
         from recurso.models.billable_metric_input_aggregation_type import (

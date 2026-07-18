@@ -28,6 +28,9 @@ class UsageAmount:
         as_of (datetime.datetime | Unset):
         charges (list[UsageAmountChargesItem] | Unset):
         total_amount (int | Unset):
+        commitment_amount (int | Unset): The subscription's per-period minimum (0 = none).
+        projected_true_up (int | Unset): The true-up that would bill if the period closed now — commitment − (flat fee +
+            usage), floored at zero.
     """
 
     subscription_id: UUID | Unset = UNSET
@@ -36,6 +39,8 @@ class UsageAmount:
     as_of: datetime.datetime | Unset = UNSET
     charges: list[UsageAmountChargesItem] | Unset = UNSET
     total_amount: int | Unset = UNSET
+    commitment_amount: int | Unset = UNSET
+    projected_true_up: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -62,6 +67,10 @@ class UsageAmount:
 
         total_amount = self.total_amount
 
+        commitment_amount = self.commitment_amount
+
+        projected_true_up = self.projected_true_up
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -77,6 +86,10 @@ class UsageAmount:
             field_dict["charges"] = charges
         if total_amount is not UNSET:
             field_dict["total_amount"] = total_amount
+        if commitment_amount is not UNSET:
+            field_dict["commitment_amount"] = commitment_amount
+        if projected_true_up is not UNSET:
+            field_dict["projected_true_up"] = projected_true_up
 
         return field_dict
 
@@ -119,6 +132,10 @@ class UsageAmount:
 
         total_amount = d.pop("total_amount", UNSET)
 
+        commitment_amount = d.pop("commitment_amount", UNSET)
+
+        projected_true_up = d.pop("projected_true_up", UNSET)
+
         usage_amount = cls(
             subscription_id=subscription_id,
             currency=currency,
@@ -126,6 +143,8 @@ class UsageAmount:
             as_of=as_of,
             charges=charges,
             total_amount=total_amount,
+            commitment_amount=commitment_amount,
+            projected_true_up=projected_true_up,
         )
 
         usage_amount.additional_properties = d
