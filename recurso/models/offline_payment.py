@@ -24,6 +24,7 @@ class OfflinePayment:
         invoice_id (None | Unset | UUID):
         payment_type (OfflinePaymentPaymentType | Unset):
         amount (int | Unset):
+        tds_amount (int | Unset): Tax deducted at source by the customer on this receipt.
         currency (str | Unset):
         reference_number (str | Unset):
         notes (str | Unset):
@@ -37,6 +38,7 @@ class OfflinePayment:
     invoice_id: None | Unset | UUID = UNSET
     payment_type: OfflinePaymentPaymentType | Unset = UNSET
     amount: int | Unset = UNSET
+    tds_amount: int | Unset = UNSET
     currency: str | Unset = UNSET
     reference_number: str | Unset = UNSET
     notes: str | Unset = UNSET
@@ -71,6 +73,8 @@ class OfflinePayment:
 
         amount = self.amount
 
+        tds_amount = self.tds_amount
+
         currency = self.currency
 
         reference_number = self.reference_number
@@ -98,6 +102,8 @@ class OfflinePayment:
             field_dict["payment_type"] = payment_type
         if amount is not UNSET:
             field_dict["amount"] = amount
+        if tds_amount is not UNSET:
+            field_dict["tds_amount"] = tds_amount
         if currency is not UNSET:
             field_dict["currency"] = currency
         if reference_number is not UNSET:
@@ -161,6 +167,8 @@ class OfflinePayment:
 
         amount = d.pop("amount", UNSET)
 
+        tds_amount = d.pop("tds_amount", UNSET)
+
         currency = d.pop("currency", UNSET)
 
         reference_number = d.pop("reference_number", UNSET)
@@ -183,6 +191,7 @@ class OfflinePayment:
             invoice_id=invoice_id,
             payment_type=payment_type,
             amount=amount,
+            tds_amount=tds_amount,
             currency=currency,
             reference_number=reference_number,
             notes=notes,

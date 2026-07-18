@@ -13,6 +13,10 @@ from .add_unbilled_charge_body import AddUnbilledChargeBody
 from .api_key import APIKey
 from .ask_analytics_body import AskAnalyticsBody
 from .ask_analytics_response_200 import AskAnalyticsResponse200
+from .billable_metric import BillableMetric
+from .billable_metric_aggregation_type import BillableMetricAggregationType
+from .billable_metric_input import BillableMetricInput
+from .billable_metric_input_aggregation_type import BillableMetricInputAggregationType
 from .billing_address import BillingAddress
 from .cancel_e_invoice_body import CancelEInvoiceBody
 from .cancel_e_invoice_response_200 import CancelEInvoiceResponse200
@@ -24,6 +28,10 @@ from .cancel_flow_step_type import CancelFlowStepType
 from .cancel_subscription_request import CancelSubscriptionRequest
 from .cancel_subscription_request_reason import CancelSubscriptionRequestReason
 from .cancel_subscription_response import CancelSubscriptionResponse
+from .charge_input import ChargeInput
+from .charge_input_amounts import ChargeInputAmounts
+from .charge_input_charge_model import ChargeInputChargeModel
+from .charge_tier import ChargeTier
 from .check_entitlement_response_200 import CheckEntitlementResponse200
 from .checkout_invoice import CheckoutInvoice
 from .checkout_razorpay_verify_body import CheckoutRazorpayVerifyBody
@@ -46,6 +54,7 @@ from .coupon_discount_type import CouponDiscountType
 from .coupon_duration import CouponDuration
 from .create_api_key_body import CreateAPIKeyBody
 from .create_api_key_body_mode import CreateAPIKeyBodyMode
+from .create_billable_metric_response_201 import CreateBillableMetricResponse201
 from .create_cancel_flow_body import CreateCancelFlowBody
 from .create_cancel_flow_step_body import CreateCancelFlowStepBody
 from .create_cancel_flow_step_body_config import CreateCancelFlowStepBodyConfig
@@ -126,6 +135,7 @@ from .get_accounting_sync_status_response_200 import GetAccountingSyncStatusResp
 from .get_auth_oauth_provider_callback_provider import GetAuthOauthProviderCallbackProvider
 from .get_auth_oauth_provider_start_provider import GetAuthOauthProviderStartProvider
 from .get_auth_oauth_providers_response_200 import GetAuthOauthProvidersResponse200
+from .get_billable_metric_response_200 import GetBillableMetricResponse200
 from .get_current_user_response_200 import GetCurrentUserResponse200
 from .get_current_user_response_200_tenant import GetCurrentUserResponse200Tenant
 from .get_customer_churn_response_200 import GetCustomerChurnResponse200
@@ -146,6 +156,9 @@ from .get_gst_config_response_200 import GetGSTConfigResponse200
 from .get_gstr1_response_200 import GetGSTR1Response200
 from .get_gstr1_response_200_data import GetGSTR1Response200Data
 from .get_gstr1_response_200_gov_schema import GetGSTR1Response200GovSchema
+from .get_gstr3b_response_200 import GetGSTR3BResponse200
+from .get_gstr3b_response_200_data import GetGSTR3BResponse200Data
+from .get_gstr3b_response_200_gov_schema import GetGSTR3BResponse200GovSchema
 from .get_invoice_aging_response_200 import GetInvoiceAgingResponse200
 from .get_invoice_aging_response_200_data import GetInvoiceAgingResponse200Data
 from .get_irp_config_response_200 import GetIRPConfigResponse200
@@ -168,6 +181,7 @@ from .get_revenue_by_plan_response_200 import GetRevenueByPlanResponse200
 from .get_revenue_by_plan_response_200_data import GetRevenueByPlanResponse200Data
 from .get_revenue_waterfall_response_200 import GetRevenueWaterfallResponse200
 from .get_revenue_waterfall_response_200_data import GetRevenueWaterfallResponse200Data
+from .get_subscription_usage_amount_response_200 import GetSubscriptionUsageAmountResponse200
 from .get_tax_nexus_response_200 import GetTaxNexusResponse200
 from .get_tax_nexus_status_response_200 import GetTaxNexusStatusResponse200
 from .get_tax_nexus_status_response_200_data import GetTaxNexusStatusResponse200Data
@@ -225,6 +239,7 @@ from .ledger_transaction import LedgerTransaction
 from .line_item import LineItem
 from .list_accounting_connections_response_200 import ListAccountingConnectionsResponse200
 from .list_api_keys_response_200 import ListAPIKeysResponse200
+from .list_billable_metrics_response_200 import ListBillableMetricsResponse200
 from .list_cancellation_reasons_response_200 import ListCancellationReasonsResponse200
 from .list_cancellation_reasons_response_200_data_item import ListCancellationReasonsResponse200DataItem
 from .list_churn_alerts_response_200 import ListChurnAlertsResponse200
@@ -327,6 +342,7 @@ from .record_consent_body_consent_type import RecordConsentBodyConsentType
 from .record_offline_payment_body import RecordOfflinePaymentBody
 from .record_offline_payment_body_payment_type import RecordOfflinePaymentBodyPaymentType
 from .record_usage_event_body import RecordUsageEventBody
+from .record_usage_event_body_properties import RecordUsageEventBodyProperties
 from .record_usage_event_response_201 import RecordUsageEventResponse201
 from .redeem_gift_body import RedeemGiftBody
 from .redeliver_event_response_202 import RedeliverEventResponse202
@@ -379,6 +395,7 @@ from .unbilled_charge import UnbilledCharge
 from .unbilled_charge_status import UnbilledChargeStatus
 from .update_account_body import UpdateAccountBody
 from .update_account_response_200 import UpdateAccountResponse200
+from .update_billable_metric_response_200 import UpdateBillableMetricResponse200
 from .update_cancel_flow_body import UpdateCancelFlowBody
 from .update_cancel_flow_step_body import UpdateCancelFlowStepBody
 from .update_cancel_flow_step_body_config import UpdateCancelFlowStepBodyConfig
@@ -396,6 +413,8 @@ from .update_subscription_body import UpdateSubscriptionBody
 from .update_user_role_body import UpdateUserRoleBody
 from .update_user_role_body_role import UpdateUserRoleBodyRole
 from .update_user_role_response_200 import UpdateUserRoleResponse200
+from .usage_amount import UsageAmount
+from .usage_amount_charges_item import UsageAmountChargesItem
 from .usage_bucket import UsageBucket
 from .usage_dimension import UsageDimension
 from .usage_stats import UsageStats
@@ -421,6 +440,10 @@ __all__ = (
     "APIKey",
     "AskAnalyticsBody",
     "AskAnalyticsResponse200",
+    "BillableMetric",
+    "BillableMetricAggregationType",
+    "BillableMetricInput",
+    "BillableMetricInputAggregationType",
     "BillingAddress",
     "CancelEInvoiceBody",
     "CancelEInvoiceResponse200",
@@ -432,6 +455,10 @@ __all__ = (
     "CancelSubscriptionRequest",
     "CancelSubscriptionRequestReason",
     "CancelSubscriptionResponse",
+    "ChargeInput",
+    "ChargeInputAmounts",
+    "ChargeInputChargeModel",
+    "ChargeTier",
     "CheckEntitlementResponse200",
     "CheckoutInvoice",
     "CheckoutRazorpayVerifyBody",
@@ -454,6 +481,7 @@ __all__ = (
     "CouponDuration",
     "CreateAPIKeyBody",
     "CreateAPIKeyBodyMode",
+    "CreateBillableMetricResponse201",
     "CreateCancelFlowBody",
     "CreateCancelFlowStepBody",
     "CreateCancelFlowStepBodyConfig",
@@ -534,6 +562,7 @@ __all__ = (
     "GetAuthOauthProviderCallbackProvider",
     "GetAuthOauthProvidersResponse200",
     "GetAuthOauthProviderStartProvider",
+    "GetBillableMetricResponse200",
     "GetCurrentUserResponse200",
     "GetCurrentUserResponse200Tenant",
     "GetCustomerChurnResponse200",
@@ -552,6 +581,9 @@ __all__ = (
     "GetGSTR1Response200",
     "GetGSTR1Response200Data",
     "GetGSTR1Response200GovSchema",
+    "GetGSTR3BResponse200",
+    "GetGSTR3BResponse200Data",
+    "GetGSTR3BResponse200GovSchema",
     "GetInvoiceAgingResponse200",
     "GetInvoiceAgingResponse200Data",
     "GetIRPConfigResponse200",
@@ -574,6 +606,7 @@ __all__ = (
     "GetRevenueWaterfallResponse200Data",
     "GetRevRecReportResponse200",
     "GetRevRecReportResponse200Data",
+    "GetSubscriptionUsageAmountResponse200",
     "GetTaxNexusResponse200",
     "GetTaxNexusStatusResponse200",
     "GetTaxNexusStatusResponse200Data",
@@ -625,6 +658,7 @@ __all__ = (
     "LineItem",
     "ListAccountingConnectionsResponse200",
     "ListAPIKeysResponse200",
+    "ListBillableMetricsResponse200",
     "ListCancellationReasonsResponse200",
     "ListCancellationReasonsResponse200DataItem",
     "ListChurnAlertsResponse200",
@@ -727,6 +761,7 @@ __all__ = (
     "RecordOfflinePaymentBody",
     "RecordOfflinePaymentBodyPaymentType",
     "RecordUsageEventBody",
+    "RecordUsageEventBodyProperties",
     "RecordUsageEventResponse201",
     "RedeemGiftBody",
     "RedeliverEventResponse202",
@@ -779,6 +814,7 @@ __all__ = (
     "UnbilledChargeStatus",
     "UpdateAccountBody",
     "UpdateAccountResponse200",
+    "UpdateBillableMetricResponse200",
     "UpdateCancelFlowBody",
     "UpdateCancelFlowStepBody",
     "UpdateCancelFlowStepBodyConfig",
@@ -796,6 +832,8 @@ __all__ = (
     "UpdateUserRoleBody",
     "UpdateUserRoleBodyRole",
     "UpdateUserRoleResponse200",
+    "UsageAmount",
+    "UsageAmountChargesItem",
     "UsageBucket",
     "UsageDimension",
     "UsageStats",

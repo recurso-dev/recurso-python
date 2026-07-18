@@ -21,6 +21,10 @@ class RecordOfflinePaymentBody:
         payment_type (RecordOfflinePaymentBodyPaymentType):
         amount (int): Amount in the lowest currency unit.
         invoice_id (UUID | Unset):
+        tds_amount (int | Unset): Tax deducted at source by the customer (India B2B), in the lowest currency unit.
+            Requires invoice_id; counts toward settling the invoice and is booked to TDS Receivable in the ledger, but is
+            not part of the cash received. The deduction cannot exceed the invoice's outstanding balance.
+             Default: 0.
         currency (str | Unset):  Default: 'INR'.
         reference_number (str | Unset):
         notes (str | Unset):
@@ -31,6 +35,7 @@ class RecordOfflinePaymentBody:
     payment_type: RecordOfflinePaymentBodyPaymentType
     amount: int
     invoice_id: UUID | Unset = UNSET
+    tds_amount: int | Unset = 0
     currency: str | Unset = "INR"
     reference_number: str | Unset = UNSET
     notes: str | Unset = UNSET
@@ -47,6 +52,8 @@ class RecordOfflinePaymentBody:
         invoice_id: str | Unset = UNSET
         if not isinstance(self.invoice_id, Unset):
             invoice_id = str(self.invoice_id)
+
+        tds_amount = self.tds_amount
 
         currency = self.currency
 
@@ -67,6 +74,8 @@ class RecordOfflinePaymentBody:
         )
         if invoice_id is not UNSET:
             field_dict["invoice_id"] = invoice_id
+        if tds_amount is not UNSET:
+            field_dict["tds_amount"] = tds_amount
         if currency is not UNSET:
             field_dict["currency"] = currency
         if reference_number is not UNSET:
@@ -94,6 +103,8 @@ class RecordOfflinePaymentBody:
         else:
             invoice_id = UUID(_invoice_id)
 
+        tds_amount = d.pop("tds_amount", UNSET)
+
         currency = d.pop("currency", UNSET)
 
         reference_number = d.pop("reference_number", UNSET)
@@ -107,6 +118,7 @@ class RecordOfflinePaymentBody:
             payment_type=payment_type,
             amount=amount,
             invoice_id=invoice_id,
+            tds_amount=tds_amount,
             currency=currency,
             reference_number=reference_number,
             notes=notes,

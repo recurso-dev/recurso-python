@@ -101,6 +101,46 @@ def main() -> int:
 
     check("core endpoints exist with expected signatures", endpoints)
 
+    # --- usage-based billing v1 (billable metrics, charges, preview) -----
+    def metering_endpoints():
+        from recurso.api.metering import (
+            create_billable_metric,
+            delete_billable_metric,
+            get_billable_metric,
+            get_plan_charges,
+            get_subscription_usage_amount,
+            list_billable_metrics,
+            set_plan_charges,
+            update_billable_metric,
+        )
+
+        assert_endpoint(create_billable_metric, sync_params=["client", "body"])
+        assert_endpoint(list_billable_metrics, sync_params=["client"])
+        assert_endpoint(get_billable_metric, sync_params=["id", "client"])
+        assert_endpoint(update_billable_metric, sync_params=["id", "client", "body"])
+        assert hasattr(delete_billable_metric, "sync_detailed")
+        assert_endpoint(get_plan_charges, sync_params=["id", "client"])
+        assert_endpoint(set_plan_charges, sync_params=["id", "client", "body"])
+        assert_endpoint(get_subscription_usage_amount, sync_params=["id", "client"])
+
+    check("metering endpoints exist with expected signatures", metering_endpoints)
+
+    def metering_models():
+        from recurso.models import BillableMetricInput, ChargeInput
+        from recurso.models.billable_metric_input_aggregation_type import (
+            BillableMetricInputAggregationType,
+        )
+
+        metric = BillableMetricInput(
+            name="API calls",
+            code="api_calls",
+            aggregation_type=BillableMetricInputAggregationType.SUM,
+        )
+        assert metric.to_dict() == {"name": "API calls", "code": "api_calls", "aggregation_type": "sum"}
+        assert ChargeInput is not None
+
+    check("metering request models serialize", metering_models)
+
     # --- delivery tracking, redelivery, and FX-normalized MRR ------------
     def delivery_and_mrr_endpoints():
         from recurso.api.analytics import get_mrr
