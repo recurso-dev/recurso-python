@@ -25,6 +25,8 @@ class CreateSubscriptionRequest:
         start_date (datetime.datetime | Unset):
         billing_anchor_type (CreateSubscriptionRequestBillingAnchorType | Unset):
         payment_terms (CreateSubscriptionRequestPaymentTerms | Unset):
+        trial_days (int | Unset): When greater than zero, the subscription starts in `trialing` and converts to `active`
+            (generating its first invoice) when the trial ends.
     """
 
     customer_id: UUID
@@ -33,6 +35,7 @@ class CreateSubscriptionRequest:
     start_date: datetime.datetime | Unset = UNSET
     billing_anchor_type: CreateSubscriptionRequestBillingAnchorType | Unset = UNSET
     payment_terms: CreateSubscriptionRequestPaymentTerms | Unset = UNSET
+    trial_days: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -54,6 +57,8 @@ class CreateSubscriptionRequest:
         if not isinstance(self.payment_terms, Unset):
             payment_terms = self.payment_terms.value
 
+        trial_days = self.trial_days
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -70,6 +75,8 @@ class CreateSubscriptionRequest:
             field_dict["billing_anchor_type"] = billing_anchor_type
         if payment_terms is not UNSET:
             field_dict["payment_terms"] = payment_terms
+        if trial_days is not UNSET:
+            field_dict["trial_days"] = trial_days
 
         return field_dict
 
@@ -103,6 +110,8 @@ class CreateSubscriptionRequest:
         else:
             payment_terms = CreateSubscriptionRequestPaymentTerms(_payment_terms)
 
+        trial_days = d.pop("trial_days", UNSET)
+
         create_subscription_request = cls(
             customer_id=customer_id,
             plan_id=plan_id,
@@ -110,6 +119,7 @@ class CreateSubscriptionRequest:
             start_date=start_date,
             billing_anchor_type=billing_anchor_type,
             payment_terms=payment_terms,
+            trial_days=trial_days,
         )
 
         create_subscription_request.additional_properties = d

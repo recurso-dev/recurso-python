@@ -7,6 +7,7 @@ from uuid import UUID
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.create_credit_note_body_type import CreateCreditNoteBodyType
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="CreateCreditNoteBody")
@@ -21,6 +22,9 @@ class CreateCreditNoteBody:
         currency (str):
         invoice_id (None | Unset | UUID):
         reason (str | Unset):
+        type_ (CreateCreditNoteBodyType | Unset): `adjustment` (default) issues account credit. `refund` calls the
+            gateway's refund API against the paid invoice in `invoice_id` and posts a Refunds-vs-Cash ledger reversal; its
+            progress is tracked by the credit note's `refund_status`. Default: CreateCreditNoteBodyType.ADJUSTMENT.
     """
 
     customer_id: UUID
@@ -28,6 +32,7 @@ class CreateCreditNoteBody:
     currency: str
     invoice_id: None | Unset | UUID = UNSET
     reason: str | Unset = UNSET
+    type_: CreateCreditNoteBodyType | Unset = CreateCreditNoteBodyType.ADJUSTMENT
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,6 +52,10 @@ class CreateCreditNoteBody:
 
         reason = self.reason
 
+        type_: str | Unset = UNSET
+        if not isinstance(self.type_, Unset):
+            type_ = self.type_.value
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -60,6 +69,8 @@ class CreateCreditNoteBody:
             field_dict["invoice_id"] = invoice_id
         if reason is not UNSET:
             field_dict["reason"] = reason
+        if type_ is not UNSET:
+            field_dict["type"] = type_
 
         return field_dict
 
@@ -91,12 +102,20 @@ class CreateCreditNoteBody:
 
         reason = d.pop("reason", UNSET)
 
+        _type_ = d.pop("type", UNSET)
+        type_: CreateCreditNoteBodyType | Unset
+        if isinstance(_type_, Unset):
+            type_ = UNSET
+        else:
+            type_ = CreateCreditNoteBodyType(_type_)
+
         create_credit_note_body = cls(
             customer_id=customer_id,
             amount=amount,
             currency=currency,
             invoice_id=invoice_id,
             reason=reason,
+            type_=type_,
         )
 
         create_credit_note_body.additional_properties = d

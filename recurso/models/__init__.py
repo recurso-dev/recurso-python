@@ -63,6 +63,7 @@ from .create_coupon_body import CreateCouponBody
 from .create_coupon_body_discount_type import CreateCouponBodyDiscountType
 from .create_coupon_body_duration import CreateCouponBodyDuration
 from .create_credit_note_body import CreateCreditNoteBody
+from .create_credit_note_body_type import CreateCreditNoteBodyType
 from .create_credit_note_response_201 import CreateCreditNoteResponse201
 from .create_customer_request import CreateCustomerRequest
 from .create_customer_request_tax_type import CreateCustomerRequestTaxType
@@ -284,6 +285,7 @@ from .list_usage_dimensions_response_200 import ListUsageDimensionsResponse200
 from .list_users_response_200 import ListUsersResponse200
 from .list_virtual_accounts_response_200 import ListVirtualAccountsResponse200
 from .list_wallet_transactions_response_200 import ListWalletTransactionsResponse200
+from .list_wallets_response_200 import ListWalletsResponse200
 from .list_webhook_endpoint_deliveries_response_200 import ListWebhookEndpointDeliveriesResponse200
 from .list_webhook_endpoint_deliveries_status import ListWebhookEndpointDeliveriesStatus
 from .list_webhook_endpoints_response_200 import ListWebhookEndpointsResponse200
@@ -520,6 +522,7 @@ __all__ = (
     "CreateCouponBodyDiscountType",
     "CreateCouponBodyDuration",
     "CreateCreditNoteBody",
+    "CreateCreditNoteBodyType",
     "CreateCreditNoteResponse201",
     "CreateCustomerRequest",
     "CreateCustomerRequestTaxType",
@@ -732,6 +735,7 @@ __all__ = (
     "ListUsageDimensionsResponse200",
     "ListUsersResponse200",
     "ListVirtualAccountsResponse200",
+    "ListWalletsResponse200",
     "ListWalletTransactionsResponse200",
     "ListWebhookEndpointDeliveriesResponse200",
     "ListWebhookEndpointDeliveriesStatus",
