@@ -28,6 +28,8 @@ class RecordUsageEventBody:
             values ≤255). The `unique` billable-metric aggregation counts distinct values of one property.
         transaction_id (str | Unset): Optional idempotency key: a retried event with the same (subscription,
             transaction_id) collapses to the original (200 with status "duplicate" and the original event_id).
+        dynamic_amount (int | Unset): Optional per-event exact price in minor units (non-negative). A `dynamic` charge
+            bills the sum of these over the period; other charge models ignore it.
     """
 
     subscription_id: UUID
@@ -36,6 +38,7 @@ class RecordUsageEventBody:
     quantity: int
     properties: RecordUsageEventBodyProperties | Unset = UNSET
     transaction_id: str | Unset = UNSET
+    dynamic_amount: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -53,6 +56,8 @@ class RecordUsageEventBody:
 
         transaction_id = self.transaction_id
 
+        dynamic_amount = self.dynamic_amount
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -67,6 +72,8 @@ class RecordUsageEventBody:
             field_dict["properties"] = properties
         if transaction_id is not UNSET:
             field_dict["transaction_id"] = transaction_id
+        if dynamic_amount is not UNSET:
+            field_dict["dynamic_amount"] = dynamic_amount
 
         return field_dict
 
@@ -92,6 +99,8 @@ class RecordUsageEventBody:
 
         transaction_id = d.pop("transaction_id", UNSET)
 
+        dynamic_amount = d.pop("dynamic_amount", UNSET)
+
         record_usage_event_body = cls(
             subscription_id=subscription_id,
             customer_id=customer_id,
@@ -99,6 +108,7 @@ class RecordUsageEventBody:
             quantity=quantity,
             properties=properties,
             transaction_id=transaction_id,
+            dynamic_amount=dynamic_amount,
         )
 
         record_usage_event_body.additional_properties = d
