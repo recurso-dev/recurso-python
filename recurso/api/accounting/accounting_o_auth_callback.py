@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
 
 import httpx
@@ -7,7 +7,6 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.accounting_o_auth_callback_provider import AccountingOAuthCallbackProvider
-from ...models.accounting_o_auth_callback_response_200 import AccountingOAuthCallbackResponse200
 from ...models.error import Error
 from ...types import UNSET, Response, Unset
 
@@ -41,18 +40,10 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> AccountingOAuthCallbackResponse200 | Error | None:
-    if response.status_code == 200:
-        response_200 = AccountingOAuthCallbackResponse200.from_dict(response.json())
-
-        return response_200
-
-    if response.status_code == 400:
-        response_400 = Error.from_dict(response.json())
-
-        return response_400
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | None:
+    if response.status_code == 302:
+        response_302 = cast(Any, None)
+        return response_302
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
@@ -65,9 +56,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[AccountingOAuthCallbackResponse200 | Error]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Any | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -83,11 +72,13 @@ def sync_detailed(
     code: str,
     state: str,
     realm_id: str | Unset = UNSET,
-) -> Response[AccountingOAuthCallbackResponse200 | Error]:
+) -> Response[Any | Error]:
     """OAuth callback for accounting providers
 
-     Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens and stores (or
-    refreshes) the connection.
+     Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens, stores (or
+    refreshes) the connection, and 302-redirects the browser back to the dashboard's Integrations page —
+    `{DASHBOARD_URL}/integrations?connected={provider}` on success, or `?error={code}` (missing_code,
+    invalid_state, unsupported_provider, exchange_failed, org_lookup_failed, save_failed) on failure.
 
     Args:
         provider (AccountingOAuthCallbackProvider):
@@ -100,7 +91,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[AccountingOAuthCallbackResponse200 | Error]
+        Response[Any | Error]
     """
 
     kwargs = _get_kwargs(
@@ -124,11 +115,13 @@ def sync(
     code: str,
     state: str,
     realm_id: str | Unset = UNSET,
-) -> AccountingOAuthCallbackResponse200 | Error | None:
+) -> Any | Error | None:
     """OAuth callback for accounting providers
 
-     Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens and stores (or
-    refreshes) the connection.
+     Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens, stores (or
+    refreshes) the connection, and 302-redirects the browser back to the dashboard's Integrations page —
+    `{DASHBOARD_URL}/integrations?connected={provider}` on success, or `?error={code}` (missing_code,
+    invalid_state, unsupported_provider, exchange_failed, org_lookup_failed, save_failed) on failure.
 
     Args:
         provider (AccountingOAuthCallbackProvider):
@@ -141,7 +134,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        AccountingOAuthCallbackResponse200 | Error
+        Any | Error
     """
 
     return sync_detailed(
@@ -160,11 +153,13 @@ async def asyncio_detailed(
     code: str,
     state: str,
     realm_id: str | Unset = UNSET,
-) -> Response[AccountingOAuthCallbackResponse200 | Error]:
+) -> Response[Any | Error]:
     """OAuth callback for accounting providers
 
-     Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens and stores (or
-    refreshes) the connection.
+     Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens, stores (or
+    refreshes) the connection, and 302-redirects the browser back to the dashboard's Integrations page —
+    `{DASHBOARD_URL}/integrations?connected={provider}` on success, or `?error={code}` (missing_code,
+    invalid_state, unsupported_provider, exchange_failed, org_lookup_failed, save_failed) on failure.
 
     Args:
         provider (AccountingOAuthCallbackProvider):
@@ -177,7 +172,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[AccountingOAuthCallbackResponse200 | Error]
+        Response[Any | Error]
     """
 
     kwargs = _get_kwargs(
@@ -199,11 +194,13 @@ async def asyncio(
     code: str,
     state: str,
     realm_id: str | Unset = UNSET,
-) -> AccountingOAuthCallbackResponse200 | Error | None:
+) -> Any | Error | None:
     """OAuth callback for accounting providers
 
-     Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens and stores (or
-    refreshes) the connection.
+     Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens, stores (or
+    refreshes) the connection, and 302-redirects the browser back to the dashboard's Integrations page —
+    `{DASHBOARD_URL}/integrations?connected={provider}` on success, or `?error={code}` (missing_code,
+    invalid_state, unsupported_provider, exchange_failed, org_lookup_failed, save_failed) on failure.
 
     Args:
         provider (AccountingOAuthCallbackProvider):
@@ -216,7 +213,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        AccountingOAuthCallbackResponse200 | Error
+        Any | Error
     """
 
     return (

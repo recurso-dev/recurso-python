@@ -237,6 +237,61 @@ def main() -> int:
 
     check("MRRMetrics carries FX provenance; delivery status enum matches API", fx_models)
 
+    # --- admin CRUD refresh: plan/customer/coupon updates, webhook status,
+    # --- accounting connect tokens (NetSuite/Tally) ----------------------
+    def admin_crud_endpoints():
+        from recurso.api.accounting import connect_accounting_provider_token
+        from recurso.api.coupons import update_coupon
+        from recurso.api.customers import get_customer, update_customer
+        from recurso.api.developer import revoke_api_key
+        from recurso.api.plans import get_plan, update_plan
+        from recurso.api.webhooks import update_webhook_endpoint_status
+
+        assert_endpoint(get_plan, sync_params=["id", "client"])
+        assert_endpoint(update_plan, sync_params=["id", "client", "body"])
+        assert_endpoint(get_customer, sync_params=["id", "client"])
+        assert_endpoint(update_customer, sync_params=["id", "client", "body"])
+        assert_endpoint(update_coupon, sync_params=["id", "client", "body"])
+        assert_endpoint(update_webhook_endpoint_status, sync_params=["id", "client", "body"])
+        assert_endpoint(connect_accounting_provider_token, sync_params=["provider", "client", "body"])
+        assert_endpoint(revoke_api_key, sync_params=["id", "client"])
+
+    check("admin CRUD refresh endpoints exist with expected signatures", admin_crud_endpoints)
+
+    def webhook_status_kwargs():
+        from uuid import UUID
+
+        from recurso.api.webhooks import update_webhook_endpoint_status
+        from recurso.models import UpdateWebhookEndpointStatusBody
+        from recurso.models.update_webhook_endpoint_status_body_status import (
+            UpdateWebhookEndpointStatusBodyStatus,
+        )
+
+        kwargs = update_webhook_endpoint_status._get_kwargs(
+            id=UUID("00000000-0000-0000-0000-000000000005"),
+            body=UpdateWebhookEndpointStatusBody(status=UpdateWebhookEndpointStatusBodyStatus.INACTIVE),
+        )
+        assert kwargs["method"] == "put"
+        assert kwargs["url"] == "/v1/webhooks/00000000-0000-0000-0000-000000000005/status"
+        assert kwargs["json"] == {"status": "inactive"}
+
+    check("update_webhook_endpoint_status builds PUT /v1/webhooks/{id}/status", webhook_status_kwargs)
+
+    def connect_token_kwargs():
+        from recurso.api.accounting import connect_accounting_provider_token
+        from recurso.models.connect_accounting_provider_token_provider import (
+            ConnectAccountingProviderTokenProvider,
+        )
+
+        assert {p.value for p in ConnectAccountingProviderTokenProvider} == {"netsuite", "tally"}
+        kwargs = connect_accounting_provider_token._get_kwargs(
+            provider=ConnectAccountingProviderTokenProvider.NETSUITE,
+        )
+        assert kwargs["method"] == "post"
+        assert kwargs["url"] == "/v1/accounting/connect-token/netsuite"
+
+    check("connect_accounting_provider_token builds POST /v1/accounting/connect-token/{provider}", connect_token_kwargs)
+
     # --- request models serialize as the API expects --------------------
     def plan_model():
         from recurso.models import CreatePlanRequest, CreatePlanRequestIntervalUnit
