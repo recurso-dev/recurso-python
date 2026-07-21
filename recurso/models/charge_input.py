@@ -24,12 +24,14 @@ class ChargeInput:
         metric_id (UUID):
         charge_model (ChargeInputChargeModel):
         amounts (ChargeInputAmounts):
+        pay_in_advance (bool | Unset): Non-cumulative models only (per_unit/percentage/dynamic).
         hsn_code (str | Unset):
     """
 
     metric_id: UUID
     charge_model: ChargeInputChargeModel
     amounts: ChargeInputAmounts
+    pay_in_advance: bool | Unset = UNSET
     hsn_code: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -39,6 +41,8 @@ class ChargeInput:
         charge_model = self.charge_model.value
 
         amounts = self.amounts.to_dict()
+
+        pay_in_advance = self.pay_in_advance
 
         hsn_code = self.hsn_code
 
@@ -51,6 +55,8 @@ class ChargeInput:
                 "amounts": amounts,
             }
         )
+        if pay_in_advance is not UNSET:
+            field_dict["pay_in_advance"] = pay_in_advance
         if hsn_code is not UNSET:
             field_dict["hsn_code"] = hsn_code
 
@@ -67,12 +73,15 @@ class ChargeInput:
 
         amounts = ChargeInputAmounts.from_dict(d.pop("amounts"))
 
+        pay_in_advance = d.pop("pay_in_advance", UNSET)
+
         hsn_code = d.pop("hsn_code", UNSET)
 
         charge_input = cls(
             metric_id=metric_id,
             charge_model=charge_model,
             amounts=amounts,
+            pay_in_advance=pay_in_advance,
             hsn_code=hsn_code,
         )
 
