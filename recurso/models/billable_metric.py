@@ -25,7 +25,9 @@ class BillableMetric:
             name (str | Unset):
             code (str | Unset):
             aggregation_type (BillableMetricAggregationType | Unset):
-            field_name (str | Unset): Event property counted by the `unique` aggregation.
+            field_name (str | Unset): Event property counted by `unique`, or the percentile 1-99 for `percentile`.
+            expression (str | Unset): Sandboxed per-event formula for the `custom` aggregation (summed over the period);
+                empty otherwise.
             created_at (datetime.datetime | Unset):
             updated_at (datetime.datetime | Unset):
     """
@@ -36,6 +38,7 @@ class BillableMetric:
     code: str | Unset = UNSET
     aggregation_type: BillableMetricAggregationType | Unset = UNSET
     field_name: str | Unset = UNSET
+    expression: str | Unset = UNSET
     created_at: datetime.datetime | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -58,6 +61,8 @@ class BillableMetric:
             aggregation_type = self.aggregation_type.value
 
         field_name = self.field_name
+
+        expression = self.expression
 
         created_at: str | Unset = UNSET
         if not isinstance(self.created_at, Unset):
@@ -82,6 +87,8 @@ class BillableMetric:
             field_dict["aggregation_type"] = aggregation_type
         if field_name is not UNSET:
             field_dict["field_name"] = field_name
+        if expression is not UNSET:
+            field_dict["expression"] = expression
         if created_at is not UNSET:
             field_dict["created_at"] = created_at
         if updated_at is not UNSET:
@@ -119,6 +126,8 @@ class BillableMetric:
 
         field_name = d.pop("field_name", UNSET)
 
+        expression = d.pop("expression", UNSET)
+
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
         if isinstance(_created_at, Unset):
@@ -140,6 +149,7 @@ class BillableMetric:
             code=code,
             aggregation_type=aggregation_type,
             field_name=field_name,
+            expression=expression,
             created_at=created_at,
             updated_at=updated_at,
         )

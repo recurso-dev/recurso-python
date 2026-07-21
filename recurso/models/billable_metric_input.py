@@ -19,13 +19,16 @@ class BillableMetricInput:
         name (str):
         code (str): Doubles as the usage event dimension; immutable after create.
         aggregation_type (BillableMetricInputAggregationType):
-        field_name (str | Unset): Required for `unique`, forbidden otherwise.
+        field_name (str | Unset): Required for `unique` (property) and `percentile` (1-99); forbidden otherwise.
+        expression (str | Unset): Required for `custom` (a per-event formula over `quantity`/`properties.*`, summed
+            over the period); forbidden otherwise.
     """
 
     name: str
     code: str
     aggregation_type: BillableMetricInputAggregationType
     field_name: str | Unset = UNSET
+    expression: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -36,6 +39,8 @@ class BillableMetricInput:
         aggregation_type = self.aggregation_type.value
 
         field_name = self.field_name
+
+        expression = self.expression
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -48,6 +53,8 @@ class BillableMetricInput:
         )
         if field_name is not UNSET:
             field_dict["field_name"] = field_name
+        if expression is not UNSET:
+            field_dict["expression"] = expression
 
         return field_dict
 
@@ -62,11 +69,14 @@ class BillableMetricInput:
 
         field_name = d.pop("field_name", UNSET)
 
+        expression = d.pop("expression", UNSET)
+
         billable_metric_input = cls(
             name=name,
             code=code,
             aggregation_type=aggregation_type,
             field_name=field_name,
+            expression=expression,
         )
 
         billable_metric_input.additional_properties = d
