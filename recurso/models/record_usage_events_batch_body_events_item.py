@@ -28,6 +28,7 @@ class RecordUsageEventsBatchBodyEventsItem:
         quantity (int):
         properties (RecordUsageEventsBatchBodyEventsItemProperties | Unset):
         transaction_id (str | Unset):
+        dynamic_amount (int | Unset): Optional per-event exact price in minor units; a `dynamic` charge bills the sum.
     """
 
     subscription_id: UUID
@@ -36,6 +37,7 @@ class RecordUsageEventsBatchBodyEventsItem:
     quantity: int
     properties: RecordUsageEventsBatchBodyEventsItemProperties | Unset = UNSET
     transaction_id: str | Unset = UNSET
+    dynamic_amount: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -53,6 +55,8 @@ class RecordUsageEventsBatchBodyEventsItem:
 
         transaction_id = self.transaction_id
 
+        dynamic_amount = self.dynamic_amount
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -67,6 +71,8 @@ class RecordUsageEventsBatchBodyEventsItem:
             field_dict["properties"] = properties
         if transaction_id is not UNSET:
             field_dict["transaction_id"] = transaction_id
+        if dynamic_amount is not UNSET:
+            field_dict["dynamic_amount"] = dynamic_amount
 
         return field_dict
 
@@ -94,6 +100,8 @@ class RecordUsageEventsBatchBodyEventsItem:
 
         transaction_id = d.pop("transaction_id", UNSET)
 
+        dynamic_amount = d.pop("dynamic_amount", UNSET)
+
         record_usage_events_batch_body_events_item = cls(
             subscription_id=subscription_id,
             customer_id=customer_id,
@@ -101,6 +109,7 @@ class RecordUsageEventsBatchBodyEventsItem:
             quantity=quantity,
             properties=properties,
             transaction_id=transaction_id,
+            dynamic_amount=dynamic_amount,
         )
 
         record_usage_events_batch_body_events_item.additional_properties = d

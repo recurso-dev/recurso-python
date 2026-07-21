@@ -23,13 +23,23 @@ class ChargeAmounts:
         unit_amount (str | Unset): (per_unit) decimal-string rate in MAJOR currency units.
         package_amount (int | Unset): (package) price in minor units per bundle.
         package_size (int | Unset): (package) units per bundle; partial bundles round up.
-        tiers (list[ChargeTier] | Unset): (graduated/volume) price bands.
+        tiers (list[ChargeTier] | Unset): (graduated/volume/graduated_percentage) price bands.
+        rate (str | Unset): (percentage) percent applied to the base, decimal string e.g. "2.5".
+        fixed_amount (int | Unset): (percentage) flat fee in minor units added after the percentage.
+        free_units (int | Unset): (percentage) base units exempt from the percentage, deducted first.
+        min_amount (int | Unset): (percentage) floor on the line in minor units; 0 = no floor.
+        max_amount (int | Unset): (percentage) cap on the line in minor units; 0 = no cap.
     """
 
     unit_amount: str | Unset = UNSET
     package_amount: int | Unset = UNSET
     package_size: int | Unset = UNSET
     tiers: list["ChargeTier"] | Unset = UNSET
+    rate: str | Unset = UNSET
+    fixed_amount: int | Unset = UNSET
+    free_units: int | Unset = UNSET
+    min_amount: int | Unset = UNSET
+    max_amount: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -46,6 +56,16 @@ class ChargeAmounts:
                 tiers_item = tiers_item_data.to_dict()
                 tiers.append(tiers_item)
 
+        rate = self.rate
+
+        fixed_amount = self.fixed_amount
+
+        free_units = self.free_units
+
+        min_amount = self.min_amount
+
+        max_amount = self.max_amount
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -57,6 +77,16 @@ class ChargeAmounts:
             field_dict["package_size"] = package_size
         if tiers is not UNSET:
             field_dict["tiers"] = tiers
+        if rate is not UNSET:
+            field_dict["rate"] = rate
+        if fixed_amount is not UNSET:
+            field_dict["fixed_amount"] = fixed_amount
+        if free_units is not UNSET:
+            field_dict["free_units"] = free_units
+        if min_amount is not UNSET:
+            field_dict["min_amount"] = min_amount
+        if max_amount is not UNSET:
+            field_dict["max_amount"] = max_amount
 
         return field_dict
 
@@ -80,11 +110,26 @@ class ChargeAmounts:
 
                 tiers.append(tiers_item)
 
+        rate = d.pop("rate", UNSET)
+
+        fixed_amount = d.pop("fixed_amount", UNSET)
+
+        free_units = d.pop("free_units", UNSET)
+
+        min_amount = d.pop("min_amount", UNSET)
+
+        max_amount = d.pop("max_amount", UNSET)
+
         charge_amounts = cls(
             unit_amount=unit_amount,
             package_amount=package_amount,
             package_size=package_size,
             tiers=tiers,
+            rate=rate,
+            fixed_amount=fixed_amount,
+            free_units=free_units,
+            min_amount=min_amount,
+            max_amount=max_amount,
         )
 
         charge_amounts.additional_properties = d

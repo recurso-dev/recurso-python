@@ -16,12 +16,15 @@ class ChargeTier:
     """
     Attributes:
         up_to (int | None): Inclusive upper unit bound; null = unbounded (last tier only).
-        unit_amount (str): Per-unit rate as a decimal string in MAJOR currency units (e.g. "0.0035").
+        unit_amount (str | Unset): (graduated/volume) per-unit rate as a decimal string in MAJOR currency units
+            (e.g. "0.0035").
+        rate (str | Unset): (graduated_percentage) percent applied to this band of the base, decimal string e.g. "2.5".
         flat_amount (int | Unset): Minor units, added once when any unit lands in the tier.
     """
 
     up_to: int | None
-    unit_amount: str
+    unit_amount: str | Unset = UNSET
+    rate: str | Unset = UNSET
     flat_amount: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -31,6 +34,8 @@ class ChargeTier:
 
         unit_amount = self.unit_amount
 
+        rate = self.rate
+
         flat_amount = self.flat_amount
 
         field_dict: dict[str, Any] = {}
@@ -38,9 +43,12 @@ class ChargeTier:
         field_dict.update(
             {
                 "up_to": up_to,
-                "unit_amount": unit_amount,
             }
         )
+        if unit_amount is not UNSET:
+            field_dict["unit_amount"] = unit_amount
+        if rate is not UNSET:
+            field_dict["rate"] = rate
         if flat_amount is not UNSET:
             field_dict["flat_amount"] = flat_amount
 
@@ -57,13 +65,16 @@ class ChargeTier:
 
         up_to = _parse_up_to(d.pop("up_to"))
 
-        unit_amount = d.pop("unit_amount")
+        unit_amount = d.pop("unit_amount", UNSET)
+
+        rate = d.pop("rate", UNSET)
 
         flat_amount = d.pop("flat_amount", UNSET)
 
         charge_tier = cls(
             up_to=up_to,
             unit_amount=unit_amount,
+            rate=rate,
             flat_amount=flat_amount,
         )
 
