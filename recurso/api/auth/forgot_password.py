@@ -1,21 +1,31 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.error import Error
 from ...models.forgot_password_body import ForgotPasswordBody
 from ...models.forgot_password_response_200 import ForgotPasswordResponse200
-from ...types import Response
+from typing import cast
+
 
 
 def _get_kwargs(
     *,
     body: ForgotPasswordBody,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+
+
+    
+
+    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -30,16 +40,19 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | ForgotPasswordResponse200 | None:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | ForgotPasswordResponse200 | None:
     if response.status_code == 200:
         response_200 = ForgotPasswordResponse200.from_dict(response.json())
+
+
 
         return response_200
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
+
+
 
         return response_400
 
@@ -49,9 +62,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | ForgotPasswordResponse200]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | ForgotPasswordResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,8 +75,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: ForgotPasswordBody,
+
 ) -> Response[Error | ForgotPasswordResponse200]:
-    """Request a password reset link
+    """ Request a password reset link
 
      Always returns 200 with a generic message, whether or not the account exists (no enumeration). If
     the account exists, a single-use reset token is created and a reset link emailed to the user.
@@ -79,10 +91,12 @@ def sync_detailed(
 
     Returns:
         Response[Error | ForgotPasswordResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -91,13 +105,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: ForgotPasswordBody,
+
 ) -> Error | ForgotPasswordResponse200 | None:
-    """Request a password reset link
+    """ Request a password reset link
 
      Always returns 200 with a generic message, whether or not the account exists (no enumeration). If
     the account exists, a single-use reset token is created and a reset link emailed to the user.
@@ -111,20 +125,22 @@ def sync(
 
     Returns:
         Error | ForgotPasswordResponse200
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        body=body,
-    ).parsed
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: ForgotPasswordBody,
+
 ) -> Response[Error | ForgotPasswordResponse200]:
-    """Request a password reset link
+    """ Request a password reset link
 
      Always returns 200 with a generic message, whether or not the account exists (no enumeration). If
     the account exists, a single-use reset token is created and a reset link emailed to the user.
@@ -138,23 +154,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | ForgotPasswordResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: ForgotPasswordBody,
+
 ) -> Error | ForgotPasswordResponse200 | None:
-    """Request a password reset link
+    """ Request a password reset link
 
      Always returns 200 with a generic message, whether or not the account exists (no enumeration). If
     the account exists, a single-use reset token is created and a reset link emailed to the user.
@@ -168,11 +188,11 @@ async def asyncio(
 
     Returns:
         Error | ForgotPasswordResponse200
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+body=body,
+
+    )).parsed

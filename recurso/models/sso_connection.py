@@ -1,31 +1,39 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from uuid import UUID
+
+
+
+
+
+
 T = TypeVar("T", bound="SSOConnection")
+
 
 
 @_attrs_define
 class SSOConnection:
-    """
-    Attributes:
-        tenant_id (UUID):
-        enabled (bool):
-        configured (bool): Whether the connection has enough IdP detail to attempt a login.
-        idp_entity_id (str | Unset):
-        idp_sso_url (str | Unset):
-        idp_certificate (str | Unset): Base64/PEM X.509 signing certificate.
-        idp_metadata_xml (str | Unset): Optional full IdP metadata; takes precedence over the discrete fields.
-        sp_metadata_url (str | Unset): Public SP metadata URL to hand to the IdP.
-        sp_acs_url (str | Unset): Public SP Assertion Consumer Service URL.
-    """
+    """ 
+        Attributes:
+            tenant_id (UUID):
+            enabled (bool):
+            configured (bool): Whether the connection has enough IdP detail to attempt a login.
+            idp_entity_id (str | Unset):
+            idp_sso_url (str | Unset):
+            idp_certificate (str | Unset): Base64/PEM X.509 signing certificate.
+            idp_metadata_xml (str | Unset): Optional full IdP metadata; takes precedence over the discrete fields.
+            sp_metadata_url (str | Unset): Public SP metadata URL to hand to the IdP.
+            sp_acs_url (str | Unset): Public SP Assertion Consumer Service URL.
+     """
 
     tenant_id: UUID
     enabled: bool
@@ -37,6 +45,10 @@ class SSOConnection:
     sp_metadata_url: str | Unset = UNSET
     sp_acs_url: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         tenant_id = str(self.tenant_id)
@@ -57,15 +69,14 @@ class SSOConnection:
 
         sp_acs_url = self.sp_acs_url
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "tenant_id": tenant_id,
-                "enabled": enabled,
-                "configured": configured,
-            }
-        )
+        field_dict.update({
+            "tenant_id": tenant_id,
+            "enabled": enabled,
+            "configured": configured,
+        })
         if idp_entity_id is not UNSET:
             field_dict["idp_entity_id"] = idp_entity_id
         if idp_sso_url is not UNSET:
@@ -81,10 +92,15 @@ class SSOConnection:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         tenant_id = UUID(d.pop("tenant_id"))
+
+
+
 
         enabled = d.pop("enabled")
 
@@ -113,6 +129,7 @@ class SSOConnection:
             sp_metadata_url=sp_metadata_url,
             sp_acs_url=sp_acs_url,
         )
+
 
         sso_connection.additional_properties = d
         return sso_connection

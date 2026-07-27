@@ -1,48 +1,64 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.o_auth_provider_status_name import OAuthProviderStatusName
+
+
+
+
+
 
 T = TypeVar("T", bound="OAuthProviderStatus")
 
 
+
 @_attrs_define
 class OAuthProviderStatus:
-    """
-    Attributes:
-        name (OAuthProviderStatusName):
-        enabled (bool):
-    """
+    """ 
+        Attributes:
+            name (OAuthProviderStatusName):
+            enabled (bool):
+     """
 
     name: OAuthProviderStatusName
     enabled: bool
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name.value
 
         enabled = self.enabled
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "name": name,
-                "enabled": enabled,
-            }
-        )
+        field_dict.update({
+            "name": name,
+            "enabled": enabled,
+        })
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         name = OAuthProviderStatusName(d.pop("name"))
+
+
+
 
         enabled = d.pop("enabled")
 
@@ -50,6 +66,7 @@ class OAuthProviderStatus:
             name=name,
             enabled=enabled,
         )
+
 
         o_auth_provider_status.additional_properties = d
         return o_auth_provider_status

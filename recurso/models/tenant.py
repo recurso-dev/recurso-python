@@ -1,31 +1,40 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
+
 T = TypeVar("T", bound="Tenant")
+
 
 
 @_attrs_define
 class Tenant:
-    """
-    Attributes:
-        id (UUID | Unset):
-        name (str | Unset):
-        email (str | Unset):
-        data_region (str | Unset):
-        base_currency (str | Unset): ISO 4217 code (default USD).
-        organization_id (None | Unset | UUID):
-        created_at (datetime.datetime | Unset):
-        updated_at (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            name (str | Unset):
+            email (str | Unset):
+            data_region (str | Unset):
+            base_currency (str | Unset): ISO 4217 code (default USD).
+            organization_id (None | Unset | UUID):
+            created_at (datetime.datetime | Unset):
+            updated_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     name: str | Unset = UNSET
@@ -36,6 +45,10 @@ class Tenant:
     created_at: datetime.datetime | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -66,9 +79,11 @@ class Tenant:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -88,15 +103,20 @@ class Tenant:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
+
+
+
 
         name = d.pop("name", UNSET)
 
@@ -116,6 +136,8 @@ class Tenant:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -123,19 +145,26 @@ class Tenant:
 
         organization_id = _parse_organization_id(d.pop("organization_id", UNSET))
 
+
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
+
+
+
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at, Unset):
+        if isinstance(_updated_at,  Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
+
+
+
 
         tenant = cls(
             id=id,
@@ -147,6 +176,7 @@ class Tenant:
             created_at=created_at,
             updated_at=updated_at,
         )
+
 
         tenant.additional_properties = d
         return tenant

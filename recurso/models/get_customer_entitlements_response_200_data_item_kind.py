@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class GetCustomerEntitlementsResponse200DataItemKind(str, Enum):
     BOOLEAN = "boolean"
     LIMIT = "limit"

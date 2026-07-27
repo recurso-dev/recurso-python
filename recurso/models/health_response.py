@@ -1,39 +1,52 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.health_response_status import HealthResponseStatus
 from ..types import UNSET, Unset
 
+from ..models.health_response_status import HealthResponseStatus
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.health_response_components import HealthResponseComponents
+  from ..models.health_response_components import HealthResponseComponents
+
+
+
 
 
 T = TypeVar("T", bound="HealthResponse")
 
 
+
 @_attrs_define
 class HealthResponse:
-    """
-    Attributes:
-        status (HealthResponseStatus | Unset):
-        version (str | Unset):
-        components (HealthResponseComponents | Unset):
-    """
+    """ 
+        Attributes:
+            status (HealthResponseStatus | Unset):
+            version (str | Unset):
+            components (HealthResponseComponents | Unset):
+     """
 
     status: HealthResponseStatus | Unset = UNSET
     version: str | Unset = UNSET
     components: HealthResponseComponents | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.health_response_components import HealthResponseComponents
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
+
 
         version = self.version
 
@@ -41,9 +54,11 @@ class HealthResponse:
         if not isinstance(self.components, Unset):
             components = self.components.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if status is not UNSET:
             field_dict["status"] = status
         if version is not UNSET:
@@ -53,32 +68,40 @@ class HealthResponse:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.health_response_components import HealthResponseComponents
-
         d = dict(src_dict)
         _status = d.pop("status", UNSET)
         status: HealthResponseStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = HealthResponseStatus(_status)
+
+
+
 
         version = d.pop("version", UNSET)
 
         _components = d.pop("components", UNSET)
         components: HealthResponseComponents | Unset
-        if isinstance(_components, Unset):
+        if isinstance(_components,  Unset):
             components = UNSET
         else:
             components = HealthResponseComponents.from_dict(_components)
+
+
+
 
         health_response = cls(
             status=status,
             version=version,
             components=components,
         )
+
 
         health_response.additional_properties = d
         return health_response

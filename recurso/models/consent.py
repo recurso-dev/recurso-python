@@ -1,38 +1,47 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.consent_consent_type import ConsentConsentType
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
 
 T = TypeVar("T", bound="Consent")
 
 
+
 @_attrs_define
 class Consent:
-    """
-    Attributes:
-        id (UUID | Unset):
-        tenant_id (UUID | Unset):
-        customer_id (UUID | Unset):
-        subscription_id (None | Unset | UUID):
-        consent_type (ConsentConsentType | Unset):
-        granted (bool | Unset):
-        granted_at (datetime.datetime | Unset):
-        revoked_at (datetime.datetime | None | Unset):
-        ip_address (str | Unset):
-        user_agent (str | Unset):
-        consent_text (str | Unset): Exact text shown to the customer.
-        version (str | Unset): Version of the consent text.
-        created_at (datetime.datetime | Unset):
-        updated_at (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            tenant_id (UUID | Unset):
+            customer_id (UUID | Unset):
+            subscription_id (None | Unset | UUID):
+            consent_type (ConsentConsentType | Unset):
+            granted (bool | Unset):
+            granted_at (datetime.datetime | Unset):
+            revoked_at (datetime.datetime | None | Unset):
+            ip_address (str | Unset):
+            user_agent (str | Unset):
+            consent_text (str | Unset): Exact text shown to the customer.
+            version (str | Unset): Version of the consent text.
+            created_at (datetime.datetime | Unset):
+            updated_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -49,6 +58,10 @@ class Consent:
     created_at: datetime.datetime | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -74,6 +87,7 @@ class Consent:
         consent_type: str | Unset = UNSET
         if not isinstance(self.consent_type, Unset):
             consent_type = self.consent_type.value
+
 
         granted = self.granted
 
@@ -105,9 +119,11 @@ class Consent:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -139,29 +155,40 @@ class Consent:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
+
+
+
         _customer_id = d.pop("customer_id", UNSET)
         customer_id: UUID | Unset
-        if isinstance(_customer_id, Unset):
+        if isinstance(_customer_id,  Unset):
             customer_id = UNSET
         else:
             customer_id = UUID(_customer_id)
+
+
+
 
         def _parse_subscription_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -173,6 +200,8 @@ class Consent:
                     raise TypeError()
                 subscription_id_type_0 = UUID(data)
 
+
+
                 return subscription_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -180,21 +209,28 @@ class Consent:
 
         subscription_id = _parse_subscription_id(d.pop("subscription_id", UNSET))
 
+
         _consent_type = d.pop("consent_type", UNSET)
         consent_type: ConsentConsentType | Unset
-        if isinstance(_consent_type, Unset):
+        if isinstance(_consent_type,  Unset):
             consent_type = UNSET
         else:
             consent_type = ConsentConsentType(_consent_type)
+
+
+
 
         granted = d.pop("granted", UNSET)
 
         _granted_at = d.pop("granted_at", UNSET)
         granted_at: datetime.datetime | Unset
-        if isinstance(_granted_at, Unset):
+        if isinstance(_granted_at,  Unset):
             granted_at = UNSET
         else:
             granted_at = datetime.datetime.fromisoformat(_granted_at)
+
+
+
 
         def _parse_revoked_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -206,12 +242,15 @@ class Consent:
                     raise TypeError()
                 revoked_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return revoked_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         revoked_at = _parse_revoked_at(d.pop("revoked_at", UNSET))
+
 
         ip_address = d.pop("ip_address", UNSET)
 
@@ -223,17 +262,23 @@ class Consent:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
+
+
+
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at, Unset):
+        if isinstance(_updated_at,  Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
+
+
+
 
         consent = cls(
             id=id,
@@ -251,6 +296,7 @@ class Consent:
             created_at=created_at,
             updated_at=updated_at,
         )
+
 
         consent.additional_properties = d
         return consent

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class UpdateCustomerBodyTaxType(str, Enum):
     BUSINESS = "business"
     CONSUMER = "consumer"

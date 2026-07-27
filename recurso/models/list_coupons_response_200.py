@@ -1,31 +1,43 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.coupon import Coupon
+  from ..models.coupon import Coupon
+
+
+
 
 
 T = TypeVar("T", bound="ListCouponsResponse200")
 
 
+
 @_attrs_define
 class ListCouponsResponse200:
-    """
-    Attributes:
-        data (list[Coupon] | Unset):
-    """
+    """ 
+        Attributes:
+            data (list[Coupon] | Unset):
+     """
 
     data: list[Coupon] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.coupon import Coupon
         data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
@@ -33,18 +45,23 @@ class ListCouponsResponse200:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if data is not UNSET:
             field_dict["data"] = data
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.coupon import Coupon
-
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
         data: list[Coupon] | Unset = UNSET
@@ -53,11 +70,15 @@ class ListCouponsResponse200:
             for data_item_data in _data:
                 data_item = Coupon.from_dict(data_item_data)
 
+
+
                 data.append(data_item)
+
 
         list_coupons_response_200 = cls(
             data=data,
         )
+
 
         list_coupons_response_200.additional_properties = d
         return list_coupons_response_200

@@ -1,41 +1,52 @@
 from http import HTTPStatus
 from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.error import Error
 from ...models.revoke_api_key_response_200 import RevokeAPIKeyResponse200
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     id: UUID,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": "/v1/developer/keys/{id}".format(
-            id=quote(str(id), safe=""),
-        ),
+        "url": "/v1/developer/keys/{id}".format(id=quote(str(id), safe=""),),
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | Error | RevokeAPIKeyResponse200 | None:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | RevokeAPIKeyResponse200 | None:
     if response.status_code == 200:
         response_200 = RevokeAPIKeyResponse200.from_dict(response.json())
+
+
 
         return response_200
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
+
+
 
         return response_401
 
@@ -46,6 +57,8 @@ def _parse_response(
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
 
+
+
         return response_404
 
     if client.raise_on_unexpected_status:
@@ -54,9 +67,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | Error | RevokeAPIKeyResponse200]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Any | Error | RevokeAPIKeyResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -69,8 +80,9 @@ def sync_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[Any | Error | RevokeAPIKeyResponse200]:
-    """Revoke an API key
+    """ Revoke an API key
 
      Soft-deactivates the key. Authentication filters on the active flag, so a revoked key stops working
     immediately and cannot be restored. Owner/admin only for dashboard sessions.
@@ -84,10 +96,12 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error | RevokeAPIKeyResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         id=id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -96,13 +110,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Any | Error | RevokeAPIKeyResponse200 | None:
-    """Revoke an API key
+    """ Revoke an API key
 
      Soft-deactivates the key. Authentication filters on the active flag, so a revoked key stops working
     immediately and cannot be restored. Owner/admin only for dashboard sessions.
@@ -116,20 +130,22 @@ def sync(
 
     Returns:
         Any | Error | RevokeAPIKeyResponse200
-    """
+     """
+
 
     return sync_detailed(
         id=id,
-        client=client,
-    ).parsed
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[Any | Error | RevokeAPIKeyResponse200]:
-    """Revoke an API key
+    """ Revoke an API key
 
      Soft-deactivates the key. Authentication filters on the active flag, so a revoked key stops working
     immediately and cannot be restored. Owner/admin only for dashboard sessions.
@@ -143,23 +159,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error | RevokeAPIKeyResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         id=id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Any | Error | RevokeAPIKeyResponse200 | None:
-    """Revoke an API key
+    """ Revoke an API key
 
      Soft-deactivates the key. Authentication filters on the active flag, so a revoked key stops working
     immediately and cannot be restored. Owner/admin only for dashboard sessions.
@@ -173,11 +193,11 @@ async def asyncio(
 
     Returns:
         Any | Error | RevokeAPIKeyResponse200
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            id=id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        id=id,
+client=client,
+
+    )).parsed

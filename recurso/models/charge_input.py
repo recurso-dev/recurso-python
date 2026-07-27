@@ -1,60 +1,92 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.charge_input_charge_model import ChargeInputChargeModel
 from ..types import UNSET, Unset
 
+from ..models.charge_input_charge_model import ChargeInputChargeModel
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.charge_input_amounts import ChargeInputAmounts
+  from ..models.charge_filter_value import ChargeFilterValue
+  from ..models.charge_input_amounts import ChargeInputAmounts
+
+
+
 
 
 T = TypeVar("T", bound="ChargeInput")
 
 
+
 @_attrs_define
 class ChargeInput:
-    """
-    Attributes:
-        metric_id (UUID):
-        charge_model (ChargeInputChargeModel):
-        amounts (ChargeInputAmounts):
-        pay_in_advance (bool | Unset): Non-cumulative models only (per_unit/percentage/dynamic).
-        hsn_code (str | Unset):
-    """
+    """ 
+        Attributes:
+            metric_id (UUID):
+            charge_model (ChargeInputChargeModel):
+            amounts (ChargeInputAmounts):
+            filter_key (str | Unset): (A4) event property for dimensional pricing.
+            filters (list[ChargeFilterValue] | Unset):
+            pay_in_advance (bool | Unset): Non-cumulative models only (per_unit/percentage/dynamic).
+            hsn_code (str | Unset):
+     """
 
     metric_id: UUID
     charge_model: ChargeInputChargeModel
     amounts: ChargeInputAmounts
+    filter_key: str | Unset = UNSET
+    filters: list[ChargeFilterValue] | Unset = UNSET
     pay_in_advance: bool | Unset = UNSET
     hsn_code: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.charge_filter_value import ChargeFilterValue
+        from ..models.charge_input_amounts import ChargeInputAmounts
         metric_id = str(self.metric_id)
 
         charge_model = self.charge_model.value
 
         amounts = self.amounts.to_dict()
 
+        filter_key = self.filter_key
+
+        filters: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.filters, Unset):
+            filters = []
+            for filters_item_data in self.filters:
+                filters_item = filters_item_data.to_dict()
+                filters.append(filters_item)
+
+
+
         pay_in_advance = self.pay_in_advance
 
         hsn_code = self.hsn_code
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "metric_id": metric_id,
-                "charge_model": charge_model,
-                "amounts": amounts,
-            }
-        )
+        field_dict.update({
+            "metric_id": metric_id,
+            "charge_model": charge_model,
+            "amounts": amounts,
+        })
+        if filter_key is not UNSET:
+            field_dict["filter_key"] = filter_key
+        if filters is not UNSET:
+            field_dict["filters"] = filters
         if pay_in_advance is not UNSET:
             field_dict["pay_in_advance"] = pay_in_advance
         if hsn_code is not UNSET:
@@ -62,16 +94,41 @@ class ChargeInput:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.charge_filter_value import ChargeFilterValue
         from ..models.charge_input_amounts import ChargeInputAmounts
-
         d = dict(src_dict)
         metric_id = UUID(d.pop("metric_id"))
 
+
+
+
         charge_model = ChargeInputChargeModel(d.pop("charge_model"))
 
+
+
+
         amounts = ChargeInputAmounts.from_dict(d.pop("amounts"))
+
+
+
+
+        filter_key = d.pop("filter_key", UNSET)
+
+        _filters = d.pop("filters", UNSET)
+        filters: list[ChargeFilterValue] | Unset = UNSET
+        if _filters is not UNSET:
+            filters = []
+            for filters_item_data in _filters:
+                filters_item = ChargeFilterValue.from_dict(filters_item_data)
+
+
+
+                filters.append(filters_item)
+
 
         pay_in_advance = d.pop("pay_in_advance", UNSET)
 
@@ -81,9 +138,12 @@ class ChargeInput:
             metric_id=metric_id,
             charge_model=charge_model,
             amounts=amounts,
+            filter_key=filter_key,
+            filters=filters,
             pay_in_advance=pay_in_advance,
             hsn_code=hsn_code,
         )
+
 
         charge_input.additional_properties = d
         return charge_input

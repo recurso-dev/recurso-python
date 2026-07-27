@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class IRPConfigEnvironment(str, Enum):
     PRODUCTION = "production"
     SANDBOX = "sandbox"

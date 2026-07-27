@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class CreateAPIKeyBodyMode(str, Enum):
     LIVE = "live"
     TEST = "test"

@@ -1,28 +1,40 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.set_tax_nexus_body_states_item_nexus_type import SetTaxNexusBodyStatesItemNexusType
 from ..types import UNSET, Unset
+
+
+
+
+
 
 T = TypeVar("T", bound="SetTaxNexusBodyStatesItem")
 
 
+
 @_attrs_define
 class SetTaxNexusBodyStatesItem:
-    """
-    Attributes:
-        state_code (str):  Example: CA.
-        nexus_type (SetTaxNexusBodyStatesItemNexusType | Unset):  Default: SetTaxNexusBodyStatesItemNexusType.PHYSICAL.
-    """
+    """ 
+        Attributes:
+            state_code (str):  Example: CA.
+            nexus_type (SetTaxNexusBodyStatesItemNexusType | Unset):  Default: SetTaxNexusBodyStatesItemNexusType.PHYSICAL.
+     """
 
     state_code: str
     nexus_type: SetTaxNexusBodyStatesItemNexusType | Unset = SetTaxNexusBodyStatesItemNexusType.PHYSICAL
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         state_code = self.state_code
@@ -31,17 +43,19 @@ class SetTaxNexusBodyStatesItem:
         if not isinstance(self.nexus_type, Unset):
             nexus_type = self.nexus_type.value
 
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "state_code": state_code,
-            }
-        )
+        field_dict.update({
+            "state_code": state_code,
+        })
         if nexus_type is not UNSET:
             field_dict["nexus_type"] = nexus_type
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -50,15 +64,19 @@ class SetTaxNexusBodyStatesItem:
 
         _nexus_type = d.pop("nexus_type", UNSET)
         nexus_type: SetTaxNexusBodyStatesItemNexusType | Unset
-        if isinstance(_nexus_type, Unset):
+        if isinstance(_nexus_type,  Unset):
             nexus_type = UNSET
         else:
             nexus_type = SetTaxNexusBodyStatesItemNexusType(_nexus_type)
+
+
+
 
         set_tax_nexus_body_states_item = cls(
             state_code=state_code,
             nexus_type=nexus_type,
         )
+
 
         set_tax_nexus_body_states_item.additional_properties = d
         return set_tax_nexus_body_states_item

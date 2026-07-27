@@ -1,29 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="PageMeta")
+
 
 
 @_attrs_define
 class PageMeta:
-    """
-    Attributes:
-        page (int | Unset):
-        per_page (int | Unset):
-        total (int | Unset): Present only on endpoints that report a total count.
-    """
+    """ 
+        Attributes:
+            page (int | Unset):
+            per_page (int | Unset):
+            total (int | Unset): Present only on endpoints that report a total count.
+     """
 
     page: int | Unset = UNSET
     per_page: int | Unset = UNSET
     total: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         page = self.page
@@ -32,9 +44,11 @@ class PageMeta:
 
         total = self.total
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if page is not UNSET:
             field_dict["page"] = page
         if per_page is not UNSET:
@@ -43,6 +57,8 @@ class PageMeta:
             field_dict["total"] = total
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -58,6 +74,7 @@ class PageMeta:
             per_page=per_page,
             total=total,
         )
+
 
         page_meta.additional_properties = d
         return page_meta

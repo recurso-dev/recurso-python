@@ -1,29 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="DunningOverview")
+
 
 
 @_attrs_define
 class DunningOverview:
-    """
-    Attributes:
-        total_retries (int | Unset):
-        total_successes (int | Unset):
-        success_rate (float | Unset):
-    """
+    """ 
+        Attributes:
+            total_retries (int | Unset):
+            total_successes (int | Unset):
+            success_rate (float | Unset):
+     """
 
     total_retries: int | Unset = UNSET
     total_successes: int | Unset = UNSET
     success_rate: float | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         total_retries = self.total_retries
@@ -32,9 +44,11 @@ class DunningOverview:
 
         success_rate = self.success_rate
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if total_retries is not UNSET:
             field_dict["total_retries"] = total_retries
         if total_successes is not UNSET:
@@ -43,6 +57,8 @@ class DunningOverview:
             field_dict["success_rate"] = success_rate
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -58,6 +74,7 @@ class DunningOverview:
             total_successes=total_successes,
             success_rate=success_rate,
         )
+
 
         dunning_overview.additional_properties = d
         return dunning_overview

@@ -1,35 +1,40 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.record_usage_events_batch_body_events_item_properties import (
-        RecordUsageEventsBatchBodyEventsItemProperties,
-    )
+  from ..models.record_usage_events_batch_body_events_item_properties import RecordUsageEventsBatchBodyEventsItemProperties
+
+
+
 
 
 T = TypeVar("T", bound="RecordUsageEventsBatchBodyEventsItem")
 
 
+
 @_attrs_define
 class RecordUsageEventsBatchBodyEventsItem:
-    """
-    Attributes:
-        subscription_id (UUID):
-        customer_id (UUID):
-        dimension (str):
-        quantity (int):
-        properties (RecordUsageEventsBatchBodyEventsItemProperties | Unset):
-        transaction_id (str | Unset):
-        dynamic_amount (int | Unset): Optional per-event exact price in minor units; a `dynamic` charge bills the sum.
-    """
+    """ 
+        Attributes:
+            subscription_id (UUID):
+            customer_id (UUID):
+            dimension (str):
+            quantity (int):
+            properties (RecordUsageEventsBatchBodyEventsItemProperties | Unset):
+            transaction_id (str | Unset):
+            dynamic_amount (int | Unset):
+     """
 
     subscription_id: UUID
     customer_id: UUID
@@ -40,7 +45,12 @@ class RecordUsageEventsBatchBodyEventsItem:
     dynamic_amount: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.record_usage_events_batch_body_events_item_properties import RecordUsageEventsBatchBodyEventsItemProperties
         subscription_id = str(self.subscription_id)
 
         customer_id = str(self.customer_id)
@@ -57,16 +67,15 @@ class RecordUsageEventsBatchBodyEventsItem:
 
         dynamic_amount = self.dynamic_amount
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "subscription_id": subscription_id,
-                "customer_id": customer_id,
-                "dimension": dimension,
-                "quantity": quantity,
-            }
-        )
+        field_dict.update({
+            "subscription_id": subscription_id,
+            "customer_id": customer_id,
+            "dimension": dimension,
+            "quantity": quantity,
+        })
         if properties is not UNSET:
             field_dict["properties"] = properties
         if transaction_id is not UNSET:
@@ -76,16 +85,21 @@ class RecordUsageEventsBatchBodyEventsItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.record_usage_events_batch_body_events_item_properties import (
-            RecordUsageEventsBatchBodyEventsItemProperties,
-        )
-
+        from ..models.record_usage_events_batch_body_events_item_properties import RecordUsageEventsBatchBodyEventsItemProperties
         d = dict(src_dict)
         subscription_id = UUID(d.pop("subscription_id"))
 
+
+
+
         customer_id = UUID(d.pop("customer_id"))
+
+
+
 
         dimension = d.pop("dimension")
 
@@ -93,10 +107,13 @@ class RecordUsageEventsBatchBodyEventsItem:
 
         _properties = d.pop("properties", UNSET)
         properties: RecordUsageEventsBatchBodyEventsItemProperties | Unset
-        if isinstance(_properties, Unset):
+        if isinstance(_properties,  Unset):
             properties = UNSET
         else:
             properties = RecordUsageEventsBatchBodyEventsItemProperties.from_dict(_properties)
+
+
+
 
         transaction_id = d.pop("transaction_id", UNSET)
 
@@ -111,6 +128,7 @@ class RecordUsageEventsBatchBodyEventsItem:
             transaction_id=transaction_id,
             dynamic_amount=dynamic_amount,
         )
+
 
         record_usage_events_batch_body_events_item.additional_properties = d
         return record_usage_events_batch_body_events_item

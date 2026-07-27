@@ -1,21 +1,30 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
+
 T = TypeVar("T", bound="PlanChangePreview")
+
 
 
 @_attrs_define
 class PlanChangePreview:
-    """Read-only proration breakdown for a subscription plan change. Monetary fields are in the currency's smallest unit
+    """ Read-only proration breakdown for a subscription plan change. Monetary fields are in the currency's smallest unit
     (e.g. paise/cents).
 
         Attributes:
@@ -31,7 +40,7 @@ class PlanChangePreview:
             effective_date (datetime.datetime | Unset):
             next_invoice_amount (int | Unset): Full new-plan charge incl. tax at the next renewal.
             is_upgrade (bool | Unset):
-    """
+     """
 
     subscription_id: UUID | Unset = UNSET
     current_plan_id: UUID | Unset = UNSET
@@ -46,6 +55,10 @@ class PlanChangePreview:
     next_invoice_amount: int | Unset = UNSET
     is_upgrade: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         subscription_id: str | Unset = UNSET
@@ -80,9 +93,11 @@ class PlanChangePreview:
 
         is_upgrade = self.is_upgrade
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if subscription_id is not UNSET:
             field_dict["subscription_id"] = subscription_id
         if current_plan_id is not UNSET:
@@ -110,29 +125,40 @@ class PlanChangePreview:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _subscription_id = d.pop("subscription_id", UNSET)
         subscription_id: UUID | Unset
-        if isinstance(_subscription_id, Unset):
+        if isinstance(_subscription_id,  Unset):
             subscription_id = UNSET
         else:
             subscription_id = UUID(_subscription_id)
 
+
+
+
         _current_plan_id = d.pop("current_plan_id", UNSET)
         current_plan_id: UUID | Unset
-        if isinstance(_current_plan_id, Unset):
+        if isinstance(_current_plan_id,  Unset):
             current_plan_id = UNSET
         else:
             current_plan_id = UUID(_current_plan_id)
 
+
+
+
         _new_plan_id = d.pop("new_plan_id", UNSET)
         new_plan_id: UUID | Unset
-        if isinstance(_new_plan_id, Unset):
+        if isinstance(_new_plan_id,  Unset):
             new_plan_id = UNSET
         else:
             new_plan_id = UUID(_new_plan_id)
+
+
+
 
         currency = d.pop("currency", UNSET)
 
@@ -148,10 +174,13 @@ class PlanChangePreview:
 
         _effective_date = d.pop("effective_date", UNSET)
         effective_date: datetime.datetime | Unset
-        if isinstance(_effective_date, Unset):
+        if isinstance(_effective_date,  Unset):
             effective_date = UNSET
         else:
             effective_date = datetime.datetime.fromisoformat(_effective_date)
+
+
+
 
         next_invoice_amount = d.pop("next_invoice_amount", UNSET)
 
@@ -171,6 +200,7 @@ class PlanChangePreview:
             next_invoice_amount=next_invoice_amount,
             is_upgrade=is_upgrade,
         )
+
 
         plan_change_preview.additional_properties = d
         return plan_change_preview

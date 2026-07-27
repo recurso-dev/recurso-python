@@ -1,29 +1,37 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
 
 from ..models.create_coupon_body_discount_type import CreateCouponBodyDiscountType
 from ..models.create_coupon_body_duration import CreateCouponBodyDuration
 from ..types import UNSET, Unset
 
+
+
+
+
+
 T = TypeVar("T", bound="CreateCouponBody")
+
 
 
 @_attrs_define
 class CreateCouponBody:
-    """
-    Attributes:
-        code (str):
-        discount_type (CreateCouponBodyDiscountType):
-        discount_value (int): Percentage (0-100) when `discount_type` is `percent`, otherwise amount in the lowest
-            currency unit.
-        duration (CreateCouponBodyDuration):
-        duration_months (int | Unset): Required when `duration` is `repeating`.
-    """
+    """ 
+        Attributes:
+            code (str):
+            discount_type (CreateCouponBodyDiscountType):
+            discount_value (int): Percentage (0-100) when `discount_type` is `percent`, otherwise amount in the lowest
+                currency unit.
+            duration (CreateCouponBodyDuration):
+            duration_months (int | Unset): Required when `duration` is `repeating`.
+     """
 
     code: str
     discount_type: CreateCouponBodyDiscountType
@@ -31,6 +39,10 @@ class CreateCouponBody:
     duration: CreateCouponBodyDuration
     duration_months: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         code = self.code
@@ -43,20 +55,21 @@ class CreateCouponBody:
 
         duration_months = self.duration_months
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "code": code,
-                "discount_type": discount_type,
-                "discount_value": discount_value,
-                "duration": duration,
-            }
-        )
+        field_dict.update({
+            "code": code,
+            "discount_type": discount_type,
+            "discount_value": discount_value,
+            "duration": duration,
+        })
         if duration_months is not UNSET:
             field_dict["duration_months"] = duration_months
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -65,9 +78,15 @@ class CreateCouponBody:
 
         discount_type = CreateCouponBodyDiscountType(d.pop("discount_type"))
 
+
+
+
         discount_value = d.pop("discount_value")
 
         duration = CreateCouponBodyDuration(d.pop("duration"))
+
+
+
 
         duration_months = d.pop("duration_months", UNSET)
 
@@ -78,6 +97,7 @@ class CreateCouponBody:
             duration=duration,
             duration_months=duration_months,
         )
+
 
         create_coupon_body.additional_properties = d
         return create_coupon_body

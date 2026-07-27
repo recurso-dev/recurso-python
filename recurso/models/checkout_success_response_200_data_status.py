@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class CheckoutSuccessResponse200DataStatus(str, Enum):
     FAILED = "failed"
     OPEN = "open"

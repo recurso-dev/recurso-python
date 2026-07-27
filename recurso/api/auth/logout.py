@@ -1,27 +1,42 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.logout_response_200 import LogoutResponse200
-from ...types import Response
+from typing import cast
 
 
-def _get_kwargs() -> dict[str, Any]:
+
+def _get_kwargs(
+    
+) -> dict[str, Any]:
+    
+
+    
+
+    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/auth/logout",
     }
 
+
     return _kwargs
+
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> LogoutResponse200 | None:
     if response.status_code == 200:
         response_200 = LogoutResponse200.from_dict(response.json())
+
+
 
         return response_200
 
@@ -43,8 +58,9 @@ def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 def sync_detailed(
     *,
     client: AuthenticatedClient,
+
 ) -> Response[LogoutResponse200]:
-    """Log out
+    """ Log out
 
      Deletes the current session and clears the recurso_session cookie.
 
@@ -54,9 +70,12 @@ def sync_detailed(
 
     Returns:
         Response[LogoutResponse200]
-    """
+     """
 
-    kwargs = _get_kwargs()
+
+    kwargs = _get_kwargs(
+        
+    )
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -64,12 +83,12 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient,
+
 ) -> LogoutResponse200 | None:
-    """Log out
+    """ Log out
 
      Deletes the current session and clears the recurso_session cookie.
 
@@ -79,18 +98,20 @@ def sync(
 
     Returns:
         LogoutResponse200
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-    ).parsed
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
+
 ) -> Response[LogoutResponse200]:
-    """Log out
+    """ Log out
 
      Deletes the current session and clears the recurso_session cookie.
 
@@ -100,20 +121,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[LogoutResponse200]
-    """
+     """
 
-    kwargs = _get_kwargs()
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    kwargs = _get_kwargs(
+        
+    )
+
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
     client: AuthenticatedClient,
+
 ) -> LogoutResponse200 | None:
-    """Log out
+    """ Log out
 
      Deletes the current session and clears the recurso_session cookie.
 
@@ -123,10 +149,10 @@ async def asyncio(
 
     Returns:
         LogoutResponse200
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+
+    )).parsed

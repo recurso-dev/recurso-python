@@ -1,30 +1,43 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import Literal, cast
+from uuid import UUID
+
+
+
+
+
+
 T = TypeVar("T", bound="CheckoutRazorpayVerifyResponse200Data")
+
 
 
 @_attrs_define
 class CheckoutRazorpayVerifyResponse200Data:
-    """
-    Attributes:
-        status (Literal['paid'] | Unset):
-        invoice_id (UUID | Unset):
-        invoice_number (str | Unset):
-    """
+    """ 
+        Attributes:
+            status (Literal['paid'] | Unset):
+            invoice_id (UUID | Unset):
+            invoice_number (str | Unset):
+     """
 
-    status: Literal["paid"] | Unset = UNSET
+    status: Literal['paid'] | Unset = UNSET
     invoice_id: UUID | Unset = UNSET
     invoice_number: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         status = self.status
@@ -35,9 +48,11 @@ class CheckoutRazorpayVerifyResponse200Data:
 
         invoice_number = self.invoice_number
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if status is not UNSET:
             field_dict["status"] = status
         if invoice_id is not UNSET:
@@ -47,19 +62,24 @@ class CheckoutRazorpayVerifyResponse200Data:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        status = cast(Literal["paid"] | Unset, d.pop("status", UNSET))
-        if status != "paid" and not isinstance(status, Unset):
+        status = cast(Literal['paid'] | Unset , d.pop("status", UNSET))
+        if status != 'paid'and not isinstance(status, Unset):
             raise ValueError(f"status must match const 'paid', got '{status}'")
 
         _invoice_id = d.pop("invoice_id", UNSET)
         invoice_id: UUID | Unset
-        if isinstance(_invoice_id, Unset):
+        if isinstance(_invoice_id,  Unset):
             invoice_id = UNSET
         else:
             invoice_id = UUID(_invoice_id)
+
+
+
 
         invoice_number = d.pop("invoice_number", UNSET)
 
@@ -68,6 +88,7 @@ class CheckoutRazorpayVerifyResponse200Data:
             invoice_id=invoice_id,
             invoice_number=invoice_number,
         )
+
 
         checkout_razorpay_verify_response_200_data.additional_properties = d
         return checkout_razorpay_verify_response_200_data

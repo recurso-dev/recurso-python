@@ -1,28 +1,37 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
+
 T = TypeVar("T", bound="ListSessionsResponse200DataItem")
+
 
 
 @_attrs_define
 class ListSessionsResponse200DataItem:
-    """
-    Attributes:
-        id (UUID | Unset):
-        user_agent (str | Unset):
-        created_at (datetime.datetime | Unset):
-        expires_at (datetime.datetime | Unset):
-        current (bool | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            user_agent (str | Unset):
+            created_at (datetime.datetime | Unset):
+            expires_at (datetime.datetime | Unset):
+            current (bool | Unset):
+     """
 
     id: UUID | Unset = UNSET
     user_agent: str | Unset = UNSET
@@ -30,6 +39,10 @@ class ListSessionsResponse200DataItem:
     expires_at: datetime.datetime | Unset = UNSET
     current: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -48,9 +61,11 @@ class ListSessionsResponse200DataItem:
 
         current = self.current
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if user_agent is not UNSET:
@@ -64,31 +79,42 @@ class ListSessionsResponse200DataItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
+
+
+
 
         user_agent = d.pop("user_agent", UNSET)
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
+
+
+
         _expires_at = d.pop("expires_at", UNSET)
         expires_at: datetime.datetime | Unset
-        if isinstance(_expires_at, Unset):
+        if isinstance(_expires_at,  Unset):
             expires_at = UNSET
         else:
             expires_at = datetime.datetime.fromisoformat(_expires_at)
+
+
+
 
         current = d.pop("current", UNSET)
 
@@ -99,6 +125,7 @@ class ListSessionsResponse200DataItem:
             expires_at=expires_at,
             current=current,
         )
+
 
         list_sessions_response_200_data_item.additional_properties = d
         return list_sessions_response_200_data_item

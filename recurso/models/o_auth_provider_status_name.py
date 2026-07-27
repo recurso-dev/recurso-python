@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class OAuthProviderStatusName(str, Enum):
     GITHUB = "github"
     GOOGLE = "google"

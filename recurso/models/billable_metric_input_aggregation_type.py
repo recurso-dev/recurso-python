@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class BillableMetricInputAggregationType(str, Enum):
     COUNT = "count"
     CUSTOM = "custom"

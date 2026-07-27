@@ -1,27 +1,39 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.error import Error
 from ...models.portal_start_mandate_reauth_body import PortalStartMandateReauthBody
 from ...models.portal_start_mandate_reauth_response_200 import PortalStartMandateReauthResponse200
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+
 
 
 def _get_kwargs(
     *,
     body: PortalStartMandateReauthBody | Unset = UNSET,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+
+
+    
+
+    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/portal/api/payment-method/mandate",
     }
 
+    
     if not isinstance(body, Unset):
         _kwargs["json"] = body.to_dict()
 
@@ -31,31 +43,40 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | PortalStartMandateReauthResponse200 | None:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | PortalStartMandateReauthResponse200 | None:
     if response.status_code == 200:
         response_200 = PortalStartMandateReauthResponse200.from_dict(response.json())
+
+
 
         return response_200
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
+
+
         return response_401
 
     if response.status_code == 409:
         response_409 = Error.from_dict(response.json())
+
+
 
         return response_409
 
     if response.status_code == 422:
         response_422 = Error.from_dict(response.json())
 
+
+
         return response_422
 
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
+
+
 
         return response_503
 
@@ -65,9 +86,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | PortalStartMandateReauthResponse200]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | PortalStartMandateReauthResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -80,8 +99,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: PortalStartMandateReauthBody | Unset = UNSET,
+
 ) -> Response[Error | PortalStartMandateReauthResponse200]:
-    """Re-authorize a UPI Autopay mandate
+    """ Re-authorize a UPI Autopay mandate
 
      Creates a fresh UPI mandate for the authenticated portal customer and returns Razorpay's hosted
     authorization URL. The cap is sized from the customer's billing history (2× the largest recent non-
@@ -98,10 +118,12 @@ def sync_detailed(
 
     Returns:
         Response[Error | PortalStartMandateReauthResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -110,13 +132,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient,
     body: PortalStartMandateReauthBody | Unset = UNSET,
+
 ) -> Error | PortalStartMandateReauthResponse200 | None:
-    """Re-authorize a UPI Autopay mandate
+    """ Re-authorize a UPI Autopay mandate
 
      Creates a fresh UPI mandate for the authenticated portal customer and returns Razorpay's hosted
     authorization URL. The cap is sized from the customer's billing history (2× the largest recent non-
@@ -133,20 +155,22 @@ def sync(
 
     Returns:
         Error | PortalStartMandateReauthResponse200
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        body=body,
-    ).parsed
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: PortalStartMandateReauthBody | Unset = UNSET,
+
 ) -> Response[Error | PortalStartMandateReauthResponse200]:
-    """Re-authorize a UPI Autopay mandate
+    """ Re-authorize a UPI Autopay mandate
 
      Creates a fresh UPI mandate for the authenticated portal customer and returns Razorpay's hosted
     authorization URL. The cap is sized from the customer's billing history (2× the largest recent non-
@@ -163,23 +187,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | PortalStartMandateReauthResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
     client: AuthenticatedClient,
     body: PortalStartMandateReauthBody | Unset = UNSET,
+
 ) -> Error | PortalStartMandateReauthResponse200 | None:
-    """Re-authorize a UPI Autopay mandate
+    """ Re-authorize a UPI Autopay mandate
 
      Creates a fresh UPI mandate for the authenticated portal customer and returns Razorpay's hosted
     authorization URL. The cap is sized from the customer's billing history (2× the largest recent non-
@@ -196,11 +224,11 @@ async def asyncio(
 
     Returns:
         Error | PortalStartMandateReauthResponse200
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+body=body,
+
+    )).parsed

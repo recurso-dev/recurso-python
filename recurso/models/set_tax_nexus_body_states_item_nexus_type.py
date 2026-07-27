@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class SetTaxNexusBodyStatesItemNexusType(str, Enum):
     ECONOMIC = "economic"
     PHYSICAL = "physical"

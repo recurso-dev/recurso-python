@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class MandateStatus(str, Enum):
     ACTIVE = "active"
     AUTHORIZED = "authorized"

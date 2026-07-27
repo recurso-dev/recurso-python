@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class CancelFlowSessionStatus(str, Enum):
     CANCELLED = "cancelled"
     COMPLETED = "completed"

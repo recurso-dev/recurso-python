@@ -1,39 +1,48 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.event_delivery_status import EventDeliveryStatus
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
 
 T = TypeVar("T", bound="EventDelivery")
 
 
+
 @_attrs_define
 class EventDelivery:
-    """
-    Attributes:
-        id (UUID | Unset):
-        event_id (UUID | Unset):
-        webhook_endpoint_id (UUID | Unset):
-        endpoint_url (str | Unset):
-        status (EventDeliveryStatus | Unset): Derived delivery state. `pending` deliveries are still being retried by
-            the worker; `failed` means retries were exhausted.
-        attempts (int | Unset): Number of delivery attempts made so far.
-        last_status_code (int | Unset): HTTP status of the most recent attempt. Omitted when no response was received
-            (transport error or no attempt yet).
-        last_error (str | Unset): Failure reason of the most recent attempt (transport error or "HTTP <code>: <body>").
-            Omitted for succeeded deliveries.
-        next_retry_at (datetime.datetime | Unset): When the worker will retry next. Omitted once terminal or before the
-            first attempt.
-        delivered_at (datetime.datetime | Unset): When the delivery reached a terminal state.
-        created_at (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            event_id (UUID | Unset):
+            webhook_endpoint_id (UUID | Unset):
+            endpoint_url (str | Unset):
+            status (EventDeliveryStatus | Unset): Derived delivery state. `pending` deliveries are still being retried by
+                the worker; `failed` means retries were exhausted.
+            attempts (int | Unset): Number of delivery attempts made so far.
+            last_status_code (int | Unset): HTTP status of the most recent attempt. Omitted when no response was received
+                (transport error or no attempt yet).
+            last_error (str | Unset): Failure reason of the most recent attempt (transport error or "HTTP <code>: <body>").
+                Omitted for succeeded deliveries.
+            next_retry_at (datetime.datetime | Unset): When the worker will retry next. Omitted once terminal or before the
+                first attempt.
+            delivered_at (datetime.datetime | Unset): When the delivery reached a terminal state.
+            created_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     event_id: UUID | Unset = UNSET
@@ -47,6 +56,10 @@ class EventDelivery:
     delivered_at: datetime.datetime | Unset = UNSET
     created_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -67,6 +80,7 @@ class EventDelivery:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
+
         attempts = self.attempts
 
         last_status_code = self.last_status_code
@@ -85,9 +99,11 @@ class EventDelivery:
         if not isinstance(self.created_at, Unset):
             created_at = self.created_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if event_id is not UNSET:
@@ -113,38 +129,52 @@ class EventDelivery:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _event_id = d.pop("event_id", UNSET)
         event_id: UUID | Unset
-        if isinstance(_event_id, Unset):
+        if isinstance(_event_id,  Unset):
             event_id = UNSET
         else:
             event_id = UUID(_event_id)
 
+
+
+
         _webhook_endpoint_id = d.pop("webhook_endpoint_id", UNSET)
         webhook_endpoint_id: UUID | Unset
-        if isinstance(_webhook_endpoint_id, Unset):
+        if isinstance(_webhook_endpoint_id,  Unset):
             webhook_endpoint_id = UNSET
         else:
             webhook_endpoint_id = UUID(_webhook_endpoint_id)
+
+
+
 
         endpoint_url = d.pop("endpoint_url", UNSET)
 
         _status = d.pop("status", UNSET)
         status: EventDeliveryStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = EventDeliveryStatus(_status)
+
+
+
 
         attempts = d.pop("attempts", UNSET)
 
@@ -154,24 +184,33 @@ class EventDelivery:
 
         _next_retry_at = d.pop("next_retry_at", UNSET)
         next_retry_at: datetime.datetime | Unset
-        if isinstance(_next_retry_at, Unset):
+        if isinstance(_next_retry_at,  Unset):
             next_retry_at = UNSET
         else:
             next_retry_at = datetime.datetime.fromisoformat(_next_retry_at)
 
+
+
+
         _delivered_at = d.pop("delivered_at", UNSET)
         delivered_at: datetime.datetime | Unset
-        if isinstance(_delivered_at, Unset):
+        if isinstance(_delivered_at,  Unset):
             delivered_at = UNSET
         else:
             delivered_at = datetime.datetime.fromisoformat(_delivered_at)
 
+
+
+
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
+
+
+
 
         event_delivery = cls(
             id=id,
@@ -186,6 +225,7 @@ class EventDelivery:
             delivered_at=delivered_at,
             created_at=created_at,
         )
+
 
         event_delivery.additional_properties = d
         return event_delivery

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class SubmitStepResultStatus(str, Enum):
     CANCELLED = "cancelled"
     COMPLETED = "completed"

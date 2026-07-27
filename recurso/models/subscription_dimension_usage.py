@@ -1,19 +1,28 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
+
 T = TypeVar("T", bound="SubscriptionDimensionUsage")
+
 
 
 @_attrs_define
 class SubscriptionDimensionUsage:
-    """One dimension's usage for a subscription. limit_value/remaining are populated only when the customer holds an
+    """ One dimension's usage for a subscription. limit_value/remaining are populated only when the customer holds an
     entitlement limit for a feature_key equal to the dimension name.
 
         Attributes:
@@ -23,7 +32,7 @@ class SubscriptionDimensionUsage:
             limit_value (int | None | Unset): Effective entitlement limit, or null when none exists.
             remaining (int | None | Unset): limit_value - period_quantity (negative when over the limit); null when
                 limit_value is null.
-    """
+     """
 
     dimension: str | Unset = UNSET
     period_quantity: int | Unset = UNSET
@@ -31,6 +40,10 @@ class SubscriptionDimensionUsage:
     limit_value: int | None | Unset = UNSET
     remaining: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         dimension = self.dimension
@@ -51,9 +64,11 @@ class SubscriptionDimensionUsage:
         else:
             remaining = self.remaining
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if dimension is not UNSET:
             field_dict["dimension"] = dimension
         if period_quantity is not UNSET:
@@ -66,6 +81,8 @@ class SubscriptionDimensionUsage:
             field_dict["remaining"] = remaining
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -85,6 +102,7 @@ class SubscriptionDimensionUsage:
 
         limit_value = _parse_limit_value(d.pop("limit_value", UNSET))
 
+
         def _parse_remaining(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -94,6 +112,7 @@ class SubscriptionDimensionUsage:
 
         remaining = _parse_remaining(d.pop("remaining", UNSET))
 
+
         subscription_dimension_usage = cls(
             dimension=dimension,
             period_quantity=period_quantity,
@@ -101,6 +120,7 @@ class SubscriptionDimensionUsage:
             limit_value=limit_value,
             remaining=remaining,
         )
+
 
         subscription_dimension_usage.additional_properties = d
         return subscription_dimension_usage

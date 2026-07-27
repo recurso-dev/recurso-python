@@ -1,31 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.flow_stats_reason_breakdown import FlowStatsReasonBreakdown
+  from ..models.flow_stats_reason_breakdown import FlowStatsReasonBreakdown
+
+
+
 
 
 T = TypeVar("T", bound="FlowStats")
 
 
+
 @_attrs_define
 class FlowStats:
-    """
-    Attributes:
-        total_sessions (int | Unset):
-        completed_count (int | Unset):
-        saved_count (int | Unset):
-        save_rate (float | Unset):
-        reason_breakdown (FlowStatsReasonBreakdown | Unset):
-        offer_accept_rate (float | Unset):
-    """
+    """ 
+        Attributes:
+            total_sessions (int | Unset):
+            completed_count (int | Unset):
+            saved_count (int | Unset):
+            save_rate (float | Unset):
+            reason_breakdown (FlowStatsReasonBreakdown | Unset):
+            offer_accept_rate (float | Unset):
+     """
 
     total_sessions: int | Unset = UNSET
     completed_count: int | Unset = UNSET
@@ -35,7 +42,12 @@ class FlowStats:
     offer_accept_rate: float | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.flow_stats_reason_breakdown import FlowStatsReasonBreakdown
         total_sessions = self.total_sessions
 
         completed_count = self.completed_count
@@ -50,9 +62,11 @@ class FlowStats:
 
         offer_accept_rate = self.offer_accept_rate
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if total_sessions is not UNSET:
             field_dict["total_sessions"] = total_sessions
         if completed_count is not UNSET:
@@ -68,10 +82,11 @@ class FlowStats:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.flow_stats_reason_breakdown import FlowStatsReasonBreakdown
-
         d = dict(src_dict)
         total_sessions = d.pop("total_sessions", UNSET)
 
@@ -83,10 +98,13 @@ class FlowStats:
 
         _reason_breakdown = d.pop("reason_breakdown", UNSET)
         reason_breakdown: FlowStatsReasonBreakdown | Unset
-        if isinstance(_reason_breakdown, Unset):
+        if isinstance(_reason_breakdown,  Unset):
             reason_breakdown = UNSET
         else:
             reason_breakdown = FlowStatsReasonBreakdown.from_dict(_reason_breakdown)
+
+
+
 
         offer_accept_rate = d.pop("offer_accept_rate", UNSET)
 
@@ -98,6 +116,7 @@ class FlowStats:
             reason_breakdown=reason_breakdown,
             offer_accept_rate=offer_accept_rate,
         )
+
 
         flow_stats.additional_properties = d
         return flow_stats

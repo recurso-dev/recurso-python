@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class CreateMandateBodyFrequency(str, Enum):
     MONTHLY = "monthly"
     QUARTERLY = "quarterly"

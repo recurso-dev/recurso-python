@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class InvoiceDisputeStatus(str, Enum):
     OPEN = "open"
     RESOLVED = "resolved"

@@ -1,30 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="ChurnFeatures")
+
 
 
 @_attrs_define
 class ChurnFeatures:
-    """
-    Attributes:
-        days_since_signup (int | Unset):
-        total_invoices (int | Unset):
-        failed_invoices_90d (int | Unset):
-        payment_failure_rate (float | Unset):
-        avg_days_to_pay (float | Unset):
-        plan_downgrades (int | Unset):
-        months_active (int | Unset):
-        current_mrr (int | Unset):
-        usage_trend (float | Unset):
-    """
+    """ 
+        Attributes:
+            days_since_signup (int | Unset):
+            total_invoices (int | Unset):
+            failed_invoices_90d (int | Unset):
+            payment_failure_rate (float | Unset):
+            avg_days_to_pay (float | Unset):
+            plan_downgrades (int | Unset):
+            months_active (int | Unset):
+            current_mrr (int | Unset):
+            usage_trend (float | Unset):
+     """
 
     days_since_signup: int | Unset = UNSET
     total_invoices: int | Unset = UNSET
@@ -36,6 +44,10 @@ class ChurnFeatures:
     current_mrr: int | Unset = UNSET
     usage_trend: float | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         days_since_signup = self.days_since_signup
@@ -56,9 +68,11 @@ class ChurnFeatures:
 
         usage_trend = self.usage_trend
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if days_since_signup is not UNSET:
             field_dict["days_since_signup"] = days_since_signup
         if total_invoices is not UNSET:
@@ -79,6 +93,8 @@ class ChurnFeatures:
             field_dict["usage_trend"] = usage_trend
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -112,6 +128,7 @@ class ChurnFeatures:
             current_mrr=current_mrr,
             usage_trend=usage_trend,
         )
+
 
         churn_features.additional_properties = d
         return churn_features

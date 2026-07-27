@@ -1,29 +1,36 @@
 from http import HTTPStatus
 from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.error import Error
 from ...models.post_auth_saml_tenant_id_acs_body import PostAuthSamlTenantIDAcsBody
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     tenant_id: UUID,
     *,
     body: PostAuthSamlTenantIDAcsBody,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/auth/saml/{tenant_id}/acs".format(
-            tenant_id=quote(str(tenant_id), safe=""),
-        ),
+        "url": "/auth/saml/{tenant_id}/acs".format(tenant_id=quote(str(tenant_id), safe=""),),
     }
 
     _kwargs["data"] = body.to_dict()
@@ -31,6 +38,7 @@ def _get_kwargs(
 
     _kwargs["headers"] = headers
     return _kwargs
+
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | None:
@@ -41,15 +49,21 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
+
+
         return response_401
 
     if response.status_code == 403:
         response_403 = Error.from_dict(response.json())
 
+
+
         return response_403
 
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
+
+
 
         return response_404
 
@@ -73,8 +87,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: PostAuthSamlTenantIDAcsBody,
+
 ) -> Response[Any | Error]:
-    """Assertion Consumer Service (IdP posts the SAMLResponse here)
+    """ Assertion Consumer Service (IdP posts the SAMLResponse here)
 
      Validates the SAMLResponse against the tenant's IdP certificate, extracts the email, and maps it to
     an EXISTING user in the tenant (no JIT provisioning). On success sets the `recurso_session` cookie
@@ -91,11 +106,13 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         tenant_id=tenant_id,
-        body=body,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -104,14 +121,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     tenant_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: PostAuthSamlTenantIDAcsBody,
+
 ) -> Any | Error | None:
-    """Assertion Consumer Service (IdP posts the SAMLResponse here)
+    """ Assertion Consumer Service (IdP posts the SAMLResponse here)
 
      Validates the SAMLResponse against the tenant's IdP certificate, extracts the email, and maps it to
     an EXISTING user in the tenant (no JIT provisioning). On success sets the `recurso_session` cookie
@@ -128,22 +145,24 @@ def sync(
 
     Returns:
         Any | Error
-    """
+     """
+
 
     return sync_detailed(
         tenant_id=tenant_id,
-        client=client,
-        body=body,
-    ).parsed
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     tenant_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: PostAuthSamlTenantIDAcsBody,
+
 ) -> Response[Any | Error]:
-    """Assertion Consumer Service (IdP posts the SAMLResponse here)
+    """ Assertion Consumer Service (IdP posts the SAMLResponse here)
 
      Validates the SAMLResponse against the tenant's IdP certificate, extracts the email, and maps it to
     an EXISTING user in the tenant (no JIT provisioning). On success sets the `recurso_session` cookie
@@ -160,25 +179,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         tenant_id=tenant_id,
-        body=body,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     tenant_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: PostAuthSamlTenantIDAcsBody,
+
 ) -> Any | Error | None:
-    """Assertion Consumer Service (IdP posts the SAMLResponse here)
+    """ Assertion Consumer Service (IdP posts the SAMLResponse here)
 
      Validates the SAMLResponse against the tenant's IdP certificate, extracts the email, and maps it to
     an EXISTING user in the tenant (no JIT provisioning). On success sets the `recurso_session` cookie
@@ -195,12 +218,12 @@ async def asyncio(
 
     Returns:
         Any | Error
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            tenant_id=tenant_id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        tenant_id=tenant_id,
+client=client,
+body=body,
+
+    )).parsed

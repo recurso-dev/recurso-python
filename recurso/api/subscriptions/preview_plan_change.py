@@ -1,61 +1,76 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.error import Error
 from ...models.plan_change_preview import PlanChangePreview
-from ...types import UNSET, Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     id: UUID,
     *,
     plan_id: UUID,
+
 ) -> dict[str, Any]:
+    
+
+    
 
     params: dict[str, Any] = {}
 
     json_plan_id = str(plan_id)
     params["plan_id"] = json_plan_id
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/subscriptions/{id}/preview-change".format(
-            id=quote(str(id), safe=""),
-        ),
+        "url": "/v1/subscriptions/{id}/preview-change".format(id=quote(str(id), safe=""),),
         "params": params,
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | PlanChangePreview | None:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | PlanChangePreview | None:
     if response.status_code == 200:
         response_200 = PlanChangePreview.from_dict(response.json())
+
+
 
         return response_200
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
+
+
         return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
+
+
         return response_401
 
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
+
+
 
         return response_404
 
@@ -65,9 +80,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | PlanChangePreview]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | PlanChangePreview]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -81,8 +94,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     plan_id: UUID,
+
 ) -> Response[Error | PlanChangePreview]:
-    """Preview proration for a plan change (nothing is applied)
+    """ Preview proration for a plan change (nothing is applied)
 
      Computes the credit for unused time on the current plan, the prorated charge for the new plan, the
     net amount, tax, effective date, and the resulting next-invoice amount — using the same proration
@@ -98,11 +112,13 @@ def sync_detailed(
 
     Returns:
         Response[Error | PlanChangePreview]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         id=id,
-        plan_id=plan_id,
+plan_id=plan_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -111,14 +127,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
     plan_id: UUID,
+
 ) -> Error | PlanChangePreview | None:
-    """Preview proration for a plan change (nothing is applied)
+    """ Preview proration for a plan change (nothing is applied)
 
      Computes the credit for unused time on the current plan, the prorated charge for the new plan, the
     net amount, tax, effective date, and the resulting next-invoice amount — using the same proration
@@ -134,22 +150,24 @@ def sync(
 
     Returns:
         Error | PlanChangePreview
-    """
+     """
+
 
     return sync_detailed(
         id=id,
-        client=client,
-        plan_id=plan_id,
-    ).parsed
+client=client,
+plan_id=plan_id,
 
+    ).parsed
 
 async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
     plan_id: UUID,
+
 ) -> Response[Error | PlanChangePreview]:
-    """Preview proration for a plan change (nothing is applied)
+    """ Preview proration for a plan change (nothing is applied)
 
      Computes the credit for unused time on the current plan, the prorated charge for the new plan, the
     net amount, tax, effective date, and the resulting next-invoice amount — using the same proration
@@ -165,25 +183,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | PlanChangePreview]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         id=id,
-        plan_id=plan_id,
+plan_id=plan_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
     plan_id: UUID,
+
 ) -> Error | PlanChangePreview | None:
-    """Preview proration for a plan change (nothing is applied)
+    """ Preview proration for a plan change (nothing is applied)
 
      Computes the credit for unused time on the current plan, the prorated charge for the new plan, the
     net amount, tax, effective date, and the resulting next-invoice amount — using the same proration
@@ -199,12 +221,12 @@ async def asyncio(
 
     Returns:
         Error | PlanChangePreview
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            id=id,
-            client=client,
-            plan_id=plan_id,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        id=id,
+client=client,
+plan_id=plan_id,
+
+    )).parsed

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class ListDisputesStatus(str, Enum):
     OPEN = "open"
     RESOLVED = "resolved"

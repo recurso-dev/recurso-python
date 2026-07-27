@@ -1,46 +1,55 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.subscription_status import SubscriptionStatus
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
 
 T = TypeVar("T", bound="Subscription")
 
 
+
 @_attrs_define
 class Subscription:
-    """
-    Attributes:
-        id (UUID | Unset):
-        tenant_id (UUID | Unset):
-        customer_id (UUID | Unset):
-        plan_id (UUID | Unset):
-        status (SubscriptionStatus | Unset):
-        current_period_start (datetime.datetime | Unset):
-        current_period_end (datetime.datetime | Unset):
-        cancel_at_period_end (bool | Unset):
-        canceled_at (datetime.datetime | Unset):
-        cancellation_reason (str | Unset):
-        cancellation_feedback (str | Unset):
-        billing_anchor (datetime.datetime | Unset):
-        billing_anchor_type (str | Unset):
-        billing_anchor_day (int | Unset):
-        payment_terms (str | Unset):
-        coupon_id (UUID | Unset):
-        reference_id (str | Unset):
-        mandate_id (UUID | Unset):
-        razorpay_subscription_id (str | Unset):
-        stripe_subscription_id (str | Unset):
-        created_at (datetime.datetime | Unset):
-        updated_at (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            tenant_id (UUID | Unset):
+            customer_id (UUID | Unset):
+            plan_id (UUID | Unset):
+            status (SubscriptionStatus | Unset):
+            current_period_start (datetime.datetime | Unset):
+            current_period_end (datetime.datetime | Unset):
+            cancel_at_period_end (bool | Unset):
+            canceled_at (datetime.datetime | Unset):
+            cancellation_reason (str | Unset):
+            cancellation_feedback (str | Unset):
+            billing_anchor (datetime.datetime | Unset):
+            billing_anchor_type (str | Unset):
+            billing_anchor_day (int | Unset):
+            payment_terms (str | Unset):
+            coupon_id (UUID | Unset):
+            reference_id (str | Unset):
+            mandate_id (UUID | Unset):
+            razorpay_subscription_id (str | Unset):
+            stripe_subscription_id (str | Unset):
+            created_at (datetime.datetime | Unset):
+            updated_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -66,6 +75,10 @@ class Subscription:
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
@@ -86,6 +99,7 @@ class Subscription:
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
+
 
         current_period_start: str | Unset = UNSET
         if not isinstance(self.current_period_start, Unset):
@@ -137,9 +151,11 @@ class Subscription:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -187,66 +203,92 @@ class Subscription:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
+
+
+
         _customer_id = d.pop("customer_id", UNSET)
         customer_id: UUID | Unset
-        if isinstance(_customer_id, Unset):
+        if isinstance(_customer_id,  Unset):
             customer_id = UNSET
         else:
             customer_id = UUID(_customer_id)
 
+
+
+
         _plan_id = d.pop("plan_id", UNSET)
         plan_id: UUID | Unset
-        if isinstance(_plan_id, Unset):
+        if isinstance(_plan_id,  Unset):
             plan_id = UNSET
         else:
             plan_id = UUID(_plan_id)
 
+
+
+
         _status = d.pop("status", UNSET)
         status: SubscriptionStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = SubscriptionStatus(_status)
 
+
+
+
         _current_period_start = d.pop("current_period_start", UNSET)
         current_period_start: datetime.datetime | Unset
-        if isinstance(_current_period_start, Unset):
+        if isinstance(_current_period_start,  Unset):
             current_period_start = UNSET
         else:
             current_period_start = datetime.datetime.fromisoformat(_current_period_start)
 
+
+
+
         _current_period_end = d.pop("current_period_end", UNSET)
         current_period_end: datetime.datetime | Unset
-        if isinstance(_current_period_end, Unset):
+        if isinstance(_current_period_end,  Unset):
             current_period_end = UNSET
         else:
             current_period_end = datetime.datetime.fromisoformat(_current_period_end)
+
+
+
 
         cancel_at_period_end = d.pop("cancel_at_period_end", UNSET)
 
         _canceled_at = d.pop("canceled_at", UNSET)
         canceled_at: datetime.datetime | Unset
-        if isinstance(_canceled_at, Unset):
+        if isinstance(_canceled_at,  Unset):
             canceled_at = UNSET
         else:
             canceled_at = datetime.datetime.fromisoformat(_canceled_at)
+
+
+
 
         cancellation_reason = d.pop("cancellation_reason", UNSET)
 
@@ -254,10 +296,13 @@ class Subscription:
 
         _billing_anchor = d.pop("billing_anchor", UNSET)
         billing_anchor: datetime.datetime | Unset
-        if isinstance(_billing_anchor, Unset):
+        if isinstance(_billing_anchor,  Unset):
             billing_anchor = UNSET
         else:
             billing_anchor = datetime.datetime.fromisoformat(_billing_anchor)
+
+
+
 
         billing_anchor_type = d.pop("billing_anchor_type", UNSET)
 
@@ -267,19 +312,25 @@ class Subscription:
 
         _coupon_id = d.pop("coupon_id", UNSET)
         coupon_id: UUID | Unset
-        if isinstance(_coupon_id, Unset):
+        if isinstance(_coupon_id,  Unset):
             coupon_id = UNSET
         else:
             coupon_id = UUID(_coupon_id)
+
+
+
 
         reference_id = d.pop("reference_id", UNSET)
 
         _mandate_id = d.pop("mandate_id", UNSET)
         mandate_id: UUID | Unset
-        if isinstance(_mandate_id, Unset):
+        if isinstance(_mandate_id,  Unset):
             mandate_id = UNSET
         else:
             mandate_id = UUID(_mandate_id)
+
+
+
 
         razorpay_subscription_id = d.pop("razorpay_subscription_id", UNSET)
 
@@ -287,17 +338,23 @@ class Subscription:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
+
+
+
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at, Unset):
+        if isinstance(_updated_at,  Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
+
+
+
 
         subscription = cls(
             id=id,
@@ -323,6 +380,7 @@ class Subscription:
             created_at=created_at,
             updated_at=updated_at,
         )
+
 
         subscription.additional_properties = d
         return subscription

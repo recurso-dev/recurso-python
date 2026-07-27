@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class CouponDuration(str, Enum):
     FOREVER = "forever"
     ONCE = "once"

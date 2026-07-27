@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class DunningCampaignStepChannel(str, Enum):
     EMAIL = "email"
     IN_APP = "in_app"

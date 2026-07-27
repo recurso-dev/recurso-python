@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class CreateCreditNoteBodyType(str, Enum):
     ADJUSTMENT = "adjustment"
     REFUND = "refund"

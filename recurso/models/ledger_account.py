@@ -1,40 +1,47 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.ledger_account_type import LedgerAccountType
 from ..types import UNSET, Unset
 
+from ..models.ledger_account_type import LedgerAccountType
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.ledger_account_user_data_128 import LedgerAccountUserData128
+  from ..models.ledger_account_user_data_128 import LedgerAccountUserData128
+
+
+
 
 
 T = TypeVar("T", bound="LedgerAccount")
 
 
+
 @_attrs_define
 class LedgerAccount:
-    """
-    Attributes:
-        id (UUID | Unset):
-        tenant_id (UUID | Unset):
-        name (str | Unset):
-        type_ (LedgerAccountType | Unset):
-        code (int | Unset): Chart-of-accounts code (e.g. 1000 for Cash).
-        ledger_id (int | Unset):
-        user_data_128 (LedgerAccountUserData128 | Unset): Internal TigerBeetle user data (opaque).
-        credits_posted (int | Unset):
-        debits_posted (int | Unset):
-        currency (str | Unset):
-        balance (int | Unset): Cached balance snapshot in the lowest currency unit.
-        created_at (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            tenant_id (UUID | Unset):
+            name (str | Unset):
+            type_ (LedgerAccountType | Unset):
+            code (int | Unset): Chart-of-accounts code (e.g. 1000 for Cash).
+            ledger_id (int | Unset):
+            user_data_128 (LedgerAccountUserData128 | Unset): Internal TigerBeetle user data (opaque).
+            credits_posted (int | Unset):
+            debits_posted (int | Unset):
+            currency (str | Unset):
+            balance (int | Unset): Cached balance snapshot in the lowest currency unit.
+            created_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -50,7 +57,12 @@ class LedgerAccount:
     created_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.ledger_account_user_data_128 import LedgerAccountUserData128
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
@@ -64,6 +76,7 @@ class LedgerAccount:
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         code = self.code
 
@@ -85,9 +98,11 @@ class LedgerAccount:
         if not isinstance(self.created_at, Unset):
             created_at = self.created_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -115,33 +130,43 @@ class LedgerAccount:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.ledger_account_user_data_128 import LedgerAccountUserData128
-
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
+
+
+
 
         name = d.pop("name", UNSET)
 
         _type_ = d.pop("type", UNSET)
         type_: LedgerAccountType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = LedgerAccountType(_type_)
+
+
+
 
         code = d.pop("code", UNSET)
 
@@ -149,10 +174,13 @@ class LedgerAccount:
 
         _user_data_128 = d.pop("user_data_128", UNSET)
         user_data_128: LedgerAccountUserData128 | Unset
-        if isinstance(_user_data_128, Unset):
+        if isinstance(_user_data_128,  Unset):
             user_data_128 = UNSET
         else:
             user_data_128 = LedgerAccountUserData128.from_dict(_user_data_128)
+
+
+
 
         credits_posted = d.pop("credits_posted", UNSET)
 
@@ -164,10 +192,13 @@ class LedgerAccount:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
+
+
+
 
         ledger_account = cls(
             id=id,
@@ -183,6 +214,7 @@ class LedgerAccount:
             balance=balance,
             created_at=created_at,
         )
+
 
         ledger_account.additional_properties = d
         return ledger_account

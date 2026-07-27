@@ -186,7 +186,8 @@ def main() -> int:
             sync_params=["id", "client", "limit", "offset", "status"],
         )
         assert_endpoint(redeliver_event, sync_params=["id", "client"])
-        assert_endpoint(get_mrr, sync_params=["client"])
+        # entity_id is the optional Multi-Entity Books scope (2026-07 catch-up).
+        assert_endpoint(get_mrr, sync_params=["client", "entity_id"])
 
     check("delivery tracking + MRR endpoints exist with expected signatures", delivery_and_mrr_endpoints)
 
@@ -357,6 +358,40 @@ def main() -> int:
 
     check("check_entitlement builds GET /v1/entitlements/check", kwargs_only)
 
+    # --- 2026-07 catch-up: collections, entities, per-entity analytics ---
+    def catchup_endpoints():
+        from recurso.api.analytics import get_entities_overview, get_mrr_by_entity
+        from recurso.api.dunning import get_dunning_timing
+        from recurso.api.collections import (
+            collections_mark_uncollectible,
+            collections_pause_dunning,
+            collections_retry_now,
+            get_collections_failures,
+            get_collections_funnel,
+            get_collections_queue,
+        )
+        from recurso.api.customers import get_credit_statement
+        from recurso.api.entities import (
+            create_entity,
+            delete_entity,
+            get_entity,
+            list_entities,
+            update_entity,
+        )
+        from recurso.api.metering import update_usage_alert
+        from recurso.api.wallets import close_wallet
+
+        for mod in (
+            collections_mark_uncollectible, collections_pause_dunning, collections_retry_now,
+            get_collections_failures, get_collections_funnel, get_collections_queue,
+            create_entity, delete_entity, get_entities_overview, get_entity,
+            list_entities, update_entity, get_dunning_timing, get_mrr_by_entity,
+            get_credit_statement, update_usage_alert, close_wallet,
+        ):
+            assert hasattr(mod, "sync_detailed"), f"{mod.__name__} missing sync_detailed"
+
+    check("collections/entities/analytics catch-up endpoints exist", catchup_endpoints)
+
     print()
     if FAILURES:
         print(f"smoke test FAILED ({len(FAILURES)} of {CHECKS_RUN} check(s))")
@@ -367,3 +402,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

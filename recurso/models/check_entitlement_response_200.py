@@ -1,29 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
+
 T = TypeVar("T", bound="CheckEntitlementResponse200")
+
 
 
 @_attrs_define
 class CheckEntitlementResponse200:
-    """
-    Attributes:
-        feature_key (str | Unset):
-        granted (bool | Unset):
-        limit_value (int | None | Unset):
-    """
+    """ 
+        Attributes:
+            feature_key (str | Unset):
+            granted (bool | Unset):
+            limit_value (int | None | Unset):
+     """
 
     feature_key: str | Unset = UNSET
     granted: bool | Unset = UNSET
     limit_value: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         feature_key = self.feature_key
@@ -36,9 +49,11 @@ class CheckEntitlementResponse200:
         else:
             limit_value = self.limit_value
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if feature_key is not UNSET:
             field_dict["feature_key"] = feature_key
         if granted is not UNSET:
@@ -47,6 +62,8 @@ class CheckEntitlementResponse200:
             field_dict["limit_value"] = limit_value
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -64,11 +81,13 @@ class CheckEntitlementResponse200:
 
         limit_value = _parse_limit_value(d.pop("limit_value", UNSET))
 
+
         check_entitlement_response_200 = cls(
             feature_key=feature_key,
             granted=granted,
             limit_value=limit_value,
         )
+
 
         check_entitlement_response_200.additional_properties = d
         return check_entitlement_response_200

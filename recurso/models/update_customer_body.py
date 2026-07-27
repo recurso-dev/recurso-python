@@ -1,35 +1,50 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.update_customer_body_tax_type import UpdateCustomerBodyTaxType
 from ..types import UNSET, Unset
+from typing import cast
+import datetime
+
+
+
+
+
 
 T = TypeVar("T", bound="UpdateCustomerBody")
 
 
+
 @_attrs_define
 class UpdateCustomerBody:
-    """
-    Attributes:
-        name (str | Unset):
-        email (str | Unset):
-        phone (str | Unset):
-        tax_id (str | Unset):
-        gstin (str | Unset):
-        tax_type (UpdateCustomerBodyTaxType | Unset):
-        place_of_supply (str | Unset):
-        line1 (str | Unset):
-        city (str | Unset):
-        state (str | Unset):
-        zip_ (str | Unset):
-        country (str | Unset):
-        active (bool | Unset):
-    """
+    """ 
+        Attributes:
+            name (str | Unset):
+            email (str | Unset):
+            phone (str | Unset):
+            tax_id (str | Unset):
+            gstin (str | Unset):
+            tax_type (UpdateCustomerBodyTaxType | Unset):
+            place_of_supply (str | Unset):
+            tax_exempt (bool | Unset): US sales-tax exemption status (D2).
+            tax_exemption_number (str | Unset): Exemption/resale certificate number.
+            tax_exemption_code (str | Unset): Provider entity-use / usage code (also the reason).
+            tax_exemption_expires_at (datetime.date | Unset): Exemption certificate expiry (YYYY-MM-DD); empty/omitted = no
+                expiry. Past this date the buyer is charged tax again (Inc 2).
+            line1 (str | Unset):
+            city (str | Unset):
+            state (str | Unset):
+            zip_ (str | Unset):
+            country (str | Unset):
+            active (bool | Unset):
+     """
 
     name: str | Unset = UNSET
     email: str | Unset = UNSET
@@ -38,6 +53,10 @@ class UpdateCustomerBody:
     gstin: str | Unset = UNSET
     tax_type: UpdateCustomerBodyTaxType | Unset = UNSET
     place_of_supply: str | Unset = UNSET
+    tax_exempt: bool | Unset = UNSET
+    tax_exemption_number: str | Unset = UNSET
+    tax_exemption_code: str | Unset = UNSET
+    tax_exemption_expires_at: datetime.date | Unset = UNSET
     line1: str | Unset = UNSET
     city: str | Unset = UNSET
     state: str | Unset = UNSET
@@ -45,6 +64,10 @@ class UpdateCustomerBody:
     country: str | Unset = UNSET
     active: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
@@ -61,7 +84,18 @@ class UpdateCustomerBody:
         if not isinstance(self.tax_type, Unset):
             tax_type = self.tax_type.value
 
+
         place_of_supply = self.place_of_supply
+
+        tax_exempt = self.tax_exempt
+
+        tax_exemption_number = self.tax_exemption_number
+
+        tax_exemption_code = self.tax_exemption_code
+
+        tax_exemption_expires_at: str | Unset = UNSET
+        if not isinstance(self.tax_exemption_expires_at, Unset):
+            tax_exemption_expires_at = self.tax_exemption_expires_at.isoformat()
 
         line1 = self.line1
 
@@ -75,9 +109,11 @@ class UpdateCustomerBody:
 
         active = self.active
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if name is not UNSET:
             field_dict["name"] = name
         if email is not UNSET:
@@ -92,6 +128,14 @@ class UpdateCustomerBody:
             field_dict["tax_type"] = tax_type
         if place_of_supply is not UNSET:
             field_dict["place_of_supply"] = place_of_supply
+        if tax_exempt is not UNSET:
+            field_dict["tax_exempt"] = tax_exempt
+        if tax_exemption_number is not UNSET:
+            field_dict["tax_exemption_number"] = tax_exemption_number
+        if tax_exemption_code is not UNSET:
+            field_dict["tax_exemption_code"] = tax_exemption_code
+        if tax_exemption_expires_at is not UNSET:
+            field_dict["tax_exemption_expires_at"] = tax_exemption_expires_at
         if line1 is not UNSET:
             field_dict["line1"] = line1
         if city is not UNSET:
@@ -106,6 +150,8 @@ class UpdateCustomerBody:
             field_dict["active"] = active
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -122,12 +168,31 @@ class UpdateCustomerBody:
 
         _tax_type = d.pop("tax_type", UNSET)
         tax_type: UpdateCustomerBodyTaxType | Unset
-        if isinstance(_tax_type, Unset):
+        if isinstance(_tax_type,  Unset):
             tax_type = UNSET
         else:
             tax_type = UpdateCustomerBodyTaxType(_tax_type)
 
+
+
+
         place_of_supply = d.pop("place_of_supply", UNSET)
+
+        tax_exempt = d.pop("tax_exempt", UNSET)
+
+        tax_exemption_number = d.pop("tax_exemption_number", UNSET)
+
+        tax_exemption_code = d.pop("tax_exemption_code", UNSET)
+
+        _tax_exemption_expires_at = d.pop("tax_exemption_expires_at", UNSET)
+        tax_exemption_expires_at: datetime.date | Unset
+        if isinstance(_tax_exemption_expires_at,  Unset):
+            tax_exemption_expires_at = UNSET
+        else:
+            tax_exemption_expires_at = datetime.date.fromisoformat(_tax_exemption_expires_at)
+
+
+
 
         line1 = d.pop("line1", UNSET)
 
@@ -149,6 +214,10 @@ class UpdateCustomerBody:
             gstin=gstin,
             tax_type=tax_type,
             place_of_supply=place_of_supply,
+            tax_exempt=tax_exempt,
+            tax_exemption_number=tax_exemption_number,
+            tax_exemption_code=tax_exemption_code,
+            tax_exemption_expires_at=tax_exemption_expires_at,
             line1=line1,
             city=city,
             state=state,
@@ -156,6 +225,7 @@ class UpdateCustomerBody:
             country=country,
             active=active,
         )
+
 
         update_customer_body.additional_properties = d
         return update_customer_body

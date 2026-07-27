@@ -1,26 +1,34 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="BillingAddress")
+
 
 
 @_attrs_define
 class BillingAddress:
-    """
-    Attributes:
-        line1 (str | Unset):
-        city (str | Unset):
-        state (str | Unset):
-        zip_ (str | Unset):
-        country (str | Unset):
-    """
+    """ 
+        Attributes:
+            line1 (str | Unset):
+            city (str | Unset):
+            state (str | Unset):
+            zip_ (str | Unset):
+            country (str | Unset):
+     """
 
     line1: str | Unset = UNSET
     city: str | Unset = UNSET
@@ -28,6 +36,10 @@ class BillingAddress:
     zip_: str | Unset = UNSET
     country: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         line1 = self.line1
@@ -40,9 +52,11 @@ class BillingAddress:
 
         country = self.country
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if line1 is not UNSET:
             field_dict["line1"] = line1
         if city is not UNSET:
@@ -55,6 +69,8 @@ class BillingAddress:
             field_dict["country"] = country
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -76,6 +92,7 @@ class BillingAddress:
             zip_=zip_,
             country=country,
         )
+
 
         billing_address.additional_properties = d
         return billing_address

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class WalletTransactionType(str, Enum):
     DRAIN = "drain"
     EXPIRY = "expiry"

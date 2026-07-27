@@ -1,34 +1,43 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.coupon_discount_type import CouponDiscountType
 from ..models.coupon_duration import CouponDuration
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
 
 T = TypeVar("T", bound="Coupon")
 
 
+
 @_attrs_define
 class Coupon:
-    """
-    Attributes:
-        id (UUID | Unset):
-        tenant_id (UUID | Unset):
-        code (str | Unset):
-        discount_type (CouponDiscountType | Unset):
-        discount_value (int | Unset):
-        duration (CouponDuration | Unset):
-        duration_months (int | None | Unset):
-        created_at (datetime.datetime | Unset):
-        updated_at (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            tenant_id (UUID | Unset):
+            code (str | Unset):
+            discount_type (CouponDiscountType | Unset):
+            discount_value (int | Unset):
+            duration (CouponDuration | Unset):
+            duration_months (int | None | Unset):
+            created_at (datetime.datetime | Unset):
+            updated_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -40,6 +49,10 @@ class Coupon:
     created_at: datetime.datetime | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -56,11 +69,13 @@ class Coupon:
         if not isinstance(self.discount_type, Unset):
             discount_type = self.discount_type.value
 
+
         discount_value = self.discount_value
 
         duration: str | Unset = UNSET
         if not isinstance(self.duration, Unset):
             duration = self.duration.value
+
 
         duration_months: int | None | Unset
         if isinstance(self.duration_months, Unset):
@@ -76,9 +91,11 @@ class Coupon:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -100,40 +117,54 @@ class Coupon:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
+
+
+
 
         code = d.pop("code", UNSET)
 
         _discount_type = d.pop("discount_type", UNSET)
         discount_type: CouponDiscountType | Unset
-        if isinstance(_discount_type, Unset):
+        if isinstance(_discount_type,  Unset):
             discount_type = UNSET
         else:
             discount_type = CouponDiscountType(_discount_type)
+
+
+
 
         discount_value = d.pop("discount_value", UNSET)
 
         _duration = d.pop("duration", UNSET)
         duration: CouponDuration | Unset
-        if isinstance(_duration, Unset):
+        if isinstance(_duration,  Unset):
             duration = UNSET
         else:
             duration = CouponDuration(_duration)
+
+
+
 
         def _parse_duration_months(data: object) -> int | None | Unset:
             if data is None:
@@ -144,19 +175,26 @@ class Coupon:
 
         duration_months = _parse_duration_months(d.pop("duration_months", UNSET))
 
+
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
+
+
+
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at, Unset):
+        if isinstance(_updated_at,  Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
+
+
+
 
         coupon = cls(
             id=id,
@@ -169,6 +207,7 @@ class Coupon:
             created_at=created_at,
             updated_at=updated_at,
         )
+
 
         coupon.additional_properties = d
         return coupon
