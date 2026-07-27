@@ -147,7 +147,12 @@ pipx run openapi-python-client generate \
 ```
 
 Note: the generator emits benign warnings for the `GET /openapi.yaml` and SAML-metadata endpoints
-(non-JSON response bodies); those responses are simply omitted from the generated client.
+(non-JSON response bodies), and for `GET /v1/plans/{id}/charges` (a generator model-resolution
+quirk, present since the first generation); those responses are simply omitted from the generated
+client — the endpoints still work, returning the raw response.
+
+The generator also overwrites this README and `pyproject.toml` — restore both from git
+(`git checkout origin/main -- README.md pyproject.toml`) before re-applying intentional changes.
 
 After regenerating, re-apply the one intentional deviation from the generated output:
 `raise_on_unexpected_status` must default to `True` in both clients in `recurso/client.py`

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class UnbilledChargeStatus(str, Enum):
     CANCELED = "canceled"
     INVOICED = "invoiced"

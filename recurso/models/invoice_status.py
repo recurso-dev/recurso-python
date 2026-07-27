@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class InvoiceStatus(str, Enum):
     DRAFT = "draft"
     OPEN = "open"

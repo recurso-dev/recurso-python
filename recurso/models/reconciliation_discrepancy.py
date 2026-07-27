@@ -1,29 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
+
+
+
+
+
 T = TypeVar("T", bound="ReconciliationDiscrepancy")
+
 
 
 @_attrs_define
 class ReconciliationDiscrepancy:
-    """
-    Attributes:
-        type_ (str | Unset): Discrepancy category (e.g. missing/incorrect invoice or payment posting, orphan
-            transaction).
-        invoice_id (None | Unset | UUID):
-        transaction_id (None | Unset | UUID):
-        reference_id (None | Unset | UUID):
-        expected_amount (int | Unset):
-        found_amount (int | Unset):
-    """
+    """ 
+        Attributes:
+            type_ (str | Unset): Discrepancy category (e.g. missing/incorrect invoice or payment posting, orphan
+                transaction).
+            invoice_id (None | Unset | UUID):
+            transaction_id (None | Unset | UUID):
+            reference_id (None | Unset | UUID):
+            expected_amount (int | Unset):
+            found_amount (int | Unset):
+     """
 
     type_: str | Unset = UNSET
     invoice_id: None | Unset | UUID = UNSET
@@ -32,6 +41,10 @@ class ReconciliationDiscrepancy:
     expected_amount: int | Unset = UNSET
     found_amount: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         type_ = self.type_
@@ -64,9 +77,11 @@ class ReconciliationDiscrepancy:
 
         found_amount = self.found_amount
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if type_ is not UNSET:
             field_dict["type"] = type_
         if invoice_id is not UNSET:
@@ -81,6 +96,8 @@ class ReconciliationDiscrepancy:
             field_dict["found_amount"] = found_amount
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -97,12 +114,15 @@ class ReconciliationDiscrepancy:
                     raise TypeError()
                 invoice_id_type_0 = UUID(data)
 
+
+
                 return invoice_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         invoice_id = _parse_invoice_id(d.pop("invoice_id", UNSET))
+
 
         def _parse_transaction_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -114,12 +134,15 @@ class ReconciliationDiscrepancy:
                     raise TypeError()
                 transaction_id_type_0 = UUID(data)
 
+
+
                 return transaction_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         transaction_id = _parse_transaction_id(d.pop("transaction_id", UNSET))
+
 
         def _parse_reference_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -131,12 +154,15 @@ class ReconciliationDiscrepancy:
                     raise TypeError()
                 reference_id_type_0 = UUID(data)
 
+
+
                 return reference_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         reference_id = _parse_reference_id(d.pop("reference_id", UNSET))
+
 
         expected_amount = d.pop("expected_amount", UNSET)
 
@@ -150,6 +176,7 @@ class ReconciliationDiscrepancy:
             expected_amount=expected_amount,
             found_amount=found_amount,
         )
+
 
         reconciliation_discrepancy.additional_properties = d
         return reconciliation_discrepancy

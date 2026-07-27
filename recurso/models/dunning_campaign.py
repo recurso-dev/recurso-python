@@ -1,35 +1,42 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.dunning_campaign_step import DunningCampaignStep
+  from ..models.dunning_campaign_step import DunningCampaignStep
+
+
+
 
 
 T = TypeVar("T", bound="DunningCampaign")
 
 
+
 @_attrs_define
 class DunningCampaign:
-    """
-    Attributes:
-        id (UUID | Unset):
-        tenant_id (UUID | Unset):
-        name (str | Unset):
-        is_active (bool | Unset):
-        trigger_event (str | Unset):
-        created_at (datetime.datetime | Unset):
-        updated_at (datetime.datetime | Unset):
-        steps (list[DunningCampaignStep] | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            tenant_id (UUID | Unset):
+            name (str | Unset):
+            is_active (bool | Unset):
+            trigger_event (str | Unset):
+            created_at (datetime.datetime | Unset):
+            updated_at (datetime.datetime | Unset):
+            steps (list[DunningCampaignStep] | Unset):
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -41,7 +48,12 @@ class DunningCampaign:
     steps: list[DunningCampaignStep] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.dunning_campaign_step import DunningCampaignStep
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
@@ -71,9 +83,13 @@ class DunningCampaign:
                 steps_item = steps_item_data.to_dict()
                 steps.append(steps_item)
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -93,24 +109,31 @@ class DunningCampaign:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.dunning_campaign_step import DunningCampaignStep
-
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
+
+
+
 
         name = d.pop("name", UNSET)
 
@@ -120,17 +143,23 @@ class DunningCampaign:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
+
+
+
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at, Unset):
+        if isinstance(_updated_at,  Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
+
+
+
 
         _steps = d.pop("steps", UNSET)
         steps: list[DunningCampaignStep] | Unset = UNSET
@@ -139,7 +168,10 @@ class DunningCampaign:
             for steps_item_data in _steps:
                 steps_item = DunningCampaignStep.from_dict(steps_item_data)
 
+
+
                 steps.append(steps_item)
+
 
         dunning_campaign = cls(
             id=id,
@@ -151,6 +183,7 @@ class DunningCampaign:
             updated_at=updated_at,
             steps=steps,
         )
+
 
         dunning_campaign.additional_properties = d
         return dunning_campaign

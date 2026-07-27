@@ -1,26 +1,34 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="SSOConnectionUpsertRequest")
+
 
 
 @_attrs_define
 class SSOConnectionUpsertRequest:
-    """
-    Attributes:
-        idp_entity_id (str | Unset):
-        idp_sso_url (str | Unset):
-        idp_certificate (str | Unset):
-        idp_metadata_xml (str | Unset):
-        enabled (bool | Unset):
-    """
+    """ 
+        Attributes:
+            idp_entity_id (str | Unset):
+            idp_sso_url (str | Unset):
+            idp_certificate (str | Unset):
+            idp_metadata_xml (str | Unset):
+            enabled (bool | Unset):
+     """
 
     idp_entity_id: str | Unset = UNSET
     idp_sso_url: str | Unset = UNSET
@@ -28,6 +36,10 @@ class SSOConnectionUpsertRequest:
     idp_metadata_xml: str | Unset = UNSET
     enabled: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         idp_entity_id = self.idp_entity_id
@@ -40,9 +52,11 @@ class SSOConnectionUpsertRequest:
 
         enabled = self.enabled
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if idp_entity_id is not UNSET:
             field_dict["idp_entity_id"] = idp_entity_id
         if idp_sso_url is not UNSET:
@@ -55,6 +69,8 @@ class SSOConnectionUpsertRequest:
             field_dict["enabled"] = enabled
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -76,6 +92,7 @@ class SSOConnectionUpsertRequest:
             idp_metadata_xml=idp_metadata_xml,
             enabled=enabled,
         )
+
 
         sso_connection_upsert_request.additional_properties = d
         return sso_connection_upsert_request

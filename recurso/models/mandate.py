@@ -1,46 +1,55 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.mandate_frequency import MandateFrequency
 from ..models.mandate_status import MandateStatus
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
 
 T = TypeVar("T", bound="Mandate")
 
 
+
 @_attrs_define
 class Mandate:
-    """
-    Attributes:
-        id (UUID | Unset):
-        tenant_id (UUID | Unset):
-        customer_id (UUID | Unset):
-        subscription_id (None | Unset | UUID):
-        mandate_type (str | Unset):
-        payment_method (str | Unset):
-        vpa (str | Unset):
-        razorpay_token_id (str | Unset):
-        razorpay_subscription_id (str | Unset):
-        razorpay_customer_id (str | Unset):
-        max_amount (int | Unset):
-        frequency (MandateFrequency | Unset):
-        status (MandateStatus | Unset):
-        authorized_at (datetime.datetime | None | Unset):
-        activated_at (datetime.datetime | None | Unset):
-        revoked_at (datetime.datetime | None | Unset):
-        last_debit_at (datetime.datetime | None | Unset):
-        next_debit_at (datetime.datetime | None | Unset):
-        pre_debit_notified (bool | Unset):
-        created_at (datetime.datetime | Unset):
-        updated_at (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            tenant_id (UUID | Unset):
+            customer_id (UUID | Unset):
+            subscription_id (None | Unset | UUID):
+            mandate_type (str | Unset):
+            payment_method (str | Unset):
+            vpa (str | Unset):
+            razorpay_token_id (str | Unset):
+            razorpay_subscription_id (str | Unset):
+            razorpay_customer_id (str | Unset):
+            max_amount (int | Unset):
+            frequency (MandateFrequency | Unset):
+            status (MandateStatus | Unset):
+            authorized_at (datetime.datetime | None | Unset):
+            activated_at (datetime.datetime | None | Unset):
+            revoked_at (datetime.datetime | None | Unset):
+            last_debit_at (datetime.datetime | None | Unset):
+            next_debit_at (datetime.datetime | None | Unset):
+            pre_debit_notified (bool | Unset):
+            created_at (datetime.datetime | Unset):
+            updated_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -64,6 +73,10 @@ class Mandate:
     created_at: datetime.datetime | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -104,9 +117,11 @@ class Mandate:
         if not isinstance(self.frequency, Unset):
             frequency = self.frequency.value
 
+
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
+
 
         authorized_at: None | str | Unset
         if isinstance(self.authorized_at, Unset):
@@ -158,9 +173,11 @@ class Mandate:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -206,29 +223,40 @@ class Mandate:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
+
+
+
         _customer_id = d.pop("customer_id", UNSET)
         customer_id: UUID | Unset
-        if isinstance(_customer_id, Unset):
+        if isinstance(_customer_id,  Unset):
             customer_id = UNSET
         else:
             customer_id = UUID(_customer_id)
+
+
+
 
         def _parse_subscription_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -240,12 +268,15 @@ class Mandate:
                     raise TypeError()
                 subscription_id_type_0 = UUID(data)
 
+
+
                 return subscription_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         subscription_id = _parse_subscription_id(d.pop("subscription_id", UNSET))
+
 
         mandate_type = d.pop("mandate_type", UNSET)
 
@@ -263,17 +294,23 @@ class Mandate:
 
         _frequency = d.pop("frequency", UNSET)
         frequency: MandateFrequency | Unset
-        if isinstance(_frequency, Unset):
+        if isinstance(_frequency,  Unset):
             frequency = UNSET
         else:
             frequency = MandateFrequency(_frequency)
 
+
+
+
         _status = d.pop("status", UNSET)
         status: MandateStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = MandateStatus(_status)
+
+
+
 
         def _parse_authorized_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -285,12 +322,15 @@ class Mandate:
                     raise TypeError()
                 authorized_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return authorized_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         authorized_at = _parse_authorized_at(d.pop("authorized_at", UNSET))
+
 
         def _parse_activated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -302,12 +342,15 @@ class Mandate:
                     raise TypeError()
                 activated_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return activated_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         activated_at = _parse_activated_at(d.pop("activated_at", UNSET))
+
 
         def _parse_revoked_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -319,12 +362,15 @@ class Mandate:
                     raise TypeError()
                 revoked_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return revoked_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         revoked_at = _parse_revoked_at(d.pop("revoked_at", UNSET))
+
 
         def _parse_last_debit_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -336,12 +382,15 @@ class Mandate:
                     raise TypeError()
                 last_debit_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return last_debit_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         last_debit_at = _parse_last_debit_at(d.pop("last_debit_at", UNSET))
+
 
         def _parse_next_debit_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -353,6 +402,8 @@ class Mandate:
                     raise TypeError()
                 next_debit_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return next_debit_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -360,21 +411,28 @@ class Mandate:
 
         next_debit_at = _parse_next_debit_at(d.pop("next_debit_at", UNSET))
 
+
         pre_debit_notified = d.pop("pre_debit_notified", UNSET)
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
+
+
+
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at, Unset):
+        if isinstance(_updated_at,  Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
+
+
+
 
         mandate = cls(
             id=id,
@@ -399,6 +457,7 @@ class Mandate:
             created_at=created_at,
             updated_at=updated_at,
         )
+
 
         mandate.additional_properties = d
         return mandate

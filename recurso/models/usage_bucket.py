@@ -1,31 +1,44 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+import datetime
+
+
+
+
+
+
 T = TypeVar("T", bound="UsageBucket")
+
 
 
 @_attrs_define
 class UsageBucket:
-    """One date_trunc'd time bucket of aggregated usage.
+    """ One date_trunc'd time bucket of aggregated usage.
 
-    Attributes:
-        period (datetime.datetime | Unset): Bucket start (date_trunc of the event timestamps).
-        dimension (str | Unset):
-        quantity (int | Unset):
-    """
+        Attributes:
+            period (datetime.datetime | Unset): Bucket start (date_trunc of the event timestamps).
+            dimension (str | Unset):
+            quantity (int | Unset):
+     """
 
     period: datetime.datetime | Unset = UNSET
     dimension: str | Unset = UNSET
     quantity: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         period: str | Unset = UNSET
@@ -36,9 +49,11 @@ class UsageBucket:
 
         quantity = self.quantity
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if period is not UNSET:
             field_dict["period"] = period
         if dimension is not UNSET:
@@ -48,15 +63,20 @@ class UsageBucket:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _period = d.pop("period", UNSET)
         period: datetime.datetime | Unset
-        if isinstance(_period, Unset):
+        if isinstance(_period,  Unset):
             period = UNSET
         else:
             period = datetime.datetime.fromisoformat(_period)
+
+
+
 
         dimension = d.pop("dimension", UNSET)
 
@@ -67,6 +87,7 @@ class UsageBucket:
             dimension=dimension,
             quantity=quantity,
         )
+
 
         usage_bucket.additional_properties = d
         return usage_bucket

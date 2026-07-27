@@ -1,27 +1,35 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="MRRCurrencyBreakdown")
+
 
 
 @_attrs_define
 class MRRCurrencyBreakdown:
-    """
-    Attributes:
-        currency (str | Unset):
-        amount (int | Unset):
-        converted_amount (int | Unset):
-        rate (float | Unset):
-        subscriptions (int | Unset):
-        error (str | Unset): Present only when this currency could not be converted.
-    """
+    """ 
+        Attributes:
+            currency (str | Unset):
+            amount (int | Unset):
+            converted_amount (int | Unset):
+            rate (float | Unset):
+            subscriptions (int | Unset):
+            error (str | Unset): Present only when this currency could not be converted.
+     """
 
     currency: str | Unset = UNSET
     amount: int | Unset = UNSET
@@ -30,6 +38,10 @@ class MRRCurrencyBreakdown:
     subscriptions: int | Unset = UNSET
     error: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         currency = self.currency
@@ -44,9 +56,11 @@ class MRRCurrencyBreakdown:
 
         error = self.error
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if currency is not UNSET:
             field_dict["currency"] = currency
         if amount is not UNSET:
@@ -61,6 +75,8 @@ class MRRCurrencyBreakdown:
             field_dict["error"] = error
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -85,6 +101,7 @@ class MRRCurrencyBreakdown:
             subscriptions=subscriptions,
             error=error,
         )
+
 
         mrr_currency_breakdown.additional_properties = d
         return mrr_currency_breakdown

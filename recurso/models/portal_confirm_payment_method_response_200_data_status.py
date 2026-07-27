@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class PortalConfirmPaymentMethodResponse200DataStatus(str, Enum):
     PROCESSING = "processing"
     SAVED = "saved"

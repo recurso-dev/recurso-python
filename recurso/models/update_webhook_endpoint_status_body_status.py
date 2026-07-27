@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class UpdateWebhookEndpointStatusBodyStatus(str, Enum):
     ACTIVE = "active"
     INACTIVE = "inactive"

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class CancelSubscriptionRequestReason(str, Enum):
     CUSTOMER_SERVICE = "customer_service"
     MISSING_FEATURES = "missing_features"

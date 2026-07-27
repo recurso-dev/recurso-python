@@ -1,36 +1,43 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.record_usage_event_body_properties import RecordUsageEventBodyProperties
+  from ..models.record_usage_event_body_properties import RecordUsageEventBodyProperties
+
+
+
 
 
 T = TypeVar("T", bound="RecordUsageEventBody")
 
 
+
 @_attrs_define
 class RecordUsageEventBody:
-    """
-    Attributes:
-        subscription_id (UUID):
-        customer_id (UUID):
-        dimension (str):
-        quantity (int):
-        properties (RecordUsageEventBodyProperties | Unset): Optional free-form attributes (max 20; keys ≤100 chars,
-            values ≤255). The `unique` billable-metric aggregation counts distinct values of one property.
-        transaction_id (str | Unset): Optional idempotency key: a retried event with the same (subscription,
-            transaction_id) collapses to the original (200 with status "duplicate" and the original event_id).
-        dynamic_amount (int | Unset): Optional per-event exact price in minor units (non-negative). A `dynamic` charge
-            bills the sum of these over the period; other charge models ignore it.
-    """
+    """ 
+        Attributes:
+            subscription_id (UUID):
+            customer_id (UUID):
+            dimension (str):
+            quantity (int):
+            properties (RecordUsageEventBodyProperties | Unset): Optional free-form attributes (max 20; keys ≤100 chars,
+                values ≤255). The `unique` billable-metric aggregation counts distinct values of one property.
+            transaction_id (str | Unset): Optional idempotency key: a retried event with the same (subscription,
+                transaction_id) collapses to the original (200 with status "duplicate" and the original event_id).
+            dynamic_amount (int | Unset): Optional per-event exact price in minor units (non-negative). A `dynamic` charge
+                bills the sum of these over the period; other charge models ignore it.
+     """
 
     subscription_id: UUID
     customer_id: UUID
@@ -41,7 +48,12 @@ class RecordUsageEventBody:
     dynamic_amount: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.record_usage_event_body_properties import RecordUsageEventBodyProperties
         subscription_id = str(self.subscription_id)
 
         customer_id = str(self.customer_id)
@@ -58,16 +70,15 @@ class RecordUsageEventBody:
 
         dynamic_amount = self.dynamic_amount
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "subscription_id": subscription_id,
-                "customer_id": customer_id,
-                "dimension": dimension,
-                "quantity": quantity,
-            }
-        )
+        field_dict.update({
+            "subscription_id": subscription_id,
+            "customer_id": customer_id,
+            "dimension": dimension,
+            "quantity": quantity,
+        })
         if properties is not UNSET:
             field_dict["properties"] = properties
         if transaction_id is not UNSET:
@@ -77,14 +88,21 @@ class RecordUsageEventBody:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.record_usage_event_body_properties import RecordUsageEventBodyProperties
-
         d = dict(src_dict)
         subscription_id = UUID(d.pop("subscription_id"))
 
+
+
+
         customer_id = UUID(d.pop("customer_id"))
+
+
+
 
         dimension = d.pop("dimension")
 
@@ -92,10 +110,13 @@ class RecordUsageEventBody:
 
         _properties = d.pop("properties", UNSET)
         properties: RecordUsageEventBodyProperties | Unset
-        if isinstance(_properties, Unset):
+        if isinstance(_properties,  Unset):
             properties = UNSET
         else:
             properties = RecordUsageEventBodyProperties.from_dict(_properties)
+
+
+
 
         transaction_id = d.pop("transaction_id", UNSET)
 
@@ -110,6 +131,7 @@ class RecordUsageEventBody:
             transaction_id=transaction_id,
             dynamic_amount=dynamic_amount,
         )
+
 
         record_usage_event_body.additional_properties = d
         return record_usage_event_body

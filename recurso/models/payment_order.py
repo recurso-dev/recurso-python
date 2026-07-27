@@ -1,32 +1,44 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="PaymentOrder")
+
 
 
 @_attrs_define
 class PaymentOrder:
-    """Gateway payment order. Field names are capitalized because the gateway port struct is serialized verbatim.
+    """ Gateway payment order. Field names are capitalized because the gateway port struct is serialized verbatim.
 
-    Attributes:
-        id (str | Unset): Gateway order ID.
-        amount (int | Unset): Amount in the lowest currency unit.
-        currency (str | Unset):
-        receipt (str | Unset): Receipt reference (the invoice number).
-    """
+        Attributes:
+            id (str | Unset): Gateway order ID.
+            amount (int | Unset): Amount in the lowest currency unit.
+            currency (str | Unset):
+            receipt (str | Unset): Receipt reference (the invoice number).
+     """
 
     id: str | Unset = UNSET
     amount: int | Unset = UNSET
     currency: str | Unset = UNSET
     receipt: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
@@ -37,9 +49,11 @@ class PaymentOrder:
 
         receipt = self.receipt
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["ID"] = id
         if amount is not UNSET:
@@ -50,6 +64,8 @@ class PaymentOrder:
             field_dict["Receipt"] = receipt
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -68,6 +84,7 @@ class PaymentOrder:
             currency=currency,
             receipt=receipt,
         )
+
 
         payment_order.additional_properties = d
         return payment_order

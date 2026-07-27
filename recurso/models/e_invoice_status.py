@@ -1,33 +1,42 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
+
 T = TypeVar("T", bound="EInvoiceStatus")
+
 
 
 @_attrs_define
 class EInvoiceStatus:
-    """
-    Attributes:
-        invoice_id (UUID | Unset):
-        invoice_number (str | Unset):
-        e_invoice_status (str | Unset):
-        irn (str | Unset):
-        ack_no (str | Unset):
-        ack_date (str | Unset):
-        signed_qr_code (str | Unset):
-        retry_count (int | Unset):
-        next_retry_at (datetime.datetime | None | Unset):
-        error_message (str | Unset):
-    """
+    """ 
+        Attributes:
+            invoice_id (UUID | Unset):
+            invoice_number (str | Unset):
+            e_invoice_status (str | Unset):
+            irn (str | Unset):
+            ack_no (str | Unset):
+            ack_date (str | Unset):
+            signed_qr_code (str | Unset):
+            retry_count (int | Unset):
+            next_retry_at (datetime.datetime | None | Unset):
+            error_message (str | Unset):
+     """
 
     invoice_id: UUID | Unset = UNSET
     invoice_number: str | Unset = UNSET
@@ -40,6 +49,10 @@ class EInvoiceStatus:
     next_retry_at: datetime.datetime | None | Unset = UNSET
     error_message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         invoice_id: str | Unset = UNSET
@@ -70,9 +83,11 @@ class EInvoiceStatus:
 
         error_message = self.error_message
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if invoice_id is not UNSET:
             field_dict["invoice_id"] = invoice_id
         if invoice_number is not UNSET:
@@ -96,15 +111,20 @@ class EInvoiceStatus:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _invoice_id = d.pop("invoice_id", UNSET)
         invoice_id: UUID | Unset
-        if isinstance(_invoice_id, Unset):
+        if isinstance(_invoice_id,  Unset):
             invoice_id = UNSET
         else:
             invoice_id = UUID(_invoice_id)
+
+
+
 
         invoice_number = d.pop("invoice_number", UNSET)
 
@@ -130,12 +150,15 @@ class EInvoiceStatus:
                     raise TypeError()
                 next_retry_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return next_retry_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         next_retry_at = _parse_next_retry_at(d.pop("next_retry_at", UNSET))
+
 
         error_message = d.pop("error_message", UNSET)
 
@@ -151,6 +174,7 @@ class EInvoiceStatus:
             next_retry_at=next_retry_at,
             error_message=error_message,
         )
+
 
         e_invoice_status.additional_properties = d
         return e_invoice_status

@@ -1,49 +1,60 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.billing_address import BillingAddress
-    from ..models.customer_risk_factors_type_0 import CustomerRiskFactorsType0
+  from ..models.billing_address import BillingAddress
+  from ..models.customer_risk_factors_type_0 import CustomerRiskFactorsType0
+
+
+
 
 
 T = TypeVar("T", bound="Customer")
 
 
+
 @_attrs_define
 class Customer:
-    """
-    Attributes:
-        id (UUID | Unset):
-        tenant_id (UUID | Unset):
-        email (str | Unset):
-        name (None | str | Unset):
-        phone (str | Unset):
-        tax_id (None | str | Unset):
-        billing_address (BillingAddress | Unset):
-        ledger_account_id (UUID | Unset):
-        gstin (None | str | Unset):
-        tax_type (str | Unset):
-        place_of_supply (None | str | Unset):
-        referral_code (None | str | Unset):
-        risk_score (int | Unset):
-        risk_factors (CustomerRiskFactorsType0 | None | Unset):
-        card_brand (str | Unset):
-        card_last4 (str | Unset):
-        card_exp_month (int | Unset):
-        card_exp_year (int | Unset):
-        card_token_id (str | Unset):
-        card_fingerprint (str | Unset):
-        created_at (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            tenant_id (UUID | Unset):
+            email (str | Unset):
+            name (None | str | Unset):
+            phone (str | Unset):
+            tax_id (None | str | Unset):
+            billing_address (BillingAddress | Unset):
+            ledger_account_id (UUID | Unset):
+            gstin (None | str | Unset):
+            tax_type (str | Unset):
+            place_of_supply (None | str | Unset):
+            tax_exempt (bool | Unset):
+            tax_exemption_number (str | Unset):
+            tax_exemption_code (str | Unset):
+            tax_exemption_expires_at (datetime.date | None | Unset):
+            referral_code (None | str | Unset):
+            risk_score (int | Unset):
+            risk_factors (CustomerRiskFactorsType0 | None | Unset):
+            card_brand (str | Unset):
+            card_last4 (str | Unset):
+            card_exp_month (int | Unset):
+            card_exp_year (int | Unset):
+            card_token_id (str | Unset):
+            card_fingerprint (str | Unset):
+            created_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -56,6 +67,10 @@ class Customer:
     gstin: None | str | Unset = UNSET
     tax_type: str | Unset = UNSET
     place_of_supply: None | str | Unset = UNSET
+    tax_exempt: bool | Unset = UNSET
+    tax_exemption_number: str | Unset = UNSET
+    tax_exemption_code: str | Unset = UNSET
+    tax_exemption_expires_at: datetime.date | None | Unset = UNSET
     referral_code: None | str | Unset = UNSET
     risk_score: int | Unset = UNSET
     risk_factors: CustomerRiskFactorsType0 | None | Unset = UNSET
@@ -68,9 +83,13 @@ class Customer:
     created_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> dict[str, Any]:
-        from ..models.customer_risk_factors_type_0 import CustomerRiskFactorsType0
 
+
+
+
+    def to_dict(self) -> dict[str, Any]:
+        from ..models.billing_address import BillingAddress
+        from ..models.customer_risk_factors_type_0 import CustomerRiskFactorsType0
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
@@ -117,6 +136,20 @@ class Customer:
         else:
             place_of_supply = self.place_of_supply
 
+        tax_exempt = self.tax_exempt
+
+        tax_exemption_number = self.tax_exemption_number
+
+        tax_exemption_code = self.tax_exemption_code
+
+        tax_exemption_expires_at: None | str | Unset
+        if isinstance(self.tax_exemption_expires_at, Unset):
+            tax_exemption_expires_at = UNSET
+        elif isinstance(self.tax_exemption_expires_at, datetime.date):
+            tax_exemption_expires_at = self.tax_exemption_expires_at.isoformat()
+        else:
+            tax_exemption_expires_at = self.tax_exemption_expires_at
+
         referral_code: None | str | Unset
         if isinstance(self.referral_code, Unset):
             referral_code = UNSET
@@ -149,9 +182,11 @@ class Customer:
         if not isinstance(self.created_at, Unset):
             created_at = self.created_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -174,6 +209,14 @@ class Customer:
             field_dict["tax_type"] = tax_type
         if place_of_supply is not UNSET:
             field_dict["place_of_supply"] = place_of_supply
+        if tax_exempt is not UNSET:
+            field_dict["tax_exempt"] = tax_exempt
+        if tax_exemption_number is not UNSET:
+            field_dict["tax_exemption_number"] = tax_exemption_number
+        if tax_exemption_code is not UNSET:
+            field_dict["tax_exemption_code"] = tax_exemption_code
+        if tax_exemption_expires_at is not UNSET:
+            field_dict["tax_exemption_expires_at"] = tax_exemption_expires_at
         if referral_code is not UNSET:
             field_dict["referral_code"] = referral_code
         if risk_score is not UNSET:
@@ -197,25 +240,32 @@ class Customer:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.billing_address import BillingAddress
         from ..models.customer_risk_factors_type_0 import CustomerRiskFactorsType0
-
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
+
+
+
 
         email = d.pop("email", UNSET)
 
@@ -228,6 +278,7 @@ class Customer:
 
         name = _parse_name(d.pop("name", UNSET))
 
+
         phone = d.pop("phone", UNSET)
 
         def _parse_tax_id(data: object) -> None | str | Unset:
@@ -239,19 +290,26 @@ class Customer:
 
         tax_id = _parse_tax_id(d.pop("tax_id", UNSET))
 
+
         _billing_address = d.pop("billing_address", UNSET)
         billing_address: BillingAddress | Unset
-        if isinstance(_billing_address, Unset):
+        if isinstance(_billing_address,  Unset):
             billing_address = UNSET
         else:
             billing_address = BillingAddress.from_dict(_billing_address)
 
+
+
+
         _ledger_account_id = d.pop("ledger_account_id", UNSET)
         ledger_account_id: UUID | Unset
-        if isinstance(_ledger_account_id, Unset):
+        if isinstance(_ledger_account_id,  Unset):
             ledger_account_id = UNSET
         else:
             ledger_account_id = UUID(_ledger_account_id)
+
+
+
 
         def _parse_gstin(data: object) -> None | str | Unset:
             if data is None:
@@ -261,6 +319,7 @@ class Customer:
             return cast(None | str | Unset, data)
 
         gstin = _parse_gstin(d.pop("gstin", UNSET))
+
 
         tax_type = d.pop("tax_type", UNSET)
 
@@ -273,6 +332,33 @@ class Customer:
 
         place_of_supply = _parse_place_of_supply(d.pop("place_of_supply", UNSET))
 
+
+        tax_exempt = d.pop("tax_exempt", UNSET)
+
+        tax_exemption_number = d.pop("tax_exemption_number", UNSET)
+
+        tax_exemption_code = d.pop("tax_exemption_code", UNSET)
+
+        def _parse_tax_exemption_expires_at(data: object) -> datetime.date | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                tax_exemption_expires_at_type_0 = datetime.date.fromisoformat(data)
+
+
+
+                return tax_exemption_expires_at_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.date | None | Unset, data)
+
+        tax_exemption_expires_at = _parse_tax_exemption_expires_at(d.pop("tax_exemption_expires_at", UNSET))
+
+
         def _parse_referral_code(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -281,6 +367,7 @@ class Customer:
             return cast(None | str | Unset, data)
 
         referral_code = _parse_referral_code(d.pop("referral_code", UNSET))
+
 
         risk_score = d.pop("risk_score", UNSET)
 
@@ -294,12 +381,15 @@ class Customer:
                     raise TypeError()
                 risk_factors_type_0 = CustomerRiskFactorsType0.from_dict(data)
 
+
+
                 return risk_factors_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(CustomerRiskFactorsType0 | None | Unset, data)
 
         risk_factors = _parse_risk_factors(d.pop("risk_factors", UNSET))
+
 
         card_brand = d.pop("card_brand", UNSET)
 
@@ -315,10 +405,13 @@ class Customer:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
+
+
+
 
         customer = cls(
             id=id,
@@ -332,6 +425,10 @@ class Customer:
             gstin=gstin,
             tax_type=tax_type,
             place_of_supply=place_of_supply,
+            tax_exempt=tax_exempt,
+            tax_exemption_number=tax_exemption_number,
+            tax_exemption_code=tax_exemption_code,
+            tax_exemption_expires_at=tax_exemption_expires_at,
             referral_code=referral_code,
             risk_score=risk_score,
             risk_factors=risk_factors,
@@ -343,6 +440,7 @@ class Customer:
             card_fingerprint=card_fingerprint,
             created_at=created_at,
         )
+
 
         customer.additional_properties = d
         return customer

@@ -1,33 +1,40 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.fx_snapshot import FXSnapshot
-    from ..models.mrr_currency_breakdown import MRRCurrencyBreakdown
+  from ..models.fx_snapshot import FXSnapshot
+  from ..models.mrr_currency_breakdown import MRRCurrencyBreakdown
+
+
+
 
 
 T = TypeVar("T", bound="MRRMetrics")
 
 
+
 @_attrs_define
 class MRRMetrics:
-    """
-    Attributes:
-        currency (str | Unset): The reporting currency.
-        amount (int | Unset): FX-normalized MRR total in the reporting currency, minor units.
-        mrr (int | Unset): Alias of the normalized total.
-        normalized_mrr (int | Unset):
-        reporting_currency (str | Unset):
-        breakdown (list[MRRCurrencyBreakdown] | Unset):
-        fx (FXSnapshot | Unset):
-    """
+    """ 
+        Attributes:
+            currency (str | Unset): The reporting currency.
+            amount (int | Unset): FX-normalized MRR total in the reporting currency, minor units.
+            mrr (int | Unset): Alias of the normalized total.
+            normalized_mrr (int | Unset):
+            reporting_currency (str | Unset):
+            breakdown (list[MRRCurrencyBreakdown] | Unset):
+            fx (FXSnapshot | Unset):
+     """
 
     currency: str | Unset = UNSET
     amount: int | Unset = UNSET
@@ -38,7 +45,13 @@ class MRRMetrics:
     fx: FXSnapshot | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.fx_snapshot import FXSnapshot
+        from ..models.mrr_currency_breakdown import MRRCurrencyBreakdown
         currency = self.currency
 
         amount = self.amount
@@ -56,13 +69,17 @@ class MRRMetrics:
                 breakdown_item = breakdown_item_data.to_dict()
                 breakdown.append(breakdown_item)
 
+
+
         fx: dict[str, Any] | Unset = UNSET
         if not isinstance(self.fx, Unset):
             fx = self.fx.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if currency is not UNSET:
             field_dict["currency"] = currency
         if amount is not UNSET:
@@ -80,11 +97,12 @@ class MRRMetrics:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.fx_snapshot import FXSnapshot
         from ..models.mrr_currency_breakdown import MRRCurrencyBreakdown
-
         d = dict(src_dict)
         currency = d.pop("currency", UNSET)
 
@@ -103,14 +121,20 @@ class MRRMetrics:
             for breakdown_item_data in _breakdown:
                 breakdown_item = MRRCurrencyBreakdown.from_dict(breakdown_item_data)
 
+
+
                 breakdown.append(breakdown_item)
+
 
         _fx = d.pop("fx", UNSET)
         fx: FXSnapshot | Unset
-        if isinstance(_fx, Unset):
+        if isinstance(_fx,  Unset):
             fx = UNSET
         else:
             fx = FXSnapshot.from_dict(_fx)
+
+
+
 
         mrr_metrics = cls(
             currency=currency,
@@ -121,6 +145,7 @@ class MRRMetrics:
             breakdown=breakdown,
             fx=fx,
         )
+
 
         mrr_metrics.additional_properties = d
         return mrr_metrics

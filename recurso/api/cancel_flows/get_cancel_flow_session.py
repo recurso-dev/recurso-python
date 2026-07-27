@@ -1,51 +1,66 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.cancel_flow_session import CancelFlowSession
 from ...models.error import Error
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     id: UUID,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/cancel-flows/sessions/{id}".format(
-            id=quote(str(id), safe=""),
-        ),
+        "url": "/v1/cancel-flows/sessions/{id}".format(id=quote(str(id), safe=""),),
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> CancelFlowSession | Error | None:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> CancelFlowSession | Error | None:
     if response.status_code == 200:
         response_200 = CancelFlowSession.from_dict(response.json())
+
+
 
         return response_200
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
+
+
         return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
+
+
         return response_401
 
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
+
+
 
         return response_404
 
@@ -55,9 +70,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[CancelFlowSession | Error]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[CancelFlowSession | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,8 +83,9 @@ def sync_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[CancelFlowSession | Error]:
-    """Retrieve a cancel flow session
+    """ Retrieve a cancel flow session
 
     Args:
         id (UUID):
@@ -82,10 +96,12 @@ def sync_detailed(
 
     Returns:
         Response[CancelFlowSession | Error]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         id=id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -94,13 +110,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> CancelFlowSession | Error | None:
-    """Retrieve a cancel flow session
+    """ Retrieve a cancel flow session
 
     Args:
         id (UUID):
@@ -111,20 +127,22 @@ def sync(
 
     Returns:
         CancelFlowSession | Error
-    """
+     """
+
 
     return sync_detailed(
         id=id,
-        client=client,
-    ).parsed
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[CancelFlowSession | Error]:
-    """Retrieve a cancel flow session
+    """ Retrieve a cancel flow session
 
     Args:
         id (UUID):
@@ -135,23 +153,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[CancelFlowSession | Error]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         id=id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> CancelFlowSession | Error | None:
-    """Retrieve a cancel flow session
+    """ Retrieve a cancel flow session
 
     Args:
         id (UUID):
@@ -162,11 +184,11 @@ async def asyncio(
 
     Returns:
         CancelFlowSession | Error
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            id=id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        id=id,
+client=client,
+
+    )).parsed

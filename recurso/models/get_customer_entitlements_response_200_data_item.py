@@ -1,30 +1,37 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.get_customer_entitlements_response_200_data_item_kind import (
-    GetCustomerEntitlementsResponse200DataItemKind,
-)
 from ..types import UNSET, Unset
+
+from ..models.get_customer_entitlements_response_200_data_item_kind import GetCustomerEntitlementsResponse200DataItemKind
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
+
+
+
+
 
 T = TypeVar("T", bound="GetCustomerEntitlementsResponse200DataItem")
 
 
+
 @_attrs_define
 class GetCustomerEntitlementsResponse200DataItem:
-    """
-    Attributes:
-        feature_key (str | Unset):
-        kind (GetCustomerEntitlementsResponse200DataItemKind | Unset):
-        bool_value (bool | None | Unset):
-        limit_value (int | None | Unset):
-        plan_ids (list[UUID] | Unset):
-    """
+    """ 
+        Attributes:
+            feature_key (str | Unset):
+            kind (GetCustomerEntitlementsResponse200DataItemKind | Unset):
+            bool_value (bool | None | Unset):
+            limit_value (int | None | Unset):
+            plan_ids (list[UUID] | Unset):
+     """
 
     feature_key: str | Unset = UNSET
     kind: GetCustomerEntitlementsResponse200DataItemKind | Unset = UNSET
@@ -33,12 +40,17 @@ class GetCustomerEntitlementsResponse200DataItem:
     plan_ids: list[UUID] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         feature_key = self.feature_key
 
         kind: str | Unset = UNSET
         if not isinstance(self.kind, Unset):
             kind = self.kind.value
+
 
         bool_value: bool | None | Unset
         if isinstance(self.bool_value, Unset):
@@ -59,9 +71,13 @@ class GetCustomerEntitlementsResponse200DataItem:
                 plan_ids_item = str(plan_ids_item_data)
                 plan_ids.append(plan_ids_item)
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if feature_key is not UNSET:
             field_dict["feature_key"] = feature_key
         if kind is not UNSET:
@@ -75,6 +91,8 @@ class GetCustomerEntitlementsResponse200DataItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -82,10 +100,13 @@ class GetCustomerEntitlementsResponse200DataItem:
 
         _kind = d.pop("kind", UNSET)
         kind: GetCustomerEntitlementsResponse200DataItemKind | Unset
-        if isinstance(_kind, Unset):
+        if isinstance(_kind,  Unset):
             kind = UNSET
         else:
             kind = GetCustomerEntitlementsResponse200DataItemKind(_kind)
+
+
+
 
         def _parse_bool_value(data: object) -> bool | None | Unset:
             if data is None:
@@ -96,6 +117,7 @@ class GetCustomerEntitlementsResponse200DataItem:
 
         bool_value = _parse_bool_value(d.pop("bool_value", UNSET))
 
+
         def _parse_limit_value(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -105,6 +127,7 @@ class GetCustomerEntitlementsResponse200DataItem:
 
         limit_value = _parse_limit_value(d.pop("limit_value", UNSET))
 
+
         _plan_ids = d.pop("plan_ids", UNSET)
         plan_ids: list[UUID] | Unset = UNSET
         if _plan_ids is not UNSET:
@@ -112,7 +135,10 @@ class GetCustomerEntitlementsResponse200DataItem:
             for plan_ids_item_data in _plan_ids:
                 plan_ids_item = UUID(plan_ids_item_data)
 
+
+
                 plan_ids.append(plan_ids_item)
+
 
         get_customer_entitlements_response_200_data_item = cls(
             feature_key=feature_key,
@@ -121,6 +147,7 @@ class GetCustomerEntitlementsResponse200DataItem:
             limit_value=limit_value,
             plan_ids=plan_ids,
         )
+
 
         get_customer_entitlements_response_200_data_item.additional_properties = d
         return get_customer_entitlements_response_200_data_item

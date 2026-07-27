@@ -1,44 +1,62 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.health_response_components_additional_property import HealthResponseComponentsAdditionalProperty
+  from ..models.health_response_components_additional_property import HealthResponseComponentsAdditionalProperty
+
+
+
 
 
 T = TypeVar("T", bound="HealthResponseComponents")
 
 
+
 @_attrs_define
 class HealthResponseComponents:
-    """ """
+    """ 
+     """
 
-    additional_properties: dict[str, HealthResponseComponentsAdditionalProperty] = _attrs_field(
-        init=False, factory=dict
-    )
+    additional_properties: dict[str, HealthResponseComponentsAdditionalProperty] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
-
+        from ..models.health_response_components_additional_property import HealthResponseComponentsAdditionalProperty
+        
         field_dict: dict[str, Any] = {}
         for prop_name, prop in self.additional_properties.items():
             field_dict[prop_name] = prop.to_dict()
 
+
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.health_response_components_additional_property import HealthResponseComponentsAdditionalProperty
-
         d = dict(src_dict)
-        health_response_components = cls()
+        health_response_components = cls(
+        )
+
 
         additional_properties = {}
         for prop_name, prop_dict in d.items():
             additional_property = HealthResponseComponentsAdditionalProperty.from_dict(prop_dict)
+
+
 
             additional_properties[prop_name] = additional_property
 

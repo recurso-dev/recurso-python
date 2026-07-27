@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class WalletTransactionSource(str, Enum):
     AUTO_RECHARGE = "auto_recharge"
     MANUAL = "manual"

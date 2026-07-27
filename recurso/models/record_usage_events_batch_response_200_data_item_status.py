@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RecordUsageEventsBatchResponse200DataItemStatus(str, Enum):
     DUPLICATE = "duplicate"
     ERROR = "error"

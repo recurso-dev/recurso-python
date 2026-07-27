@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class EntitlementKind(str, Enum):
     BOOLEAN = "boolean"
     LIMIT = "limit"

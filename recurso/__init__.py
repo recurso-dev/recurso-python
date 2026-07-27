@@ -1,5 +1,5 @@
-"""A client library for accessing Recurso API"""
 
+""" A client library for accessing Recurso API """
 from .client import AuthenticatedClient, Client
 
 __all__ = (

@@ -1,36 +1,45 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.gift_status import GiftStatus
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
 
 T = TypeVar("T", bound="Gift")
 
 
+
 @_attrs_define
 class Gift:
-    """
-    Attributes:
-        id (UUID | Unset):
-        tenant_id (UUID | Unset):
-        code (str | Unset): Redemption code.
-        plan_id (UUID | Unset):
-        buyer_customer_id (UUID | Unset):
-        recipient_email (str | Unset):
-        status (GiftStatus | Unset):
-        redeemed_by_customer_id (None | Unset | UUID):
-        redeemed_at (datetime.datetime | None | Unset):
-        duration_months (int | Unset):
-        created_at (datetime.datetime | Unset):
-        updated_at (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            tenant_id (UUID | Unset):
+            code (str | Unset): Redemption code.
+            plan_id (UUID | Unset):
+            buyer_customer_id (UUID | Unset):
+            recipient_email (str | Unset):
+            status (GiftStatus | Unset):
+            redeemed_by_customer_id (None | Unset | UUID):
+            redeemed_at (datetime.datetime | None | Unset):
+            duration_months (int | Unset):
+            created_at (datetime.datetime | Unset):
+            updated_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -45,6 +54,10 @@ class Gift:
     created_at: datetime.datetime | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -70,6 +83,7 @@ class Gift:
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
+
 
         redeemed_by_customer_id: None | str | Unset
         if isinstance(self.redeemed_by_customer_id, Unset):
@@ -97,9 +111,11 @@ class Gift:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -127,47 +143,64 @@ class Gift:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
+
+
+
 
         code = d.pop("code", UNSET)
 
         _plan_id = d.pop("plan_id", UNSET)
         plan_id: UUID | Unset
-        if isinstance(_plan_id, Unset):
+        if isinstance(_plan_id,  Unset):
             plan_id = UNSET
         else:
             plan_id = UUID(_plan_id)
 
+
+
+
         _buyer_customer_id = d.pop("buyer_customer_id", UNSET)
         buyer_customer_id: UUID | Unset
-        if isinstance(_buyer_customer_id, Unset):
+        if isinstance(_buyer_customer_id,  Unset):
             buyer_customer_id = UNSET
         else:
             buyer_customer_id = UUID(_buyer_customer_id)
+
+
+
 
         recipient_email = d.pop("recipient_email", UNSET)
 
         _status = d.pop("status", UNSET)
         status: GiftStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = GiftStatus(_status)
+
+
+
 
         def _parse_redeemed_by_customer_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -179,12 +212,15 @@ class Gift:
                     raise TypeError()
                 redeemed_by_customer_id_type_0 = UUID(data)
 
+
+
                 return redeemed_by_customer_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         redeemed_by_customer_id = _parse_redeemed_by_customer_id(d.pop("redeemed_by_customer_id", UNSET))
+
 
         def _parse_redeemed_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -196,6 +232,8 @@ class Gift:
                     raise TypeError()
                 redeemed_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return redeemed_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -203,21 +241,28 @@ class Gift:
 
         redeemed_at = _parse_redeemed_at(d.pop("redeemed_at", UNSET))
 
+
         duration_months = d.pop("duration_months", UNSET)
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
+
+
+
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at, Unset):
+        if isinstance(_updated_at,  Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
+
+
+
 
         gift = cls(
             id=id,
@@ -233,6 +278,7 @@ class Gift:
             created_at=created_at,
             updated_at=updated_at,
         )
+
 
         gift.additional_properties = d
         return gift

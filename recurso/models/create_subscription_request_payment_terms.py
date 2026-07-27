@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class CreateSubscriptionRequestPaymentTerms(str, Enum):
     NET0 = "net0"
     NET15 = "net15"

@@ -4,25 +4,34 @@ from urllib.parse import quote
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.error import Error
 from ...models.get_auth_oauth_provider_start_provider import GetAuthOauthProviderStartProvider
-from ...types import Response
+from typing import cast
+
 
 
 def _get_kwargs(
     provider: GetAuthOauthProviderStartProvider,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/auth/oauth/{provider}/start".format(
-            provider=quote(str(provider), safe=""),
-        ),
+        "url": "/auth/oauth/{provider}/start".format(provider=quote(str(provider), safe=""),),
     }
 
+
     return _kwargs
+
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | None:
@@ -32,6 +41,8 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
+
+
 
         return response_404
 
@@ -54,8 +65,9 @@ def sync_detailed(
     provider: GetAuthOauthProviderStartProvider,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[Any | Error]:
-    """Begin an OAuth login (redirect to the provider)
+    """ Begin an OAuth login (redirect to the provider)
 
      Generates a CSRF `state` and a PKCE verifier, binds them into a short-lived signed httpOnly cookie
     (`recurso_oauth_state`, scoped to /auth/oauth), and 302-redirects to the provider's authorize URL.
@@ -70,10 +82,12 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         provider=provider,
+
     )
 
     response = client.get_httpx_client().request(
@@ -82,13 +96,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     provider: GetAuthOauthProviderStartProvider,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Any | Error | None:
-    """Begin an OAuth login (redirect to the provider)
+    """ Begin an OAuth login (redirect to the provider)
 
      Generates a CSRF `state` and a PKCE verifier, binds them into a short-lived signed httpOnly cookie
     (`recurso_oauth_state`, scoped to /auth/oauth), and 302-redirects to the provider's authorize URL.
@@ -103,20 +117,22 @@ def sync(
 
     Returns:
         Any | Error
-    """
+     """
+
 
     return sync_detailed(
         provider=provider,
-        client=client,
-    ).parsed
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     provider: GetAuthOauthProviderStartProvider,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[Any | Error]:
-    """Begin an OAuth login (redirect to the provider)
+    """ Begin an OAuth login (redirect to the provider)
 
      Generates a CSRF `state` and a PKCE verifier, binds them into a short-lived signed httpOnly cookie
     (`recurso_oauth_state`, scoped to /auth/oauth), and 302-redirects to the provider's authorize URL.
@@ -131,23 +147,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         provider=provider,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     provider: GetAuthOauthProviderStartProvider,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Any | Error | None:
-    """Begin an OAuth login (redirect to the provider)
+    """ Begin an OAuth login (redirect to the provider)
 
      Generates a CSRF `state` and a PKCE verifier, binds them into a short-lived signed httpOnly cookie
     (`recurso_oauth_state`, scoped to /auth/oauth), and 302-redirects to the provider's authorize URL.
@@ -162,11 +182,11 @@ async def asyncio(
 
     Returns:
         Any | Error
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            provider=provider,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        provider=provider,
+client=client,
+
+    )).parsed

@@ -1,21 +1,30 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
+
 T = TypeVar("T", bound="SubscriptionAddon")
+
 
 
 @_attrs_define
 class SubscriptionAddon:
-    """An existing plan attached to a subscription with a quantity (Multi-product catalog v1). Billed as an extra line —
+    """ An existing plan attached to a subscription with a quantity (Multi-product catalog v1). Billed as an extra line —
     add-on plan price × quantity, taxed independently — from the subscription's next recurring invoice.
 
         Attributes:
@@ -25,7 +34,7 @@ class SubscriptionAddon:
             plan_id (UUID | Unset): The plan billed as an add-on.
             quantity (int | Unset): Number of add-on units billed each period.
             created_at (datetime.datetime | Unset):
-    """
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -34,6 +43,10 @@ class SubscriptionAddon:
     quantity: int | Unset = UNSET
     created_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -58,9 +71,11 @@ class SubscriptionAddon:
         if not isinstance(self.created_at, Unset):
             created_at = self.created_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -76,45 +91,62 @@ class SubscriptionAddon:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
+
+
+
         _subscription_id = d.pop("subscription_id", UNSET)
         subscription_id: UUID | Unset
-        if isinstance(_subscription_id, Unset):
+        if isinstance(_subscription_id,  Unset):
             subscription_id = UNSET
         else:
             subscription_id = UUID(_subscription_id)
 
+
+
+
         _plan_id = d.pop("plan_id", UNSET)
         plan_id: UUID | Unset
-        if isinstance(_plan_id, Unset):
+        if isinstance(_plan_id,  Unset):
             plan_id = UNSET
         else:
             plan_id = UUID(_plan_id)
+
+
+
 
         quantity = d.pop("quantity", UNSET)
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
+
+
+
 
         subscription_addon = cls(
             id=id,
@@ -124,6 +156,7 @@ class SubscriptionAddon:
             quantity=quantity,
             created_at=created_at,
         )
+
 
         subscription_addon.additional_properties = d
         return subscription_addon

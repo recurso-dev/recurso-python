@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class ConsentConsentType(str, Enum):
     DATA_PROCESSING = "data_processing"
     EMAIL_MARKETING = "email_marketing"

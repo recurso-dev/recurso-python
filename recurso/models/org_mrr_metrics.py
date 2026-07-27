@@ -1,30 +1,37 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.currency_mrr import CurrencyMRR
-    from ..models.fx_snapshot import FXSnapshot
+  from ..models.currency_mrr import CurrencyMRR
+  from ..models.fx_snapshot import FXSnapshot
+
+
+
 
 
 T = TypeVar("T", bound="OrgMRRMetrics")
 
 
+
 @_attrs_define
 class OrgMRRMetrics:
-    """
-    Attributes:
-        by_currency (list[CurrencyMRR] | Unset):
-        normalized_mrr (int | Unset):
-        reporting_currency (str | Unset):
-        fx (FXSnapshot | Unset):
-    """
+    """ 
+        Attributes:
+            by_currency (list[CurrencyMRR] | Unset):
+            normalized_mrr (int | Unset):
+            reporting_currency (str | Unset):
+            fx (FXSnapshot | Unset):
+     """
 
     by_currency: list[CurrencyMRR] | Unset = UNSET
     normalized_mrr: int | Unset = UNSET
@@ -32,13 +39,21 @@ class OrgMRRMetrics:
     fx: FXSnapshot | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.currency_mrr import CurrencyMRR
+        from ..models.fx_snapshot import FXSnapshot
         by_currency: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.by_currency, Unset):
             by_currency = []
             for by_currency_item_data in self.by_currency:
                 by_currency_item = by_currency_item_data.to_dict()
                 by_currency.append(by_currency_item)
+
+
 
         normalized_mrr = self.normalized_mrr
 
@@ -48,9 +63,11 @@ class OrgMRRMetrics:
         if not isinstance(self.fx, Unset):
             fx = self.fx.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if by_currency is not UNSET:
             field_dict["by_currency"] = by_currency
         if normalized_mrr is not UNSET:
@@ -62,11 +79,12 @@ class OrgMRRMetrics:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.currency_mrr import CurrencyMRR
         from ..models.fx_snapshot import FXSnapshot
-
         d = dict(src_dict)
         _by_currency = d.pop("by_currency", UNSET)
         by_currency: list[CurrencyMRR] | Unset = UNSET
@@ -75,7 +93,10 @@ class OrgMRRMetrics:
             for by_currency_item_data in _by_currency:
                 by_currency_item = CurrencyMRR.from_dict(by_currency_item_data)
 
+
+
                 by_currency.append(by_currency_item)
+
 
         normalized_mrr = d.pop("normalized_mrr", UNSET)
 
@@ -83,10 +104,13 @@ class OrgMRRMetrics:
 
         _fx = d.pop("fx", UNSET)
         fx: FXSnapshot | Unset
-        if isinstance(_fx, Unset):
+        if isinstance(_fx,  Unset):
             fx = UNSET
         else:
             fx = FXSnapshot.from_dict(_fx)
+
+
+
 
         org_mrr_metrics = cls(
             by_currency=by_currency,
@@ -94,6 +118,7 @@ class OrgMRRMetrics:
             reporting_currency=reporting_currency,
             fx=fx,
         )
+
 
         org_mrr_metrics.additional_properties = d
         return org_mrr_metrics

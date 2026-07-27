@@ -1,21 +1,31 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.error import Error
 from ...models.join_waitlist_body import JoinWaitlistBody
 from ...models.join_waitlist_response_200 import JoinWaitlistResponse200
-from ...types import Response
+from typing import cast
+
 
 
 def _get_kwargs(
     *,
     body: JoinWaitlistBody,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+
+
+    
+
+    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -30,16 +40,19 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | JoinWaitlistResponse200 | None:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | JoinWaitlistResponse200 | None:
     if response.status_code == 200:
         response_200 = JoinWaitlistResponse200.from_dict(response.json())
+
+
 
         return response_200
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
+
+
 
         return response_400
 
@@ -49,9 +62,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | JoinWaitlistResponse200]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | JoinWaitlistResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,8 +75,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: JoinWaitlistBody,
+
 ) -> Response[Error | JoinWaitlistResponse200]:
-    """Join the Recurso Cloud waitlist
+    """ Join the Recurso Cloud waitlist
 
      Public, rate-limited demand capture used by the marketing site. Duplicate emails are deduplicated
     silently; the response never reveals whether an email was already on the list. The `website` field
@@ -80,10 +92,12 @@ def sync_detailed(
 
     Returns:
         Response[Error | JoinWaitlistResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -92,13 +106,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: JoinWaitlistBody,
+
 ) -> Error | JoinWaitlistResponse200 | None:
-    """Join the Recurso Cloud waitlist
+    """ Join the Recurso Cloud waitlist
 
      Public, rate-limited demand capture used by the marketing site. Duplicate emails are deduplicated
     silently; the response never reveals whether an email was already on the list. The `website` field
@@ -113,20 +127,22 @@ def sync(
 
     Returns:
         Error | JoinWaitlistResponse200
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        body=body,
-    ).parsed
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: JoinWaitlistBody,
+
 ) -> Response[Error | JoinWaitlistResponse200]:
-    """Join the Recurso Cloud waitlist
+    """ Join the Recurso Cloud waitlist
 
      Public, rate-limited demand capture used by the marketing site. Duplicate emails are deduplicated
     silently; the response never reveals whether an email was already on the list. The `website` field
@@ -141,23 +157,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | JoinWaitlistResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: JoinWaitlistBody,
+
 ) -> Error | JoinWaitlistResponse200 | None:
-    """Join the Recurso Cloud waitlist
+    """ Join the Recurso Cloud waitlist
 
      Public, rate-limited demand capture used by the marketing site. Duplicate emails are deduplicated
     silently; the response never reveals whether an email was already on the list. The `website` field
@@ -172,11 +192,11 @@ async def asyncio(
 
     Returns:
         Error | JoinWaitlistResponse200
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+body=body,
+
+    )).parsed

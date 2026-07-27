@@ -1,13 +1,18 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.error import Error
 from ...models.list_plans_response_200 import ListPlansResponse200
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+
 
 
 def _get_kwargs(
@@ -15,7 +20,11 @@ def _get_kwargs(
     q: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     page: int | Unset = 1,
+
 ) -> dict[str, Any]:
+    
+
+    
 
     params: dict[str, Any] = {}
 
@@ -25,7 +34,9 @@ def _get_kwargs(
 
     params["page"] = page
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -33,19 +44,23 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | ListPlansResponse200 | None:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | ListPlansResponse200 | None:
     if response.status_code == 200:
         response_200 = ListPlansResponse200.from_dict(response.json())
+
+
 
         return response_200
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
+
+
 
         return response_401
 
@@ -55,9 +70,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | ListPlansResponse200]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | ListPlansResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -72,8 +85,9 @@ def sync_detailed(
     q: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     page: int | Unset = 1,
+
 ) -> Response[Error | ListPlansResponse200]:
-    """List plans
+    """ List plans
 
     Args:
         q (str | Unset):
@@ -86,12 +100,14 @@ def sync_detailed(
 
     Returns:
         Response[Error | ListPlansResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         q=q,
-        limit=limit,
-        page=page,
+limit=limit,
+page=page,
+
     )
 
     response = client.get_httpx_client().request(
@@ -100,15 +116,15 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
     q: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     page: int | Unset = 1,
+
 ) -> Error | ListPlansResponse200 | None:
-    """List plans
+    """ List plans
 
     Args:
         q (str | Unset):
@@ -121,15 +137,16 @@ def sync(
 
     Returns:
         Error | ListPlansResponse200
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        q=q,
-        limit=limit,
-        page=page,
-    ).parsed
+q=q,
+limit=limit,
+page=page,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
@@ -137,8 +154,9 @@ async def asyncio_detailed(
     q: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     page: int | Unset = 1,
+
 ) -> Response[Error | ListPlansResponse200]:
-    """List plans
+    """ List plans
 
     Args:
         q (str | Unset):
@@ -151,18 +169,21 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | ListPlansResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         q=q,
-        limit=limit,
-        page=page,
+limit=limit,
+page=page,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
@@ -170,8 +191,9 @@ async def asyncio(
     q: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     page: int | Unset = 1,
+
 ) -> Error | ListPlansResponse200 | None:
-    """List plans
+    """ List plans
 
     Args:
         q (str | Unset):
@@ -184,13 +206,13 @@ async def asyncio(
 
     Returns:
         Error | ListPlansResponse200
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            q=q,
-            limit=limit,
-            page=page,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+q=q,
+limit=limit,
+page=page,
+
+    )).parsed

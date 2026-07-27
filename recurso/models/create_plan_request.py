@@ -1,30 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.create_plan_request_interval_unit import CreatePlanRequestIntervalUnit
 from ..types import UNSET, Unset
+
+
+
+
+
 
 T = TypeVar("T", bound="CreatePlanRequest")
 
 
+
 @_attrs_define
 class CreatePlanRequest:
-    """
-    Attributes:
-        name (str):
-        code (str): Unique plan code (e.g. `gold-monthly`).
-        interval_unit (CreatePlanRequestIntervalUnit):
-        interval_count (int):
-        amount (int): Price in the lowest currency unit (e.g. cents/paise).
-        currency (str): ISO 4217 code.
-        hsn_code (str | Unset): Optional HSN/SAC code for this plan. Each invoice line for the plan is taxed at this
-            code's GST rate. Empty falls back to the tenant SAC (then the 998314 default).
-    """
+    """ 
+        Attributes:
+            name (str):
+            code (str): Unique plan code (e.g. `gold-monthly`).
+            interval_unit (CreatePlanRequestIntervalUnit):
+            interval_count (int):
+            amount (int): Price in the lowest currency unit (e.g. cents/paise).
+            currency (str): ISO 4217 code.
+            hsn_code (str | Unset): Optional HSN/SAC code for this plan. Each invoice line for the plan is taxed at this
+                code's GST rate. Empty falls back to the tenant SAC (then the 998314 default).
+     """
 
     name: str
     code: str
@@ -34,6 +42,10 @@ class CreatePlanRequest:
     currency: str
     hsn_code: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
@@ -50,22 +62,23 @@ class CreatePlanRequest:
 
         hsn_code = self.hsn_code
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "name": name,
-                "code": code,
-                "interval_unit": interval_unit,
-                "interval_count": interval_count,
-                "amount": amount,
-                "currency": currency,
-            }
-        )
+        field_dict.update({
+            "name": name,
+            "code": code,
+            "interval_unit": interval_unit,
+            "interval_count": interval_count,
+            "amount": amount,
+            "currency": currency,
+        })
         if hsn_code is not UNSET:
             field_dict["hsn_code"] = hsn_code
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -75,6 +88,9 @@ class CreatePlanRequest:
         code = d.pop("code")
 
         interval_unit = CreatePlanRequestIntervalUnit(d.pop("interval_unit"))
+
+
+
 
         interval_count = d.pop("interval_count")
 
@@ -93,6 +109,7 @@ class CreatePlanRequest:
             currency=currency,
             hsn_code=hsn_code,
         )
+
 
         create_plan_request.additional_properties = d
         return create_plan_request

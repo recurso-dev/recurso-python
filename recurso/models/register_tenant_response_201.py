@@ -1,36 +1,49 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.tenant import Tenant
-    from ..models.user import User
+  from ..models.tenant import Tenant
+  from ..models.user import User
+
+
+
 
 
 T = TypeVar("T", bound="RegisterTenantResponse201")
 
 
+
 @_attrs_define
 class RegisterTenantResponse201:
-    """
-    Attributes:
-        tenant (Tenant | Unset):
-        api_key (str | Unset): The raw API key. Store it securely — it is not retrievable later.
-        user (User | Unset): A dashboard user account within a tenant.
-    """
+    """ 
+        Attributes:
+            tenant (Tenant | Unset):
+            api_key (str | Unset): The raw API key. Store it securely — it is not retrievable later.
+            user (User | Unset): A dashboard user account within a tenant.
+     """
 
     tenant: Tenant | Unset = UNSET
     api_key: str | Unset = UNSET
     user: User | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.tenant import Tenant
+        from ..models.user import User
         tenant: dict[str, Any] | Unset = UNSET
         if not isinstance(self.tenant, Unset):
             tenant = self.tenant.to_dict()
@@ -41,9 +54,11 @@ class RegisterTenantResponse201:
         if not isinstance(self.user, Unset):
             user = self.user.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if tenant is not UNSET:
             field_dict["tenant"] = tenant
         if api_key is not UNSET:
@@ -53,33 +68,41 @@ class RegisterTenantResponse201:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.tenant import Tenant
         from ..models.user import User
-
         d = dict(src_dict)
         _tenant = d.pop("tenant", UNSET)
         tenant: Tenant | Unset
-        if isinstance(_tenant, Unset):
+        if isinstance(_tenant,  Unset):
             tenant = UNSET
         else:
             tenant = Tenant.from_dict(_tenant)
+
+
+
 
         api_key = d.pop("api_key", UNSET)
 
         _user = d.pop("user", UNSET)
         user: User | Unset
-        if isinstance(_user, Unset):
+        if isinstance(_user,  Unset):
             user = UNSET
         else:
             user = User.from_dict(_user)
+
+
+
 
         register_tenant_response_201 = cls(
             tenant=tenant,
             api_key=api_key,
             user=user,
         )
+
 
         register_tenant_response_201.additional_properties = d
         return register_tenant_response_201

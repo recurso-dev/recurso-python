@@ -1,32 +1,41 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
+
 T = TypeVar("T", bound="LedgerTransaction")
+
 
 
 @_attrs_define
 class LedgerTransaction:
-    """
-    Attributes:
-        id (UUID | Unset):
-        debit_account_id (UUID | Unset):
-        credit_account_id (UUID | Unset):
-        amount (int | Unset):
-        ledger_id (int | Unset):
-        code (int | Unset): Transfer code (1 = invoice posting, 3 = payment posting).
-        reference_id (UUID | Unset): Invoice or payment ID the transfer references.
-        description (str | Unset):
-        timestamp (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            debit_account_id (UUID | Unset):
+            credit_account_id (UUID | Unset):
+            amount (int | Unset):
+            ledger_id (int | Unset):
+            code (int | Unset): Transfer code (1 = invoice posting, 3 = payment posting).
+            reference_id (UUID | Unset): Invoice or payment ID the transfer references.
+            description (str | Unset):
+            timestamp (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     debit_account_id: UUID | Unset = UNSET
@@ -38,6 +47,10 @@ class LedgerTransaction:
     description: str | Unset = UNSET
     timestamp: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -68,9 +81,11 @@ class LedgerTransaction:
         if not isinstance(self.timestamp, Unset):
             timestamp = self.timestamp.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if debit_account_id is not UNSET:
@@ -92,29 +107,40 @@ class LedgerTransaction:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _debit_account_id = d.pop("debit_account_id", UNSET)
         debit_account_id: UUID | Unset
-        if isinstance(_debit_account_id, Unset):
+        if isinstance(_debit_account_id,  Unset):
             debit_account_id = UNSET
         else:
             debit_account_id = UUID(_debit_account_id)
 
+
+
+
         _credit_account_id = d.pop("credit_account_id", UNSET)
         credit_account_id: UUID | Unset
-        if isinstance(_credit_account_id, Unset):
+        if isinstance(_credit_account_id,  Unset):
             credit_account_id = UNSET
         else:
             credit_account_id = UUID(_credit_account_id)
+
+
+
 
         amount = d.pop("amount", UNSET)
 
@@ -124,19 +150,25 @@ class LedgerTransaction:
 
         _reference_id = d.pop("reference_id", UNSET)
         reference_id: UUID | Unset
-        if isinstance(_reference_id, Unset):
+        if isinstance(_reference_id,  Unset):
             reference_id = UNSET
         else:
             reference_id = UUID(_reference_id)
+
+
+
 
         description = d.pop("description", UNSET)
 
         _timestamp = d.pop("timestamp", UNSET)
         timestamp: datetime.datetime | Unset
-        if isinstance(_timestamp, Unset):
+        if isinstance(_timestamp,  Unset):
             timestamp = UNSET
         else:
             timestamp = datetime.datetime.fromisoformat(_timestamp)
+
+
+
 
         ledger_transaction = cls(
             id=id,
@@ -149,6 +181,7 @@ class LedgerTransaction:
             description=description,
             timestamp=timestamp,
         )
+
 
         ledger_transaction.additional_properties = d
         return ledger_transaction

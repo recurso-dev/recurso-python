@@ -1,35 +1,44 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.accounting_connection_provider import AccountingConnectionProvider
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
 
 T = TypeVar("T", bound="AccountingConnection")
 
 
+
 @_attrs_define
 class AccountingConnection:
-    """OAuth access/refresh tokens are stored server-side and never serialized.
+    """ OAuth access/refresh tokens are stored server-side and never serialized.
 
-    Attributes:
-        id (UUID | Unset):
-        tenant_id (UUID | Unset):
-        provider (AccountingConnectionProvider | Unset):
-        token_expires_at (datetime.datetime | None | Unset):
-        realm_id (str | Unset): QuickBooks company ID / Xero organisation ID.
-        last_sync_at (datetime.datetime | None | Unset):
-        sync_status (str | Unset):
-        last_error (str | Unset):
-        is_active (bool | Unset):
-        created_at (datetime.datetime | Unset):
-    """
+        Attributes:
+            id (UUID | Unset):
+            tenant_id (UUID | Unset):
+            provider (AccountingConnectionProvider | Unset):
+            token_expires_at (datetime.datetime | None | Unset):
+            realm_id (str | Unset): QuickBooks company ID / Xero organisation ID.
+            last_sync_at (datetime.datetime | None | Unset):
+            sync_status (str | Unset):
+            last_error (str | Unset):
+            is_active (bool | Unset):
+            created_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -43,6 +52,10 @@ class AccountingConnection:
     created_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
@@ -55,6 +68,7 @@ class AccountingConnection:
         provider: str | Unset = UNSET
         if not isinstance(self.provider, Unset):
             provider = self.provider.value
+
 
         token_expires_at: None | str | Unset
         if isinstance(self.token_expires_at, Unset):
@@ -84,9 +98,11 @@ class AccountingConnection:
         if not isinstance(self.created_at, Unset):
             created_at = self.created_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -110,29 +126,40 @@ class AccountingConnection:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
+
+
+
         _provider = d.pop("provider", UNSET)
         provider: AccountingConnectionProvider | Unset
-        if isinstance(_provider, Unset):
+        if isinstance(_provider,  Unset):
             provider = UNSET
         else:
             provider = AccountingConnectionProvider(_provider)
+
+
+
 
         def _parse_token_expires_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -144,12 +171,15 @@ class AccountingConnection:
                     raise TypeError()
                 token_expires_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return token_expires_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         token_expires_at = _parse_token_expires_at(d.pop("token_expires_at", UNSET))
+
 
         realm_id = d.pop("realm_id", UNSET)
 
@@ -163,12 +193,15 @@ class AccountingConnection:
                     raise TypeError()
                 last_sync_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return last_sync_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         last_sync_at = _parse_last_sync_at(d.pop("last_sync_at", UNSET))
+
 
         sync_status = d.pop("sync_status", UNSET)
 
@@ -178,10 +211,13 @@ class AccountingConnection:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
+
+
+
 
         accounting_connection = cls(
             id=id,
@@ -195,6 +231,7 @@ class AccountingConnection:
             is_active=is_active,
             created_at=created_at,
         )
+
 
         accounting_connection.additional_properties = d
         return accounting_connection

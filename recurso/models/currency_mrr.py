@@ -1,31 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.tenant_mrr import TenantMRR
+  from ..models.tenant_mrr import TenantMRR
+
+
+
 
 
 T = TypeVar("T", bound="CurrencyMRR")
 
 
+
 @_attrs_define
 class CurrencyMRR:
-    """
-    Attributes:
-        total_mrr (int | Unset):
-        currency (str | Unset):
-        converted_mrr (int | Unset):
-        rate (float | Unset):
-        fx_error (str | Unset): Present only when this currency could not be converted.
-        by_tenant (list[TenantMRR] | Unset):
-    """
+    """ 
+        Attributes:
+            total_mrr (int | Unset):
+            currency (str | Unset):
+            converted_mrr (int | Unset):
+            rate (float | Unset):
+            fx_error (str | Unset): Present only when this currency could not be converted.
+            by_tenant (list[TenantMRR] | Unset):
+     """
 
     total_mrr: int | Unset = UNSET
     currency: str | Unset = UNSET
@@ -35,7 +42,12 @@ class CurrencyMRR:
     by_tenant: list[TenantMRR] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.tenant_mrr import TenantMRR
         total_mrr = self.total_mrr
 
         currency = self.currency
@@ -53,9 +65,13 @@ class CurrencyMRR:
                 by_tenant_item = by_tenant_item_data.to_dict()
                 by_tenant.append(by_tenant_item)
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if total_mrr is not UNSET:
             field_dict["total_mrr"] = total_mrr
         if currency is not UNSET:
@@ -71,10 +87,11 @@ class CurrencyMRR:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.tenant_mrr import TenantMRR
-
         d = dict(src_dict)
         total_mrr = d.pop("total_mrr", UNSET)
 
@@ -93,7 +110,10 @@ class CurrencyMRR:
             for by_tenant_item_data in _by_tenant:
                 by_tenant_item = TenantMRR.from_dict(by_tenant_item_data)
 
+
+
                 by_tenant.append(by_tenant_item)
+
 
         currency_mrr = cls(
             total_mrr=total_mrr,
@@ -103,6 +123,7 @@ class CurrencyMRR:
             fx_error=fx_error,
             by_tenant=by_tenant,
         )
+
 
         currency_mrr.additional_properties = d
         return currency_mrr

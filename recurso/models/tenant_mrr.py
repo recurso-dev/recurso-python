@@ -1,32 +1,44 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from uuid import UUID
+
+
+
+
+
+
 T = TypeVar("T", bound="TenantMRR")
+
 
 
 @_attrs_define
 class TenantMRR:
-    """
-    Attributes:
-        tenant_id (UUID | Unset):
-        tenant_name (str | Unset):
-        mrr (int | Unset):
-        currency (str | Unset):
-    """
+    """ 
+        Attributes:
+            tenant_id (UUID | Unset):
+            tenant_name (str | Unset):
+            mrr (int | Unset):
+            currency (str | Unset):
+     """
 
     tenant_id: UUID | Unset = UNSET
     tenant_name: str | Unset = UNSET
     mrr: int | Unset = UNSET
     currency: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         tenant_id: str | Unset = UNSET
@@ -39,9 +51,11 @@ class TenantMRR:
 
         currency = self.currency
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if tenant_id is not UNSET:
             field_dict["tenant_id"] = tenant_id
         if tenant_name is not UNSET:
@@ -53,15 +67,20 @@ class TenantMRR:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
+
+
+
 
         tenant_name = d.pop("tenant_name", UNSET)
 
@@ -75,6 +94,7 @@ class TenantMRR:
             mrr=mrr,
             currency=currency,
         )
+
 
         tenant_mrr.additional_properties = d
         return tenant_mrr

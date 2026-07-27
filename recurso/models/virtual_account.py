@@ -1,37 +1,46 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+import datetime
+
+
+
+
+
+
 T = TypeVar("T", bound="VirtualAccount")
+
 
 
 @_attrs_define
 class VirtualAccount:
-    """
-    Attributes:
-        id (UUID | Unset):
-        tenant_id (UUID | Unset):
-        customer_id (UUID | Unset):
-        invoice_id (None | Unset | UUID):
-        account_number (str | Unset):
-        ifsc_code (str | Unset):
-        bank_name (str | Unset):
-        beneficiary_name (str | Unset):
-        razorpay_va_id (str | Unset):
-        status (str | Unset):
-        amount_expected (int | Unset):
-        amount_received (int | Unset):
-        closed_at (datetime.datetime | None | Unset):
-        created_at (datetime.datetime | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset):
+            tenant_id (UUID | Unset):
+            customer_id (UUID | Unset):
+            invoice_id (None | Unset | UUID):
+            account_number (str | Unset):
+            ifsc_code (str | Unset):
+            bank_name (str | Unset):
+            beneficiary_name (str | Unset):
+            razorpay_va_id (str | Unset):
+            status (str | Unset):
+            amount_expected (int | Unset):
+            amount_received (int | Unset):
+            closed_at (datetime.datetime | None | Unset):
+            created_at (datetime.datetime | Unset):
+     """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -48,6 +57,10 @@ class VirtualAccount:
     closed_at: datetime.datetime | None | Unset = UNSET
     created_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -98,9 +111,11 @@ class VirtualAccount:
         if not isinstance(self.created_at, Unset):
             created_at = self.created_at.isoformat()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -132,29 +147,40 @@ class VirtualAccount:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
+
+
+
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id, Unset):
+        if isinstance(_tenant_id,  Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
+
+
+
         _customer_id = d.pop("customer_id", UNSET)
         customer_id: UUID | Unset
-        if isinstance(_customer_id, Unset):
+        if isinstance(_customer_id,  Unset):
             customer_id = UNSET
         else:
             customer_id = UUID(_customer_id)
+
+
+
 
         def _parse_invoice_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -166,12 +192,15 @@ class VirtualAccount:
                     raise TypeError()
                 invoice_id_type_0 = UUID(data)
 
+
+
                 return invoice_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         invoice_id = _parse_invoice_id(d.pop("invoice_id", UNSET))
+
 
         account_number = d.pop("account_number", UNSET)
 
@@ -199,6 +228,8 @@ class VirtualAccount:
                     raise TypeError()
                 closed_at_type_0 = datetime.datetime.fromisoformat(data)
 
+
+
                 return closed_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -206,12 +237,16 @@ class VirtualAccount:
 
         closed_at = _parse_closed_at(d.pop("closed_at", UNSET))
 
+
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
+
+
+
 
         virtual_account = cls(
             id=id,
@@ -229,6 +264,7 @@ class VirtualAccount:
             closed_at=closed_at,
             created_at=created_at,
         )
+
 
         virtual_account.additional_properties = d
         return virtual_account
