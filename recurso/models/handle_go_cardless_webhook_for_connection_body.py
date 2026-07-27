@@ -1,50 +1,34 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, cast
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-T = TypeVar("T", bound="TriggerAccountingSyncResponse200")
+T = TypeVar("T", bound="HandleGoCardlessWebhookForConnectionBody")
 
 
 @_attrs_define
-class TriggerAccountingSyncResponse200:
-    """
-    Attributes:
-        status (Literal['sync_already_running'] | Unset):
-    """
+class HandleGoCardlessWebhookForConnectionBody:
+    """Raw GoCardless events payload."""
 
-    status: Literal["sync_already_running"] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        status = self.status
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if status is not UNSET:
-            field_dict["status"] = status
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        status = cast(Literal["sync_already_running"] | Unset, d.pop("status", UNSET))
-        if status != "sync_already_running" and not isinstance(status, Unset):
-            raise ValueError(f"status must match const 'sync_already_running', got '{status}'")
+        handle_go_cardless_webhook_for_connection_body = cls()
 
-        trigger_accounting_sync_response_200 = cls(
-            status=status,
-        )
-
-        trigger_accounting_sync_response_200.additional_properties = d
-        return trigger_accounting_sync_response_200
+        handle_go_cardless_webhook_for_connection_body.additional_properties = d
+        return handle_go_cardless_webhook_for_connection_body
 
     @property
     def additional_keys(self) -> list[str]:

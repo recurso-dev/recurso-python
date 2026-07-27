@@ -1,50 +1,58 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, cast
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="TriggerAccountingSyncResponse200")
+T = TypeVar("T", bound="SyncCRMNowResponse200Data")
 
 
 @_attrs_define
-class TriggerAccountingSyncResponse200:
+class SyncCRMNowResponse200Data:
     """
     Attributes:
-        status (Literal['sync_already_running'] | Unset):
+        contacts_synced (int | Unset):
+        contacts_remaining (int | Unset): Eligible contacts not pushed this call (manual sync is capped; the daily sweep
+            finishes them).
     """
 
-    status: Literal["sync_already_running"] | Unset = UNSET
+    contacts_synced: int | Unset = UNSET
+    contacts_remaining: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        status = self.status
+        contacts_synced = self.contacts_synced
+
+        contacts_remaining = self.contacts_remaining
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if status is not UNSET:
-            field_dict["status"] = status
+        if contacts_synced is not UNSET:
+            field_dict["contacts_synced"] = contacts_synced
+        if contacts_remaining is not UNSET:
+            field_dict["contacts_remaining"] = contacts_remaining
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        status = cast(Literal["sync_already_running"] | Unset, d.pop("status", UNSET))
-        if status != "sync_already_running" and not isinstance(status, Unset):
-            raise ValueError(f"status must match const 'sync_already_running', got '{status}'")
+        contacts_synced = d.pop("contacts_synced", UNSET)
 
-        trigger_accounting_sync_response_200 = cls(
-            status=status,
+        contacts_remaining = d.pop("contacts_remaining", UNSET)
+
+        sync_crm_now_response_200_data = cls(
+            contacts_synced=contacts_synced,
+            contacts_remaining=contacts_remaining,
         )
 
-        trigger_accounting_sync_response_200.additional_properties = d
-        return trigger_accounting_sync_response_200
+        sync_crm_now_response_200_data.additional_properties = d
+        return sync_crm_now_response_200_data
 
     @property
     def additional_keys(self) -> list[str]:

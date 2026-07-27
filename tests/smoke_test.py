@@ -416,6 +416,25 @@ def main() -> int:
 
     check("collections/entities/analytics catch-up endpoints exist", catchup_endpoints)
 
+    def mandate_currency_field():
+        from recurso.models import CreateMandateBody
+        from recurso.models.gateway_connection_view_provider import GatewayConnectionViewProvider
+
+        # Bank-debit rails (recurso #234/#237): currency picks UPI vs SEPA/Bacs,
+        # and gocardless is a connectable BYO provider.
+        from recurso.models.create_mandate_body_frequency import CreateMandateBodyFrequency
+
+        body = CreateMandateBody(
+            customer_id="c",
+            max_amount=5000,
+            frequency=CreateMandateBodyFrequency.MONTHLY,
+            currency="EUR",
+        )
+        assert body.to_dict()["currency"] == "EUR"
+        assert GatewayConnectionViewProvider("gocardless").value == "gocardless"
+
+    check("mandate currency + gocardless provider (bank debit)", mandate_currency_field)
+
     print()
     if FAILURES:
         print(f"smoke test FAILED ({len(FAILURES)} of {CHECKS_RUN} check(s))")
