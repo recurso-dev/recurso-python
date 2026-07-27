@@ -1,44 +1,31 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.top_up_wallet_body_source import TopUpWalletBodySource
 from ..types import UNSET, Unset
-from typing import cast
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="TopUpWalletBody")
 
 
-
 @_attrs_define
 class TopUpWalletBody:
-    """ 
-        Attributes:
-            amount (int): Minor currency units.
-            source (TopUpWalletBodySource | Unset):  Default: TopUpWalletBodySource.MANUAL.
-            expires_at (datetime.datetime | None | Unset): Promotional top-ups only.
-     """
+    """
+    Attributes:
+        amount (int): Minor currency units.
+        source (TopUpWalletBodySource | Unset):  Default: TopUpWalletBodySource.MANUAL.
+        expires_at (datetime.datetime | None | Unset): Promotional top-ups only.
+    """
 
     amount: int
     source: TopUpWalletBodySource | Unset = TopUpWalletBodySource.MANUAL
     expires_at: datetime.datetime | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         amount = self.amount
@@ -46,7 +33,6 @@ class TopUpWalletBody:
         source: str | Unset = UNSET
         if not isinstance(self.source, Unset):
             source = self.source.value
-
 
         expires_at: None | str | Unset
         if isinstance(self.expires_at, Unset):
@@ -56,20 +42,19 @@ class TopUpWalletBody:
         else:
             expires_at = self.expires_at
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "amount": amount,
-        })
+        field_dict.update(
+            {
+                "amount": amount,
+            }
+        )
         if source is not UNSET:
             field_dict["source"] = source
         if expires_at is not UNSET:
             field_dict["expires_at"] = expires_at
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -78,13 +63,10 @@ class TopUpWalletBody:
 
         _source = d.pop("source", UNSET)
         source: TopUpWalletBodySource | Unset
-        if isinstance(_source,  Unset):
+        if isinstance(_source, Unset):
             source = UNSET
         else:
             source = TopUpWalletBodySource(_source)
-
-
-
 
         def _parse_expires_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -96,8 +78,6 @@ class TopUpWalletBody:
                     raise TypeError()
                 expires_at_type_0 = datetime.datetime.fromisoformat(data)
 
-
-
                 return expires_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -105,13 +85,11 @@ class TopUpWalletBody:
 
         expires_at = _parse_expires_at(d.pop("expires_at", UNSET))
 
-
         top_up_wallet_body = cls(
             amount=amount,
             source=source,
             expires_at=expires_at,
         )
-
 
         top_up_wallet_body.additional_properties = d
         return top_up_wallet_body

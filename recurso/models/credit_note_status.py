@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class CreditNoteStatus(str, Enum):
     EXPIRED = "expired"
     ISSUED = "issued"

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class GetTaxRegistrationsResponse200DataItemStatus(str, Enum):
     NOT_REGISTERED = "not_registered"
     PENDING = "pending"

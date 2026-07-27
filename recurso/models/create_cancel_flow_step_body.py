@@ -1,49 +1,37 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.cancel_flow_step_type import CancelFlowStepType
 from ..types import UNSET, Unset
-from typing import cast
 
 if TYPE_CHECKING:
-  from ..models.create_cancel_flow_step_body_config import CreateCancelFlowStepBodyConfig
-
-
-
+    from ..models.create_cancel_flow_step_body_config import CreateCancelFlowStepBodyConfig
 
 
 T = TypeVar("T", bound="CreateCancelFlowStepBody")
 
 
-
 @_attrs_define
 class CreateCancelFlowStepBody:
-    """ 
-        Attributes:
-            step_order (int):
-            step_type (CancelFlowStepType):
-            config (CreateCancelFlowStepBodyConfig | Unset): Step-type-specific configuration (survey options, offer
-                details, ...). Defaults to `{}`.
-     """
+    """
+    Attributes:
+        step_order (int):
+        step_type (CancelFlowStepType):
+        config (CreateCancelFlowStepBodyConfig | Unset): Step-type-specific configuration (survey options, offer
+            details, ...). Defaults to `{}`.
+    """
 
     step_order: int
     step_type: CancelFlowStepType
     config: CreateCancelFlowStepBodyConfig | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.create_cancel_flow_step_body_config import CreateCancelFlowStepBodyConfig
         step_order = self.step_order
 
         step_type = self.step_type.value
@@ -52,47 +40,40 @@ class CreateCancelFlowStepBody:
         if not isinstance(self.config, Unset):
             config = self.config.to_dict()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "step_order": step_order,
-            "step_type": step_type,
-        })
+        field_dict.update(
+            {
+                "step_order": step_order,
+                "step_type": step_type,
+            }
+        )
         if config is not UNSET:
             field_dict["config"] = config
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.create_cancel_flow_step_body_config import CreateCancelFlowStepBodyConfig
+
         d = dict(src_dict)
         step_order = d.pop("step_order")
 
         step_type = CancelFlowStepType(d.pop("step_type"))
 
-
-
-
         _config = d.pop("config", UNSET)
         config: CreateCancelFlowStepBodyConfig | Unset
-        if isinstance(_config,  Unset):
+        if isinstance(_config, Unset):
             config = UNSET
         else:
             config = CreateCancelFlowStepBodyConfig.from_dict(_config)
-
-
-
 
         create_cancel_flow_step_body = cls(
             step_order=step_order,
             step_type=step_type,
             config=config,
         )
-
 
         create_cancel_flow_step_body.additional_properties = d
         return create_cancel_flow_step_body

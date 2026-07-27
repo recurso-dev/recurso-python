@@ -1,47 +1,38 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.cancel_flow_session_status import CancelFlowSessionStatus
 from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="CancelFlowSession")
 
 
-
 @_attrs_define
 class CancelFlowSession:
-    """ 
-        Attributes:
-            id (UUID | Unset):
-            tenant_id (UUID | Unset):
-            customer_id (UUID | Unset):
-            subscription_id (UUID | Unset):
-            flow_id (UUID | Unset):
-            status (CancelFlowSessionStatus | Unset):
-            current_step_index (int | Unset):
-            cancellation_reason (str | Unset):
-            feedback (str | Unset):
-            offer_presented (Any | Unset): The retention offer shown, if any (arbitrary JSON).
-            offer_accepted (bool | Unset):
-            saved_by_offer (bool | Unset):
-            started_at (datetime.datetime | Unset):
-            completed_at (datetime.datetime | None | Unset):
-     """
+    """
+    Attributes:
+        id (UUID | Unset):
+        tenant_id (UUID | Unset):
+        customer_id (UUID | Unset):
+        subscription_id (UUID | Unset):
+        flow_id (UUID | Unset):
+        status (CancelFlowSessionStatus | Unset):
+        current_step_index (int | Unset):
+        cancellation_reason (str | Unset):
+        feedback (str | Unset):
+        offer_presented (Any | Unset): The retention offer shown, if any (arbitrary JSON).
+        offer_accepted (bool | Unset):
+        saved_by_offer (bool | Unset):
+        started_at (datetime.datetime | Unset):
+        completed_at (datetime.datetime | None | Unset):
+    """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -58,10 +49,6 @@ class CancelFlowSession:
     started_at: datetime.datetime | Unset = UNSET
     completed_at: datetime.datetime | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -88,7 +75,6 @@ class CancelFlowSession:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         current_step_index = self.current_step_index
 
         cancellation_reason = self.cancellation_reason
@@ -113,11 +99,9 @@ class CancelFlowSession:
         else:
             completed_at = self.completed_at
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -149,70 +133,50 @@ class CancelFlowSession:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
-
-
-
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id,  Unset):
+        if isinstance(_tenant_id, Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
-
-
-
         _customer_id = d.pop("customer_id", UNSET)
         customer_id: UUID | Unset
-        if isinstance(_customer_id,  Unset):
+        if isinstance(_customer_id, Unset):
             customer_id = UNSET
         else:
             customer_id = UUID(_customer_id)
 
-
-
-
         _subscription_id = d.pop("subscription_id", UNSET)
         subscription_id: UUID | Unset
-        if isinstance(_subscription_id,  Unset):
+        if isinstance(_subscription_id, Unset):
             subscription_id = UNSET
         else:
             subscription_id = UUID(_subscription_id)
 
-
-
-
         _flow_id = d.pop("flow_id", UNSET)
         flow_id: UUID | Unset
-        if isinstance(_flow_id,  Unset):
+        if isinstance(_flow_id, Unset):
             flow_id = UNSET
         else:
             flow_id = UUID(_flow_id)
 
-
-
-
         _status = d.pop("status", UNSET)
         status: CancelFlowSessionStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = CancelFlowSessionStatus(_status)
-
-
-
 
         current_step_index = d.pop("current_step_index", UNSET)
 
@@ -228,13 +192,10 @@ class CancelFlowSession:
 
         _started_at = d.pop("started_at", UNSET)
         started_at: datetime.datetime | Unset
-        if isinstance(_started_at,  Unset):
+        if isinstance(_started_at, Unset):
             started_at = UNSET
         else:
             started_at = datetime.datetime.fromisoformat(_started_at)
-
-
-
 
         def _parse_completed_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -246,15 +207,12 @@ class CancelFlowSession:
                     raise TypeError()
                 completed_at_type_0 = datetime.datetime.fromisoformat(data)
 
-
-
                 return completed_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         completed_at = _parse_completed_at(d.pop("completed_at", UNSET))
-
 
         cancel_flow_session = cls(
             id=id,
@@ -272,7 +230,6 @@ class CancelFlowSession:
             started_at=started_at,
             completed_at=completed_at,
         )
-
 
         cancel_flow_session.additional_properties = d
         return cancel_flow_session

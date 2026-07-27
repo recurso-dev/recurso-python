@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PriceType(str, Enum):
     ONE_TIME = "one_time"
     RECURRING = "recurring"

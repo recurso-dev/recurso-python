@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class AccountingConnectionProvider(str, Enum):
     QUICKBOOKS = "quickbooks"
     XERO = "xero"

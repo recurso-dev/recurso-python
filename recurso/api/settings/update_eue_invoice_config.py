@@ -1,32 +1,23 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.eue_invoice_config import EUEInvoiceConfig
 from ...models.update_eue_invoice_config_response_200 import UpdateEUEInvoiceConfigResponse200
-from ...types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     body: EUEInvoiceConfig,
     entity_id: UUID | Unset = UNSET,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
 
     params: dict[str, Any] = {}
 
@@ -35,9 +26,7 @@ def _get_kwargs(
         json_entity_id = str(entity_id)
     params["entity_id"] = json_entity_id
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "put",
@@ -53,26 +42,21 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | UpdateEUEInvoiceConfigResponse200 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | UpdateEUEInvoiceConfigResponse200 | None:
     if response.status_code == 200:
         response_200 = UpdateEUEInvoiceConfigResponse200.from_dict(response.json())
-
-
 
         return response_200
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
-
-
         return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
@@ -82,7 +66,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | UpdateEUEInvoiceConfigResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | UpdateEUEInvoiceConfigResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -96,9 +82,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: EUEInvoiceConfig,
     entity_id: UUID | Unset = UNSET,
-
 ) -> Response[Error | UpdateEUEInvoiceConfigResponse200]:
-    """ Create or update EU e-invoicing config
+    """Create or update EU e-invoicing config
 
      Upserts the tenant's EU e-invoicing config. Setting `enabled` true requires a complete seller
     identity (`legal_name`, `vat_number`, 2-letter `country_code`) — the fields every generated EN 16931
@@ -115,13 +100,11 @@ def sync_detailed(
 
     Returns:
         Response[Error | UpdateEUEInvoiceConfigResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-entity_id=entity_id,
-
+        entity_id=entity_id,
     )
 
     response = client.get_httpx_client().request(
@@ -130,14 +113,14 @@ entity_id=entity_id,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: EUEInvoiceConfig,
     entity_id: UUID | Unset = UNSET,
-
 ) -> Error | UpdateEUEInvoiceConfigResponse200 | None:
-    """ Create or update EU e-invoicing config
+    """Create or update EU e-invoicing config
 
      Upserts the tenant's EU e-invoicing config. Setting `enabled` true requires a complete seller
     identity (`legal_name`, `vat_number`, 2-letter `country_code`) — the fields every generated EN 16931
@@ -154,24 +137,22 @@ def sync(
 
     Returns:
         Error | UpdateEUEInvoiceConfigResponse200
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-entity_id=entity_id,
-
+        body=body,
+        entity_id=entity_id,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: EUEInvoiceConfig,
     entity_id: UUID | Unset = UNSET,
-
 ) -> Response[Error | UpdateEUEInvoiceConfigResponse200]:
-    """ Create or update EU e-invoicing config
+    """Create or update EU e-invoicing config
 
      Upserts the tenant's EU e-invoicing config. Setting `enabled` true requires a complete seller
     identity (`legal_name`, `vat_number`, 2-letter `country_code`) — the fields every generated EN 16931
@@ -188,29 +169,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | UpdateEUEInvoiceConfigResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-entity_id=entity_id,
-
+        entity_id=entity_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: EUEInvoiceConfig,
     entity_id: UUID | Unset = UNSET,
-
 ) -> Error | UpdateEUEInvoiceConfigResponse200 | None:
-    """ Create or update EU e-invoicing config
+    """Create or update EU e-invoicing config
 
      Upserts the tenant's EU e-invoicing config. Setting `enabled` true requires a complete seller
     identity (`legal_name`, `vat_number`, 2-letter `country_code`) — the fields every generated EN 16931
@@ -227,12 +204,12 @@ async def asyncio(
 
     Returns:
         Error | UpdateEUEInvoiceConfigResponse200
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-entity_id=entity_id,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+            entity_id=entity_id,
+        )
+    ).parsed

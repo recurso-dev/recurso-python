@@ -1,78 +1,71 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.invoice_status import InvoiceStatus
 from ..models.invoice_tax_regime import InvoiceTaxRegime
 from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.invoice_item import InvoiceItem
-
-
-
+    from ..models.invoice_item import InvoiceItem
 
 
 T = TypeVar("T", bound="Invoice")
 
 
-
 @_attrs_define
 class Invoice:
-    """ 
-        Attributes:
-            id (UUID | Unset):
-            tenant_id (UUID | Unset):
-            subscription_id (None | Unset | UUID):
-            customer_id (UUID | Unset):
-            invoice_number (str | Unset):
-            billing_reason (str | Unset):
-            amount_due (int | Unset):
-            amount_paid (int | Unset):
-            currency (str | Unset):
-            subtotal (int | Unset):
-            tax_amount (int | Unset):
-            total (int | Unset):
-            tax_regime (InvoiceTaxRegime | Unset): Presentation regime (how the invoice is displayed, not how it was taxed),
-                from the seller's jurisdiction. gst shows GSTIN/HSN/ CGST-SGST-IGST/IRN; sales_tax, vat and plain show a single
-                tax line and hide every GST artifact. Computed at read time; not persisted.
-            igst_amount (int | Unset):
-            cgst_amount (int | Unset):
-            sgst_amount (int | Unset):
-            hsn_code (str | Unset):
-            irn (str | Unset): Invoice Reference Number issued by the IRP (Indian e-invoicing).
-            ack_no (str | Unset):
-            signed_qr_code (str | Unset):
-            e_invoice_status (str | Unset):
-            ack_date (str | Unset):
-            e_invoice_retry_count (int | Unset):
-            e_invoice_next_retry_at (datetime.datetime | None | Unset):
-            e_invoice_error_message (str | Unset):
-            tds_amount (int | Unset):
-            status (InvoiceStatus | Unset):
-            created_at (datetime.datetime | Unset):
-            due_date (datetime.datetime | Unset):
-            paid_at (datetime.datetime | Unset):
-            payment_terms (str | Unset):
-            exchange_rate (float | Unset):
-            base_currency_total (int | Unset):
-            base_currency (str | Unset):
-            next_retry_at (datetime.datetime | Unset):
-            retry_count (int | Unset):
-            payment_wall_active (bool | Unset):
-            line_items (list[InvoiceItem] | Unset): Itemized invoice lines. Each line carries its own HSN/SAC code and per-
-                line GST breakdown; line amounts and per-line taxes reconcile exactly to subtotal/tax_amount. Omitted for legacy
-                invoices created before itemization.
-     """
+    """
+    Attributes:
+        id (UUID | Unset):
+        tenant_id (UUID | Unset):
+        subscription_id (None | Unset | UUID):
+        customer_id (UUID | Unset):
+        invoice_number (str | Unset):
+        billing_reason (str | Unset):
+        amount_due (int | Unset):
+        amount_paid (int | Unset):
+        currency (str | Unset):
+        subtotal (int | Unset):
+        tax_amount (int | Unset):
+        total (int | Unset):
+        tax_regime (InvoiceTaxRegime | Unset): Presentation regime (how the invoice is displayed, not how it was taxed),
+            from the seller's jurisdiction. gst shows GSTIN/HSN/ CGST-SGST-IGST/IRN; sales_tax, vat and plain show a single
+            tax line and hide every GST artifact. Computed at read time; not persisted.
+        igst_amount (int | Unset):
+        cgst_amount (int | Unset):
+        sgst_amount (int | Unset):
+        hsn_code (str | Unset):
+        irn (str | Unset): Invoice Reference Number issued by the IRP (Indian e-invoicing).
+        ack_no (str | Unset):
+        signed_qr_code (str | Unset):
+        e_invoice_status (str | Unset):
+        ack_date (str | Unset):
+        e_invoice_retry_count (int | Unset):
+        e_invoice_next_retry_at (datetime.datetime | None | Unset):
+        e_invoice_error_message (str | Unset):
+        tds_amount (int | Unset):
+        status (InvoiceStatus | Unset):
+        created_at (datetime.datetime | Unset):
+        due_date (datetime.datetime | Unset):
+        paid_at (datetime.datetime | Unset):
+        payment_terms (str | Unset):
+        exchange_rate (float | Unset):
+        base_currency_total (int | Unset):
+        base_currency (str | Unset):
+        next_retry_at (datetime.datetime | Unset):
+        retry_count (int | Unset):
+        payment_wall_active (bool | Unset):
+        line_items (list[InvoiceItem] | Unset): Itemized invoice lines. Each line carries its own HSN/SAC code and per-
+            line GST breakdown; line amounts and per-line taxes reconcile exactly to subtotal/tax_amount. Omitted for legacy
+            invoices created before itemization.
+    """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -114,12 +107,7 @@ class Invoice:
     line_items: list[InvoiceItem] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.invoice_item import InvoiceItem
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
@@ -160,7 +148,6 @@ class Invoice:
         if not isinstance(self.tax_regime, Unset):
             tax_regime = self.tax_regime.value
 
-
         igst_amount = self.igst_amount
 
         cgst_amount = self.cgst_amount
@@ -197,7 +184,6 @@ class Invoice:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         created_at: str | Unset = UNSET
         if not isinstance(self.created_at, Unset):
             created_at = self.created_at.isoformat()
@@ -233,13 +219,9 @@ class Invoice:
                 line_items_item = line_items_item_data.to_dict()
                 line_items.append(line_items_item)
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -319,31 +301,24 @@ class Invoice:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.invoice_item import InvoiceItem
+
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
-
-
-
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id,  Unset):
+        if isinstance(_tenant_id, Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
-
-
-
 
         def _parse_subscription_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -355,8 +330,6 @@ class Invoice:
                     raise TypeError()
                 subscription_id_type_0 = UUID(data)
 
-
-
                 return subscription_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -364,16 +337,12 @@ class Invoice:
 
         subscription_id = _parse_subscription_id(d.pop("subscription_id", UNSET))
 
-
         _customer_id = d.pop("customer_id", UNSET)
         customer_id: UUID | Unset
-        if isinstance(_customer_id,  Unset):
+        if isinstance(_customer_id, Unset):
             customer_id = UNSET
         else:
             customer_id = UUID(_customer_id)
-
-
-
 
         invoice_number = d.pop("invoice_number", UNSET)
 
@@ -393,13 +362,10 @@ class Invoice:
 
         _tax_regime = d.pop("tax_regime", UNSET)
         tax_regime: InvoiceTaxRegime | Unset
-        if isinstance(_tax_regime,  Unset):
+        if isinstance(_tax_regime, Unset):
             tax_regime = UNSET
         else:
             tax_regime = InvoiceTaxRegime(_tax_regime)
-
-
-
 
         igst_amount = d.pop("igst_amount", UNSET)
 
@@ -431,8 +397,6 @@ class Invoice:
                     raise TypeError()
                 e_invoice_next_retry_at_type_0 = datetime.datetime.fromisoformat(data)
 
-
-
                 return e_invoice_next_retry_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -440,50 +404,37 @@ class Invoice:
 
         e_invoice_next_retry_at = _parse_e_invoice_next_retry_at(d.pop("e_invoice_next_retry_at", UNSET))
 
-
         e_invoice_error_message = d.pop("e_invoice_error_message", UNSET)
 
         tds_amount = d.pop("tds_amount", UNSET)
 
         _status = d.pop("status", UNSET)
         status: InvoiceStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = InvoiceStatus(_status)
 
-
-
-
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at,  Unset):
+        if isinstance(_created_at, Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
-
-
-
         _due_date = d.pop("due_date", UNSET)
         due_date: datetime.datetime | Unset
-        if isinstance(_due_date,  Unset):
+        if isinstance(_due_date, Unset):
             due_date = UNSET
         else:
             due_date = datetime.datetime.fromisoformat(_due_date)
 
-
-
-
         _paid_at = d.pop("paid_at", UNSET)
         paid_at: datetime.datetime | Unset
-        if isinstance(_paid_at,  Unset):
+        if isinstance(_paid_at, Unset):
             paid_at = UNSET
         else:
             paid_at = datetime.datetime.fromisoformat(_paid_at)
-
-
-
 
         payment_terms = d.pop("payment_terms", UNSET)
 
@@ -495,13 +446,10 @@ class Invoice:
 
         _next_retry_at = d.pop("next_retry_at", UNSET)
         next_retry_at: datetime.datetime | Unset
-        if isinstance(_next_retry_at,  Unset):
+        if isinstance(_next_retry_at, Unset):
             next_retry_at = UNSET
         else:
             next_retry_at = datetime.datetime.fromisoformat(_next_retry_at)
-
-
-
 
         retry_count = d.pop("retry_count", UNSET)
 
@@ -514,10 +462,7 @@ class Invoice:
             for line_items_item_data in _line_items:
                 line_items_item = InvoiceItem.from_dict(line_items_item_data)
 
-
-
                 line_items.append(line_items_item)
-
 
         invoice = cls(
             id=id,
@@ -559,7 +504,6 @@ class Invoice:
             payment_wall_active=payment_wall_active,
             line_items=line_items,
         )
-
 
         invoice.additional_properties = d
         return invoice

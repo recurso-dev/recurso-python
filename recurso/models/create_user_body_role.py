@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class CreateUserBodyRole(str, Enum):
     ADMIN = "admin"
     MEMBER = "member"

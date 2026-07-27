@@ -1,31 +1,21 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.invite_user_body import InviteUserBody
 from ...models.invite_user_response_201 import InviteUserResponse201
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
     body: InviteUserBody,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -40,40 +30,31 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | InviteUserResponse201 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | InviteUserResponse201 | None:
     if response.status_code == 201:
         response_201 = InviteUserResponse201.from_dict(response.json())
-
-
 
         return response_201
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
-
-
         return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
     if response.status_code == 403:
         response_403 = Error.from_dict(response.json())
 
-
-
         return response_403
 
     if response.status_code == 409:
         response_409 = Error.from_dict(response.json())
-
-
 
         return response_409
 
@@ -83,7 +64,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | InviteUserResponse201]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | InviteUserResponse201]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -96,9 +79,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: InviteUserBody,
-
 ) -> Response[Error | InviteUserResponse201]:
-    """ Invite a team member by email
+    """Invite a team member by email
 
      Adds a teammate WITHOUT the admin choosing a password: the account is
     created unusable and the invitee is emailed a single-use link to set
@@ -114,12 +96,10 @@ def sync_detailed(
 
     Returns:
         Response[Error | InviteUserResponse201]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -128,13 +108,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: InviteUserBody,
-
 ) -> Error | InviteUserResponse201 | None:
-    """ Invite a team member by email
+    """Invite a team member by email
 
      Adds a teammate WITHOUT the admin choosing a password: the account is
     created unusable and the invitee is emailed a single-use link to set
@@ -150,22 +130,20 @@ def sync(
 
     Returns:
         Error | InviteUserResponse201
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: InviteUserBody,
-
 ) -> Response[Error | InviteUserResponse201]:
-    """ Invite a team member by email
+    """Invite a team member by email
 
      Adds a teammate WITHOUT the admin choosing a password: the account is
     created unusable and the invitee is emailed a single-use link to set
@@ -181,27 +159,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | InviteUserResponse201]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: InviteUserBody,
-
 ) -> Error | InviteUserResponse201 | None:
-    """ Invite a team member by email
+    """Invite a team member by email
 
      Adds a teammate WITHOUT the admin choosing a password: the account is
     created unusable and the invitee is emailed a single-use link to set
@@ -217,11 +191,11 @@ async def asyncio(
 
     Returns:
         Error | InviteUserResponse201
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

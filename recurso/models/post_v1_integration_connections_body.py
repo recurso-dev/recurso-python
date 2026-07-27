@@ -1,88 +1,69 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.post_v1_integration_connections_body_category import PostV1IntegrationConnectionsBodyCategory
-from typing import cast
 
 if TYPE_CHECKING:
-  from ..models.post_v1_integration_connections_body_config import PostV1IntegrationConnectionsBodyConfig
-
-
-
+    from ..models.post_v1_integration_connections_body_config import PostV1IntegrationConnectionsBodyConfig
 
 
 T = TypeVar("T", bound="PostV1IntegrationConnectionsBody")
 
 
-
 @_attrs_define
 class PostV1IntegrationConnectionsBody:
-    """ 
-        Attributes:
-            category (PostV1IntegrationConnectionsBodyCategory):
-            provider (str): taxjar / avalara / hubspot / s3.
-            config (PostV1IntegrationConnectionsBodyConfig): Provider config (e.g. api_key; or bucket/region/keys for s3).
-     """
+    """
+    Attributes:
+        category (PostV1IntegrationConnectionsBodyCategory):
+        provider (str): taxjar / avalara / hubspot / s3.
+        config (PostV1IntegrationConnectionsBodyConfig): Provider config (e.g. api_key; or bucket/region/keys for s3).
+    """
 
     category: PostV1IntegrationConnectionsBodyCategory
     provider: str
     config: PostV1IntegrationConnectionsBodyConfig
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.post_v1_integration_connections_body_config import PostV1IntegrationConnectionsBodyConfig
         category = self.category.value
 
         provider = self.provider
 
         config = self.config.to_dict()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "category": category,
-            "provider": provider,
-            "config": config,
-        })
+        field_dict.update(
+            {
+                "category": category,
+                "provider": provider,
+                "config": config,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.post_v1_integration_connections_body_config import PostV1IntegrationConnectionsBodyConfig
+
         d = dict(src_dict)
         category = PostV1IntegrationConnectionsBodyCategory(d.pop("category"))
-
-
-
 
         provider = d.pop("provider")
 
         config = PostV1IntegrationConnectionsBodyConfig.from_dict(d.pop("config"))
-
-
-
 
         post_v1_integration_connections_body = cls(
             category=category,
             provider=provider,
             config=config,
         )
-
 
         post_v1_integration_connections_body.additional_properties = d
         return post_v1_integration_connections_body

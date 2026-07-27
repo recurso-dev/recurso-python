@@ -1,77 +1,58 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.quote import Quote
-
-
-
+    from ..models.quote import Quote
 
 
 T = TypeVar("T", bound="CreateQuoteResponse201")
 
 
-
 @_attrs_define
 class CreateQuoteResponse201:
-    """ 
-        Attributes:
-            data (Quote | Unset):
-     """
+    """
+    Attributes:
+        data (Quote | Unset):
+    """
 
     data: Quote | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.quote import Quote
         data: dict[str, Any] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = self.data.to_dict()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if data is not UNSET:
             field_dict["data"] = data
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.quote import Quote
+
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
         data: Quote | Unset
-        if isinstance(_data,  Unset):
+        if isinstance(_data, Unset):
             data = UNSET
         else:
             data = Quote.from_dict(_data)
 
-
-
-
         create_quote_response_201 = cls(
             data=data,
         )
-
 
         create_quote_response_201.additional_properties = d
         return create_quote_response_201

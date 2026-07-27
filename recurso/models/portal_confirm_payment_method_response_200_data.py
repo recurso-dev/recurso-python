@@ -1,60 +1,49 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.portal_confirm_payment_method_response_200_data_status import (
+    PortalConfirmPaymentMethodResponse200DataStatus,
+)
 from ..types import UNSET, Unset
-
-from ..models.portal_confirm_payment_method_response_200_data_status import PortalConfirmPaymentMethodResponse200DataStatus
-from ..types import UNSET, Unset
-from typing import cast
 
 if TYPE_CHECKING:
-  from ..models.portal_confirm_payment_method_response_200_data_card import PortalConfirmPaymentMethodResponse200DataCard
-
-
-
+    from ..models.portal_confirm_payment_method_response_200_data_card import (
+        PortalConfirmPaymentMethodResponse200DataCard,
+    )
 
 
 T = TypeVar("T", bound="PortalConfirmPaymentMethodResponse200Data")
 
 
-
 @_attrs_define
 class PortalConfirmPaymentMethodResponse200Data:
-    """ 
-        Attributes:
-            status (PortalConfirmPaymentMethodResponse200DataStatus | Unset):
-            card (PortalConfirmPaymentMethodResponse200DataCard | Unset):
-     """
+    """
+    Attributes:
+        status (PortalConfirmPaymentMethodResponse200DataStatus | Unset):
+        card (PortalConfirmPaymentMethodResponse200DataCard | Unset):
+    """
 
     status: PortalConfirmPaymentMethodResponse200DataStatus | Unset = UNSET
     card: PortalConfirmPaymentMethodResponse200DataCard | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.portal_confirm_payment_method_response_200_data_card import PortalConfirmPaymentMethodResponse200DataCard
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
-
 
         card: dict[str, Any] | Unset = UNSET
         if not isinstance(self.card, Unset):
             card = self.card.to_dict()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if status is not UNSET:
             field_dict["status"] = status
         if card is not UNSET:
@@ -62,37 +51,31 @@ class PortalConfirmPaymentMethodResponse200Data:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.portal_confirm_payment_method_response_200_data_card import PortalConfirmPaymentMethodResponse200DataCard
+        from ..models.portal_confirm_payment_method_response_200_data_card import (
+            PortalConfirmPaymentMethodResponse200DataCard,
+        )
+
         d = dict(src_dict)
         _status = d.pop("status", UNSET)
         status: PortalConfirmPaymentMethodResponse200DataStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = PortalConfirmPaymentMethodResponse200DataStatus(_status)
 
-
-
-
         _card = d.pop("card", UNSET)
         card: PortalConfirmPaymentMethodResponse200DataCard | Unset
-        if isinstance(_card,  Unset):
+        if isinstance(_card, Unset):
             card = UNSET
         else:
             card = PortalConfirmPaymentMethodResponse200DataCard.from_dict(_card)
-
-
-
 
         portal_confirm_payment_method_response_200_data = cls(
             status=status,
             card=card,
         )
-
 
         portal_confirm_payment_method_response_200_data.additional_properties = d
         return portal_confirm_payment_method_response_200_data

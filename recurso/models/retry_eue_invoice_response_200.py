@@ -1,45 +1,35 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.retry_eue_invoice_response_200_data_type_0 import RetryEUEInvoiceResponse200DataType0
-
-
-
+    from ..models.retry_eue_invoice_response_200_data_type_0 import RetryEUEInvoiceResponse200DataType0
 
 
 T = TypeVar("T", bound="RetryEUEInvoiceResponse200")
 
 
-
 @_attrs_define
 class RetryEUEInvoiceResponse200:
-    """ 
-        Attributes:
-            data (None | RetryEUEInvoiceResponse200DataType0 | Unset):
-            message (str | Unset):
-     """
+    """
+    Attributes:
+        data (None | RetryEUEInvoiceResponse200DataType0 | Unset):
+        message (str | Unset):
+    """
 
     data: None | RetryEUEInvoiceResponse200DataType0 | Unset = UNSET
     message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
         from ..models.retry_eue_invoice_response_200_data_type_0 import RetryEUEInvoiceResponse200DataType0
+
         data: dict[str, Any] | None | Unset
         if isinstance(self.data, Unset):
             data = UNSET
@@ -50,11 +40,9 @@ class RetryEUEInvoiceResponse200:
 
         message = self.message
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if data is not UNSET:
             field_dict["data"] = data
         if message is not UNSET:
@@ -62,12 +50,12 @@ class RetryEUEInvoiceResponse200:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.retry_eue_invoice_response_200_data_type_0 import RetryEUEInvoiceResponse200DataType0
+
         d = dict(src_dict)
+
         def _parse_data(data: object) -> None | RetryEUEInvoiceResponse200DataType0 | Unset:
             if data is None:
                 return data
@@ -78,8 +66,6 @@ class RetryEUEInvoiceResponse200:
                     raise TypeError()
                 data_type_0 = RetryEUEInvoiceResponse200DataType0.from_dict(data)
 
-
-
                 return data_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -87,14 +73,12 @@ class RetryEUEInvoiceResponse200:
 
         data = _parse_data(d.pop("data", UNSET))
 
-
         message = d.pop("message", UNSET)
 
         retry_eue_invoice_response_200 = cls(
             data=data,
             message=message,
         )
-
 
         retry_eue_invoice_response_200.additional_properties = d
         return retry_eue_invoice_response_200

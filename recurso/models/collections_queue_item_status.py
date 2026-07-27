@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class CollectionsQueueItemStatus(str, Enum):
     PAST_DUE = "past_due"
     UNCOLLECTIBLE = "uncollectible"

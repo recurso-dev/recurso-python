@@ -1,43 +1,31 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="GetCreditStatementResponse200DataSummaryItem")
-
 
 
 @_attrs_define
 class GetCreditStatementResponse200DataSummaryItem:
-    """ 
-        Attributes:
-            currency (str | Unset):
-            total_issued (int | Unset):
-            total_applied (int | Unset):
-            current_balance (int | Unset):
-     """
+    """
+    Attributes:
+        currency (str | Unset):
+        total_issued (int | Unset):
+        total_applied (int | Unset):
+        current_balance (int | Unset):
+    """
 
     currency: str | Unset = UNSET
     total_issued: int | Unset = UNSET
     total_applied: int | Unset = UNSET
     current_balance: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         currency = self.currency
@@ -48,11 +36,9 @@ class GetCreditStatementResponse200DataSummaryItem:
 
         current_balance = self.current_balance
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if currency is not UNSET:
             field_dict["currency"] = currency
         if total_issued is not UNSET:
@@ -63,8 +49,6 @@ class GetCreditStatementResponse200DataSummaryItem:
             field_dict["current_balance"] = current_balance
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -83,7 +67,6 @@ class GetCreditStatementResponse200DataSummaryItem:
             total_applied=total_applied,
             current_balance=current_balance,
         )
-
 
         get_credit_statement_response_200_data_summary_item.additional_properties = d
         return get_credit_statement_response_200_data_summary_item

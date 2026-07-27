@@ -1,38 +1,31 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
 if TYPE_CHECKING:
-  from ..models.charge_input import ChargeInput
-  from ..models.simulate_charges_body_usage_item import SimulateChargesBodyUsageItem
-
-
-
+    from ..models.charge_input import ChargeInput
+    from ..models.simulate_charges_body_usage_item import SimulateChargesBodyUsageItem
 
 
 T = TypeVar("T", bound="SimulateChargesBody")
 
 
-
 @_attrs_define
 class SimulateChargesBody:
-    """ 
-        Attributes:
-            currency (str | Unset): ISO code; defaults to the plan's first price currency.
-            subscription_id (UUID | Unset): Optional: fills usage for metrics without an explicit entry.
-            charges (list[ChargeInput] | Unset):
-            usage (list[SimulateChargesBodyUsageItem] | Unset):
-     """
+    """
+    Attributes:
+        currency (str | Unset): ISO code; defaults to the plan's first price currency.
+        subscription_id (UUID | Unset): Optional: fills usage for metrics without an explicit entry.
+        charges (list[ChargeInput] | Unset):
+        usage (list[SimulateChargesBodyUsageItem] | Unset):
+    """
 
     currency: str | Unset = UNSET
     subscription_id: UUID | Unset = UNSET
@@ -40,13 +33,7 @@ class SimulateChargesBody:
     usage: list[SimulateChargesBodyUsageItem] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.charge_input import ChargeInput
-        from ..models.simulate_charges_body_usage_item import SimulateChargesBodyUsageItem
         currency = self.currency
 
         subscription_id: str | Unset = UNSET
@@ -60,8 +47,6 @@ class SimulateChargesBody:
                 charges_item = charges_item_data.to_dict()
                 charges.append(charges_item)
 
-
-
         usage: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.usage, Unset):
             usage = []
@@ -69,13 +54,9 @@ class SimulateChargesBody:
                 usage_item = usage_item_data.to_dict()
                 usage.append(usage_item)
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if currency is not UNSET:
             field_dict["currency"] = currency
         if subscription_id is not UNSET:
@@ -87,24 +68,20 @@ class SimulateChargesBody:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.charge_input import ChargeInput
         from ..models.simulate_charges_body_usage_item import SimulateChargesBodyUsageItem
+
         d = dict(src_dict)
         currency = d.pop("currency", UNSET)
 
         _subscription_id = d.pop("subscription_id", UNSET)
         subscription_id: UUID | Unset
-        if isinstance(_subscription_id,  Unset):
+        if isinstance(_subscription_id, Unset):
             subscription_id = UNSET
         else:
             subscription_id = UUID(_subscription_id)
-
-
-
 
         _charges = d.pop("charges", UNSET)
         charges: list[ChargeInput] | Unset = UNSET
@@ -113,10 +90,7 @@ class SimulateChargesBody:
             for charges_item_data in _charges:
                 charges_item = ChargeInput.from_dict(charges_item_data)
 
-
-
                 charges.append(charges_item)
-
 
         _usage = d.pop("usage", UNSET)
         usage: list[SimulateChargesBodyUsageItem] | Unset = UNSET
@@ -125,10 +99,7 @@ class SimulateChargesBody:
             for usage_item_data in _usage:
                 usage_item = SimulateChargesBodyUsageItem.from_dict(usage_item_data)
 
-
-
                 usage.append(usage_item)
-
 
         simulate_charges_body = cls(
             currency=currency,
@@ -136,7 +107,6 @@ class SimulateChargesBody:
             charges=charges,
             usage=usage,
         )
-
 
         simulate_charges_body.additional_properties = d
         return simulate_charges_body

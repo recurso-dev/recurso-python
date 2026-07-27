@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class GetCollectionsQueueManagedBy(str, Enum):
     CAMPAIGN = "campaign"
     SCHEDULER = "scheduler"

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class TaxNexusNexusType(str, Enum):
     ECONOMIC = "economic"
     PHYSICAL = "physical"

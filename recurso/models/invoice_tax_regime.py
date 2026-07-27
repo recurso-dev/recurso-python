@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class InvoiceTaxRegime(str, Enum):
     GST = "gst"
     PLAIN = "plain"

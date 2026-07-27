@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ConnectAccountingProviderTokenProvider(str, Enum):
     NETSUITE = "netsuite"
     TALLY = "tally"

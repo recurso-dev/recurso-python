@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ChargeInputChargeModel(str, Enum):
     DYNAMIC = "dynamic"
     GRADUATED = "graduated"

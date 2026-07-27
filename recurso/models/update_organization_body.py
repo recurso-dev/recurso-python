@@ -1,58 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="UpdateOrganizationBody")
-
 
 
 @_attrs_define
 class UpdateOrganizationBody:
-    """ 
-        Attributes:
-            name (str | Unset):
-            owner_email (str | Unset):
-     """
+    """
+    Attributes:
+        name (str | Unset):
+        owner_email (str | Unset):
+    """
 
     name: str | Unset = UNSET
     owner_email: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
 
         owner_email = self.owner_email
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if name is not UNSET:
             field_dict["name"] = name
         if owner_email is not UNSET:
             field_dict["owner_email"] = owner_email
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -65,7 +49,6 @@ class UpdateOrganizationBody:
             name=name,
             owner_email=owner_email,
         )
-
 
         update_organization_body.additional_properties = d
         return update_organization_body

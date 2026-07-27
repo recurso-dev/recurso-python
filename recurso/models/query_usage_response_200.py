@@ -1,38 +1,31 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.query_usage_response_200_granularity import QueryUsageResponse200Granularity
 from ..types import UNSET, Unset
-from typing import cast
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.usage_bucket import UsageBucket
-
-
-
+    from ..models.usage_bucket import UsageBucket
 
 
 T = TypeVar("T", bound="QueryUsageResponse200")
 
 
-
 @_attrs_define
 class QueryUsageResponse200:
-    """ 
-        Attributes:
-            data (list[UsageBucket] | Unset):
-            from_ (datetime.datetime | Unset):
-            to (datetime.datetime | Unset):
-            granularity (QueryUsageResponse200Granularity | Unset):
-     """
+    """
+    Attributes:
+        data (list[UsageBucket] | Unset):
+        from_ (datetime.datetime | Unset):
+        to (datetime.datetime | Unset):
+        granularity (QueryUsageResponse200Granularity | Unset):
+    """
 
     data: list[UsageBucket] | Unset = UNSET
     from_: datetime.datetime | Unset = UNSET
@@ -40,20 +33,13 @@ class QueryUsageResponse200:
     granularity: QueryUsageResponse200Granularity | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.usage_bucket import UsageBucket
         data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
             for data_item_data in self.data:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
-
-
 
         from_: str | Unset = UNSET
         if not isinstance(self.from_, Unset):
@@ -67,12 +53,9 @@ class QueryUsageResponse200:
         if not isinstance(self.granularity, Unset):
             granularity = self.granularity.value
 
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if data is not UNSET:
             field_dict["data"] = data
         if from_ is not UNSET:
@@ -84,11 +67,10 @@ class QueryUsageResponse200:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.usage_bucket import UsageBucket
+
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
         data: list[UsageBucket] | Unset = UNSET
@@ -97,40 +79,28 @@ class QueryUsageResponse200:
             for data_item_data in _data:
                 data_item = UsageBucket.from_dict(data_item_data)
 
-
-
                 data.append(data_item)
-
 
         _from_ = d.pop("from", UNSET)
         from_: datetime.datetime | Unset
-        if isinstance(_from_,  Unset):
+        if isinstance(_from_, Unset):
             from_ = UNSET
         else:
             from_ = datetime.datetime.fromisoformat(_from_)
 
-
-
-
         _to = d.pop("to", UNSET)
         to: datetime.datetime | Unset
-        if isinstance(_to,  Unset):
+        if isinstance(_to, Unset):
             to = UNSET
         else:
             to = datetime.datetime.fromisoformat(_to)
 
-
-
-
         _granularity = d.pop("granularity", UNSET)
         granularity: QueryUsageResponse200Granularity | Unset
-        if isinstance(_granularity,  Unset):
+        if isinstance(_granularity, Unset):
             granularity = UNSET
         else:
             granularity = QueryUsageResponse200Granularity(_granularity)
-
-
-
 
         query_usage_response_200 = cls(
             data=data,
@@ -138,7 +108,6 @@ class QueryUsageResponse200:
             to=to,
             granularity=granularity,
         )
-
 
         query_usage_response_200.additional_properties = d
         return query_usage_response_200

@@ -1,45 +1,35 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.record_usage_events_batch_response_200_data_item_status import (
+    RecordUsageEventsBatchResponse200DataItemStatus,
+)
 from ..types import UNSET, Unset
-
-from ..models.record_usage_events_batch_response_200_data_item_status import RecordUsageEventsBatchResponse200DataItemStatus
-from ..types import UNSET, Unset
-from uuid import UUID
-
-
-
-
-
 
 T = TypeVar("T", bound="RecordUsageEventsBatchResponse200DataItem")
 
 
-
 @_attrs_define
 class RecordUsageEventsBatchResponse200DataItem:
-    """ 
-        Attributes:
-            index (int | Unset):
-            status (RecordUsageEventsBatchResponse200DataItemStatus | Unset):
-            event_id (UUID | Unset):
-            error (str | Unset):
-     """
+    """
+    Attributes:
+        index (int | Unset):
+        status (RecordUsageEventsBatchResponse200DataItemStatus | Unset):
+        event_id (UUID | Unset):
+        error (str | Unset):
+    """
 
     index: int | Unset = UNSET
     status: RecordUsageEventsBatchResponse200DataItemStatus | Unset = UNSET
     event_id: UUID | Unset = UNSET
     error: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         index = self.index
@@ -48,18 +38,15 @@ class RecordUsageEventsBatchResponse200DataItem:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         event_id: str | Unset = UNSET
         if not isinstance(self.event_id, Unset):
             event_id = str(self.event_id)
 
         error = self.error
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if index is not UNSET:
             field_dict["index"] = index
         if status is not UNSET:
@@ -71,8 +58,6 @@ class RecordUsageEventsBatchResponse200DataItem:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -80,23 +65,17 @@ class RecordUsageEventsBatchResponse200DataItem:
 
         _status = d.pop("status", UNSET)
         status: RecordUsageEventsBatchResponse200DataItemStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = RecordUsageEventsBatchResponse200DataItemStatus(_status)
 
-
-
-
         _event_id = d.pop("event_id", UNSET)
         event_id: UUID | Unset
-        if isinstance(_event_id,  Unset):
+        if isinstance(_event_id, Unset):
             event_id = UNSET
         else:
             event_id = UUID(_event_id)
-
-
-
 
         error = d.pop("error", UNSET)
 
@@ -106,7 +85,6 @@ class RecordUsageEventsBatchResponse200DataItem:
             event_id=event_id,
             error=error,
         )
-
 
         record_usage_events_batch_response_200_data_item.additional_properties = d
         return record_usage_events_batch_response_200_data_item

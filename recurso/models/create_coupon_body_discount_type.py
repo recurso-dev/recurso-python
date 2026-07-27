@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class CreateCouponBodyDiscountType(str, Enum):
     AMOUNT = "amount"
     PERCENT = "percent"

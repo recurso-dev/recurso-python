@@ -1,35 +1,27 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.update_plan_body_interval_unit import UpdatePlanBodyIntervalUnit
 from ..types import UNSET, Unset
-
-
-
-
-
 
 T = TypeVar("T", bound="UpdatePlanBody")
 
 
-
 @_attrs_define
 class UpdatePlanBody:
-    """ 
-        Attributes:
-            name (str | Unset):
-            hsn_code (str | Unset):
-            interval_unit (UpdatePlanBodyIntervalUnit | Unset):
-            interval_count (int | Unset):
-            active (bool | Unset):
-     """
+    """
+    Attributes:
+        name (str | Unset):
+        hsn_code (str | Unset):
+        interval_unit (UpdatePlanBodyIntervalUnit | Unset):
+        interval_count (int | Unset):
+        active (bool | Unset):
+    """
 
     name: str | Unset = UNSET
     hsn_code: str | Unset = UNSET
@@ -37,10 +29,6 @@ class UpdatePlanBody:
     interval_count: int | Unset = UNSET
     active: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
@@ -51,16 +39,13 @@ class UpdatePlanBody:
         if not isinstance(self.interval_unit, Unset):
             interval_unit = self.interval_unit.value
 
-
         interval_count = self.interval_count
 
         active = self.active
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if name is not UNSET:
             field_dict["name"] = name
         if hsn_code is not UNSET:
@@ -74,8 +59,6 @@ class UpdatePlanBody:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -85,13 +68,10 @@ class UpdatePlanBody:
 
         _interval_unit = d.pop("interval_unit", UNSET)
         interval_unit: UpdatePlanBodyIntervalUnit | Unset
-        if isinstance(_interval_unit,  Unset):
+        if isinstance(_interval_unit, Unset):
             interval_unit = UNSET
         else:
             interval_unit = UpdatePlanBodyIntervalUnit(_interval_unit)
-
-
-
 
         interval_count = d.pop("interval_count", UNSET)
 
@@ -104,7 +84,6 @@ class UpdatePlanBody:
             interval_count=interval_count,
             active=active,
         )
-
 
         update_plan_body.additional_properties = d
         return update_plan_body

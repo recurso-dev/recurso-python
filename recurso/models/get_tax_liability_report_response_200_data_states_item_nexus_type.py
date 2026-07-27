@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class GetTaxLiabilityReportResponse200DataStatesItemNexusType(str, Enum):
     ECONOMIC = "economic"
     PHYSICAL = "physical"

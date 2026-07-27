@@ -1,36 +1,25 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.get_tax_nexus_status_response_200 import GetTaxNexusStatusResponse200
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     year: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
     params["year"] = year
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -38,30 +27,24 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | GetTaxNexusStatusResponse200 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | GetTaxNexusStatusResponse200 | None:
     if response.status_code == 200:
         response_200 = GetTaxNexusStatusResponse200.from_dict(response.json())
-
-
 
         return response_200
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
-
-
         return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
@@ -71,7 +54,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | GetTaxNexusStatusResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | GetTaxNexusStatusResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -84,9 +69,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     year: int | Unset = UNSET,
-
 ) -> Response[Error | GetTaxNexusStatusResponse200]:
-    """ Per-state US economic-nexus status
+    """Per-state US economic-nexus status
 
      Returns, for the given calendar year (default current), every US state where the tenant has declared
     or economic nexus or any US sales activity: year-to-date taxable sales and transaction counts, the
@@ -104,12 +88,10 @@ def sync_detailed(
 
     Returns:
         Response[Error | GetTaxNexusStatusResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         year=year,
-
     )
 
     response = client.get_httpx_client().request(
@@ -118,13 +100,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     year: int | Unset = UNSET,
-
 ) -> Error | GetTaxNexusStatusResponse200 | None:
-    """ Per-state US economic-nexus status
+    """Per-state US economic-nexus status
 
      Returns, for the given calendar year (default current), every US state where the tenant has declared
     or economic nexus or any US sales activity: year-to-date taxable sales and transaction counts, the
@@ -142,22 +124,20 @@ def sync(
 
     Returns:
         Error | GetTaxNexusStatusResponse200
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-year=year,
-
+        year=year,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     year: int | Unset = UNSET,
-
 ) -> Response[Error | GetTaxNexusStatusResponse200]:
-    """ Per-state US economic-nexus status
+    """Per-state US economic-nexus status
 
      Returns, for the given calendar year (default current), every US state where the tenant has declared
     or economic nexus or any US sales activity: year-to-date taxable sales and transaction counts, the
@@ -175,27 +155,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | GetTaxNexusStatusResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         year=year,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     year: int | Unset = UNSET,
-
 ) -> Error | GetTaxNexusStatusResponse200 | None:
-    """ Per-state US economic-nexus status
+    """Per-state US economic-nexus status
 
      Returns, for the given calendar year (default current), every US state where the tenant has declared
     or economic nexus or any US sales activity: year-to-date taxable sales and transaction counts, the
@@ -213,11 +189,11 @@ async def asyncio(
 
     Returns:
         Error | GetTaxNexusStatusResponse200
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-year=year,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            year=year,
+        )
+    ).parsed

@@ -1,50 +1,41 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.update_customer_body_tax_type import UpdateCustomerBodyTaxType
 from ..types import UNSET, Unset
-from typing import cast
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="UpdateCustomerBody")
 
 
-
 @_attrs_define
 class UpdateCustomerBody:
-    """ 
-        Attributes:
-            name (str | Unset):
-            email (str | Unset):
-            phone (str | Unset):
-            tax_id (str | Unset):
-            gstin (str | Unset):
-            tax_type (UpdateCustomerBodyTaxType | Unset):
-            place_of_supply (str | Unset):
-            tax_exempt (bool | Unset): US sales-tax exemption status (D2).
-            tax_exemption_number (str | Unset): Exemption/resale certificate number.
-            tax_exemption_code (str | Unset): Provider entity-use / usage code (also the reason).
-            tax_exemption_expires_at (datetime.date | Unset): Exemption certificate expiry (YYYY-MM-DD); empty/omitted = no
-                expiry. Past this date the buyer is charged tax again (Inc 2).
-            line1 (str | Unset):
-            city (str | Unset):
-            state (str | Unset):
-            zip_ (str | Unset):
-            country (str | Unset):
-            active (bool | Unset):
-     """
+    """
+    Attributes:
+        name (str | Unset):
+        email (str | Unset):
+        phone (str | Unset):
+        tax_id (str | Unset):
+        gstin (str | Unset):
+        tax_type (UpdateCustomerBodyTaxType | Unset):
+        place_of_supply (str | Unset):
+        tax_exempt (bool | Unset): US sales-tax exemption status (D2).
+        tax_exemption_number (str | Unset): Exemption/resale certificate number.
+        tax_exemption_code (str | Unset): Provider entity-use / usage code (also the reason).
+        tax_exemption_expires_at (datetime.date | Unset): Exemption certificate expiry (YYYY-MM-DD); empty/omitted = no
+            expiry. Past this date the buyer is charged tax again (Inc 2).
+        line1 (str | Unset):
+        city (str | Unset):
+        state (str | Unset):
+        zip_ (str | Unset):
+        country (str | Unset):
+        active (bool | Unset):
+    """
 
     name: str | Unset = UNSET
     email: str | Unset = UNSET
@@ -65,10 +56,6 @@ class UpdateCustomerBody:
     active: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
         name = self.name
 
@@ -83,7 +70,6 @@ class UpdateCustomerBody:
         tax_type: str | Unset = UNSET
         if not isinstance(self.tax_type, Unset):
             tax_type = self.tax_type.value
-
 
         place_of_supply = self.place_of_supply
 
@@ -109,11 +95,9 @@ class UpdateCustomerBody:
 
         active = self.active
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if name is not UNSET:
             field_dict["name"] = name
         if email is not UNSET:
@@ -151,8 +135,6 @@ class UpdateCustomerBody:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -168,13 +150,10 @@ class UpdateCustomerBody:
 
         _tax_type = d.pop("tax_type", UNSET)
         tax_type: UpdateCustomerBodyTaxType | Unset
-        if isinstance(_tax_type,  Unset):
+        if isinstance(_tax_type, Unset):
             tax_type = UNSET
         else:
             tax_type = UpdateCustomerBodyTaxType(_tax_type)
-
-
-
 
         place_of_supply = d.pop("place_of_supply", UNSET)
 
@@ -186,13 +165,10 @@ class UpdateCustomerBody:
 
         _tax_exemption_expires_at = d.pop("tax_exemption_expires_at", UNSET)
         tax_exemption_expires_at: datetime.date | Unset
-        if isinstance(_tax_exemption_expires_at,  Unset):
+        if isinstance(_tax_exemption_expires_at, Unset):
             tax_exemption_expires_at = UNSET
         else:
             tax_exemption_expires_at = datetime.date.fromisoformat(_tax_exemption_expires_at)
-
-
-
 
         line1 = d.pop("line1", UNSET)
 
@@ -225,7 +201,6 @@ class UpdateCustomerBody:
             country=country,
             active=active,
         )
-
 
         update_customer_body.additional_properties = d
         return update_customer_body

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class SetTaxRegistrationsBodyRegistrationsItemStatus(str, Enum):
     NOT_REGISTERED = "not_registered"
     PENDING = "pending"

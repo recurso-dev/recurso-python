@@ -90,7 +90,8 @@ def main() -> int:
         assert_endpoint(resume_subscription, sync_params=["id", "client"])
         assert_endpoint(list_invoices, sync_params=["client"])
         assert_endpoint(create_coupon, sync_params=["client", "body"])
-        assert_endpoint(list_coupons, sync_params=["client"])
+        # limit/offset landed with the API-wide list clamp (recurso #224).
+        assert_endpoint(list_coupons, sync_params=["client", "limit", "offset"])
         assert_endpoint(record_usage_event, sync_params=["client", "body"])
         assert_endpoint(check_entitlement, sync_params=["client", "customer_id", "feature"])
         assert_endpoint(get_plan_entitlements, sync_params=["id", "client"])
@@ -100,6 +101,17 @@ def main() -> int:
         assert hasattr(download_invoice_pdf, "sync_detailed")
 
     check("core endpoints exist with expected signatures", endpoints)
+
+    # --- disputes + gift cancel (API sync 2026-07-27) -------------------
+    def disputes_and_gift_cancel():
+        from recurso.api.disputes import list_disputes, resolve_dispute
+        from recurso.api.gifts import cancel_gift
+
+        assert_endpoint(list_disputes, sync_params=["client", "limit", "offset", "status"])
+        assert hasattr(resolve_dispute, "sync_detailed")
+        assert_endpoint(cancel_gift, sync_params=["id", "client"])
+
+    check("disputes + gifts.cancel endpoints exist", disputes_and_gift_cancel)
 
     # --- usage-based billing v1 (billable metrics, charges, preview) -----
     def metering_endpoints():
@@ -361,7 +373,6 @@ def main() -> int:
     # --- 2026-07 catch-up: collections, entities, per-entity analytics ---
     def catchup_endpoints():
         from recurso.api.analytics import get_entities_overview, get_mrr_by_entity
-        from recurso.api.dunning import get_dunning_timing
         from recurso.api.collections import (
             collections_mark_uncollectible,
             collections_pause_dunning,
@@ -371,6 +382,7 @@ def main() -> int:
             get_collections_queue,
         )
         from recurso.api.customers import get_credit_statement
+        from recurso.api.dunning import get_dunning_timing
         from recurso.api.entities import (
             create_entity,
             delete_entity,
@@ -382,11 +394,23 @@ def main() -> int:
         from recurso.api.wallets import close_wallet
 
         for mod in (
-            collections_mark_uncollectible, collections_pause_dunning, collections_retry_now,
-            get_collections_failures, get_collections_funnel, get_collections_queue,
-            create_entity, delete_entity, get_entities_overview, get_entity,
-            list_entities, update_entity, get_dunning_timing, get_mrr_by_entity,
-            get_credit_statement, update_usage_alert, close_wallet,
+            collections_mark_uncollectible,
+            collections_pause_dunning,
+            collections_retry_now,
+            get_collections_failures,
+            get_collections_funnel,
+            get_collections_queue,
+            create_entity,
+            delete_entity,
+            get_entities_overview,
+            get_entity,
+            list_entities,
+            update_entity,
+            get_dunning_timing,
+            get_mrr_by_entity,
+            get_credit_statement,
+            update_usage_alert,
+            close_wallet,
         ):
             assert hasattr(mod, "sync_detailed"), f"{mod.__name__} missing sync_detailed"
 
@@ -402,4 +426,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

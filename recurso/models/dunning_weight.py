@@ -1,36 +1,27 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-import datetime
-
-
-
-
-
-
 T = TypeVar("T", bound="DunningWeight")
-
 
 
 @_attrs_define
 class DunningWeight:
-    """ 
-        Attributes:
-            context_key (str | Unset): Customer context bucket the weight was learned for.
-            action_id (str | Unset): Retry action identifier (e.g. 1h, 24h, 3d, 7d).
-            average_reward (float | Unset): Learned success rate (0.0-1.0).
-            sample_count (int | Unset):
-            updated_at (datetime.datetime | Unset):
-     """
+    """
+    Attributes:
+        context_key (str | Unset): Customer context bucket the weight was learned for.
+        action_id (str | Unset): Retry action identifier (e.g. 1h, 24h, 3d, 7d).
+        average_reward (float | Unset): Learned success rate (0.0-1.0).
+        sample_count (int | Unset):
+        updated_at (datetime.datetime | Unset):
+    """
 
     context_key: str | Unset = UNSET
     action_id: str | Unset = UNSET
@@ -38,10 +29,6 @@ class DunningWeight:
     sample_count: int | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         context_key = self.context_key
@@ -56,11 +43,9 @@ class DunningWeight:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if context_key is not UNSET:
             field_dict["context_key"] = context_key
         if action_id is not UNSET:
@@ -73,8 +58,6 @@ class DunningWeight:
             field_dict["updated_at"] = updated_at
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -89,13 +72,10 @@ class DunningWeight:
 
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
-
-
-
 
         dunning_weight = cls(
             context_key=context_key,
@@ -104,7 +84,6 @@ class DunningWeight:
             sample_count=sample_count,
             updated_at=updated_at,
         )
-
 
         dunning_weight.additional_properties = d
         return dunning_weight

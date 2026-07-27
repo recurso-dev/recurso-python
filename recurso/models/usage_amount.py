@@ -1,44 +1,37 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
 if TYPE_CHECKING:
-  from ..models.usage_amount_charges_item import UsageAmountChargesItem
-
-
-
+    from ..models.usage_amount_charges_item import UsageAmountChargesItem
 
 
 T = TypeVar("T", bound="UsageAmount")
 
 
-
 @_attrs_define
 class UsageAmount:
-    """ Live preview of the current period's usage priced as of now.
+    """Live preview of the current period's usage priced as of now.
 
-        Attributes:
-            subscription_id (UUID | Unset):
-            currency (str | Unset):
-            current_period_start (datetime.datetime | Unset):
-            as_of (datetime.datetime | Unset):
-            charges (list[UsageAmountChargesItem] | Unset):
-            total_amount (int | Unset):
-            commitment_amount (int | Unset): The subscription's per-period minimum (0 = none).
-            projected_true_up (int | Unset): The true-up that would bill if the period closed now — commitment − (flat fee +
-                usage), floored at zero.
-     """
+    Attributes:
+        subscription_id (UUID | Unset):
+        currency (str | Unset):
+        current_period_start (datetime.datetime | Unset):
+        as_of (datetime.datetime | Unset):
+        charges (list[UsageAmountChargesItem] | Unset):
+        total_amount (int | Unset):
+        commitment_amount (int | Unset): The subscription's per-period minimum (0 = none).
+        projected_true_up (int | Unset): The true-up that would bill if the period closed now — commitment − (flat fee +
+            usage), floored at zero.
+    """
 
     subscription_id: UUID | Unset = UNSET
     currency: str | Unset = UNSET
@@ -50,12 +43,7 @@ class UsageAmount:
     projected_true_up: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.usage_amount_charges_item import UsageAmountChargesItem
         subscription_id: str | Unset = UNSET
         if not isinstance(self.subscription_id, Unset):
             subscription_id = str(self.subscription_id)
@@ -77,19 +65,15 @@ class UsageAmount:
                 charges_item = charges_item_data.to_dict()
                 charges.append(charges_item)
 
-
-
         total_amount = self.total_amount
 
         commitment_amount = self.commitment_amount
 
         projected_true_up = self.projected_true_up
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if subscription_id is not UNSET:
             field_dict["subscription_id"] = subscription_id
         if currency is not UNSET:
@@ -109,43 +93,33 @@ class UsageAmount:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.usage_amount_charges_item import UsageAmountChargesItem
+
         d = dict(src_dict)
         _subscription_id = d.pop("subscription_id", UNSET)
         subscription_id: UUID | Unset
-        if isinstance(_subscription_id,  Unset):
+        if isinstance(_subscription_id, Unset):
             subscription_id = UNSET
         else:
             subscription_id = UUID(_subscription_id)
-
-
-
 
         currency = d.pop("currency", UNSET)
 
         _current_period_start = d.pop("current_period_start", UNSET)
         current_period_start: datetime.datetime | Unset
-        if isinstance(_current_period_start,  Unset):
+        if isinstance(_current_period_start, Unset):
             current_period_start = UNSET
         else:
             current_period_start = datetime.datetime.fromisoformat(_current_period_start)
 
-
-
-
         _as_of = d.pop("as_of", UNSET)
         as_of: datetime.datetime | Unset
-        if isinstance(_as_of,  Unset):
+        if isinstance(_as_of, Unset):
             as_of = UNSET
         else:
             as_of = datetime.datetime.fromisoformat(_as_of)
-
-
-
 
         _charges = d.pop("charges", UNSET)
         charges: list[UsageAmountChargesItem] | Unset = UNSET
@@ -154,10 +128,7 @@ class UsageAmount:
             for charges_item_data in _charges:
                 charges_item = UsageAmountChargesItem.from_dict(charges_item_data)
 
-
-
                 charges.append(charges_item)
-
 
         total_amount = d.pop("total_amount", UNSET)
 
@@ -175,7 +146,6 @@ class UsageAmount:
             commitment_amount=commitment_amount,
             projected_true_up=projected_true_up,
         )
-
 
         usage_amount.additional_properties = d
         return usage_amount

@@ -1,37 +1,29 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.update_dunning_campaign_step_body_channel import UpdateDunningCampaignStepBodyChannel
 from ..types import UNSET, Unset
-
-
-
-
-
 
 T = TypeVar("T", bound="UpdateDunningCampaignStepBody")
 
 
-
 @_attrs_define
 class UpdateDunningCampaignStepBody:
-    """ 
-        Attributes:
-            step_order (int | Unset):
-            channel (UpdateDunningCampaignStepBodyChannel | Unset):
-            delay_hours (int | Unset):
-            template_name (str | Unset):
-            subject (str | Unset):
-            body (str | Unset):
-            is_payment_wall (bool | Unset):
-     """
+    """
+    Attributes:
+        step_order (int | Unset):
+        channel (UpdateDunningCampaignStepBodyChannel | Unset):
+        delay_hours (int | Unset):
+        template_name (str | Unset):
+        subject (str | Unset):
+        body (str | Unset):
+        is_payment_wall (bool | Unset):
+    """
 
     step_order: int | Unset = UNSET
     channel: UpdateDunningCampaignStepBodyChannel | Unset = UNSET
@@ -42,17 +34,12 @@ class UpdateDunningCampaignStepBody:
     is_payment_wall: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
         step_order = self.step_order
 
         channel: str | Unset = UNSET
         if not isinstance(self.channel, Unset):
             channel = self.channel.value
-
 
         delay_hours = self.delay_hours
 
@@ -64,11 +51,9 @@ class UpdateDunningCampaignStepBody:
 
         is_payment_wall = self.is_payment_wall
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if step_order is not UNSET:
             field_dict["step_order"] = step_order
         if channel is not UNSET:
@@ -86,8 +71,6 @@ class UpdateDunningCampaignStepBody:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -95,13 +78,10 @@ class UpdateDunningCampaignStepBody:
 
         _channel = d.pop("channel", UNSET)
         channel: UpdateDunningCampaignStepBodyChannel | Unset
-        if isinstance(_channel,  Unset):
+        if isinstance(_channel, Unset):
             channel = UNSET
         else:
             channel = UpdateDunningCampaignStepBodyChannel(_channel)
-
-
-
 
         delay_hours = d.pop("delay_hours", UNSET)
 
@@ -122,7 +102,6 @@ class UpdateDunningCampaignStepBody:
             body=body,
             is_payment_wall=is_payment_wall,
         )
-
 
         update_dunning_campaign_step_body.additional_properties = d
         return update_dunning_campaign_step_body

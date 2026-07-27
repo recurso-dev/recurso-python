@@ -1,38 +1,29 @@
 from http import HTTPStatus
 from typing import Any, cast
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.invoice import Invoice
-from typing import cast
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     id: UUID,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v1/subscriptions/{id}/bill-usage".format(id=quote(str(id), safe=""),),
+        "url": "/v1/subscriptions/{id}/bill-usage".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
-
     return _kwargs
-
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | Invoice | None:
@@ -43,21 +34,15 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
     if response.status_code == 201:
         response_201 = Invoice.from_dict(response.json())
 
-
-
         return response_201
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
-
-
         return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
@@ -67,7 +52,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Any | Error | Invoice]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | Error | Invoice]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -80,9 +67,8 @@ def sync_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[Any | Error | Invoice]:
-    """ Generate an interim progressive-usage invoice
+    """Generate an interim progressive-usage invoice
 
      For a subscription with progressive billing enabled, bill the usage accrued since the last bill when
     it has reached the threshold (A5). The watermark guarantees no usage is billed twice. Returns the
@@ -98,12 +84,10 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error | Invoice]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -112,13 +96,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Any | Error | Invoice | None:
-    """ Generate an interim progressive-usage invoice
+    """Generate an interim progressive-usage invoice
 
      For a subscription with progressive billing enabled, bill the usage accrued since the last bill when
     it has reached the threshold (A5). The watermark guarantees no usage is billed twice. Returns the
@@ -134,22 +118,20 @@ def sync(
 
     Returns:
         Any | Error | Invoice
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[Any | Error | Invoice]:
-    """ Generate an interim progressive-usage invoice
+    """Generate an interim progressive-usage invoice
 
      For a subscription with progressive billing enabled, bill the usage accrued since the last bill when
     it has reached the threshold (A5). The watermark guarantees no usage is billed twice. Returns the
@@ -165,27 +147,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error | Invoice]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Any | Error | Invoice | None:
-    """ Generate an interim progressive-usage invoice
+    """Generate an interim progressive-usage invoice
 
      For a subscription with progressive billing enabled, bill the usage accrued since the last bill when
     it has reached the threshold (A5). The watermark guarantees no usage is billed twice. Returns the
@@ -201,11 +179,11 @@ async def asyncio(
 
     Returns:
         Any | Error | Invoice
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+        )
+    ).parsed

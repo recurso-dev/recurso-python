@@ -1,42 +1,33 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
-
 T = TypeVar("T", bound="CheckoutInvoice")
-
 
 
 @_attrs_define
 class CheckoutInvoice:
-    """ 
-        Attributes:
-            id (UUID | Unset):
-            invoice_number (str | Unset):
-            status (str | Unset):
-            currency (str | Unset):
-            subtotal (int | Unset):
-            tax_amount (int | Unset):
-            total (int | Unset):
-            display_amount (str | Unset): Human-readable major-unit amount (e.g. "118.00").
-            due_date (datetime.date | Unset):
-            customer_id (UUID | Unset):
-     """
+    """
+    Attributes:
+        id (UUID | Unset):
+        invoice_number (str | Unset):
+        status (str | Unset):
+        currency (str | Unset):
+        subtotal (int | Unset):
+        tax_amount (int | Unset):
+        total (int | Unset):
+        display_amount (str | Unset): Human-readable major-unit amount (e.g. "118.00").
+        due_date (datetime.date | Unset):
+        customer_id (UUID | Unset):
+    """
 
     id: UUID | Unset = UNSET
     invoice_number: str | Unset = UNSET
@@ -49,10 +40,6 @@ class CheckoutInvoice:
     due_date: datetime.date | Unset = UNSET
     customer_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -81,11 +68,9 @@ class CheckoutInvoice:
         if not isinstance(self.customer_id, Unset):
             customer_id = str(self.customer_id)
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if invoice_number is not UNSET:
@@ -109,20 +94,15 @@ class CheckoutInvoice:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
-
-
-
 
         invoice_number = d.pop("invoice_number", UNSET)
 
@@ -140,23 +120,17 @@ class CheckoutInvoice:
 
         _due_date = d.pop("due_date", UNSET)
         due_date: datetime.date | Unset
-        if isinstance(_due_date,  Unset):
+        if isinstance(_due_date, Unset):
             due_date = UNSET
         else:
             due_date = datetime.date.fromisoformat(_due_date)
 
-
-
-
         _customer_id = d.pop("customer_id", UNSET)
         customer_id: UUID | Unset
-        if isinstance(_customer_id,  Unset):
+        if isinstance(_customer_id, Unset):
             customer_id = UNSET
         else:
             customer_id = UUID(_customer_id)
-
-
-
 
         checkout_invoice = cls(
             id=id,
@@ -170,7 +144,6 @@ class CheckoutInvoice:
             due_date=due_date,
             customer_id=customer_id,
         )
-
 
         checkout_invoice.additional_properties = d
         return checkout_invoice

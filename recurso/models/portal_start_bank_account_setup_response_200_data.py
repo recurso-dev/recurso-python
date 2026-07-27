@@ -1,58 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="PortalStartBankAccountSetupResponse200Data")
-
 
 
 @_attrs_define
 class PortalStartBankAccountSetupResponse200Data:
-    """ 
-        Attributes:
-            client_secret (str | Unset):
-            publishable_key (str | Unset):
-     """
+    """
+    Attributes:
+        client_secret (str | Unset):
+        publishable_key (str | Unset):
+    """
 
     client_secret: str | Unset = UNSET
     publishable_key: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         client_secret = self.client_secret
 
         publishable_key = self.publishable_key
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if client_secret is not UNSET:
             field_dict["client_secret"] = client_secret
         if publishable_key is not UNSET:
             field_dict["publishable_key"] = publishable_key
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -65,7 +49,6 @@ class PortalStartBankAccountSetupResponse200Data:
             client_secret=client_secret,
             publishable_key=publishable_key,
         )
-
 
         portal_start_bank_account_setup_response_200_data.additional_properties = d
         return portal_start_bank_account_setup_response_200_data

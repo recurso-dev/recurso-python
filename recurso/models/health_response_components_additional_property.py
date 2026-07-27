@@ -1,58 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="HealthResponseComponentsAdditionalProperty")
-
 
 
 @_attrs_define
 class HealthResponseComponentsAdditionalProperty:
-    """ 
-        Attributes:
-            status (str | Unset):
-            error (str | Unset):
-     """
+    """
+    Attributes:
+        status (str | Unset):
+        error (str | Unset):
+    """
 
     status: str | Unset = UNSET
     error: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         status = self.status
 
         error = self.error
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if status is not UNSET:
             field_dict["status"] = status
         if error is not UNSET:
             field_dict["error"] = error
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -65,7 +49,6 @@ class HealthResponseComponentsAdditionalProperty:
             status=status,
             error=error,
         )
-
 
         health_response_components_additional_property.additional_properties = d
         return health_response_components_additional_property

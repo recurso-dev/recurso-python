@@ -4,15 +4,11 @@ from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.get_auth_oauth_provider_callback_provider import GetAuthOauthProviderCallbackProvider
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -20,11 +16,7 @@ def _get_kwargs(
     *,
     code: str | Unset = UNSET,
     state: str | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -32,19 +24,17 @@ def _get_kwargs(
 
     params["state"] = state
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/auth/oauth/{provider}/callback".format(provider=quote(str(provider), safe=""),),
+        "url": "/auth/oauth/{provider}/callback".format(
+            provider=quote(str(provider), safe=""),
+        ),
         "params": params,
     }
 
-
     return _kwargs
-
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | None:
@@ -55,14 +45,10 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
     if response.status_code == 403:
         response_403 = Error.from_dict(response.json())
 
-
-
         return response_403
 
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
-
-
 
         return response_404
 
@@ -87,9 +73,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     code: str | Unset = UNSET,
     state: str | Unset = UNSET,
-
 ) -> Response[Any | Error]:
-    """ OAuth callback (provider redirects here)
+    """OAuth callback (provider redirects here)
 
      Validates `state` against the cookie (constant-time), exchanges the code with PKCE, fetches userinfo
     and requires a verified email (Google: email_verified==true; GitHub: a primary verified email). Then
@@ -109,14 +94,12 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         provider=provider,
-code=code,
-state=state,
-
+        code=code,
+        state=state,
     )
 
     response = client.get_httpx_client().request(
@@ -125,15 +108,15 @@ state=state,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     provider: GetAuthOauthProviderCallbackProvider,
     *,
     client: AuthenticatedClient | Client,
     code: str | Unset = UNSET,
     state: str | Unset = UNSET,
-
 ) -> Any | Error | None:
-    """ OAuth callback (provider redirects here)
+    """OAuth callback (provider redirects here)
 
      Validates `state` against the cookie (constant-time), exchanges the code with PKCE, fetches userinfo
     and requires a verified email (Google: email_verified==true; GitHub: a primary verified email). Then
@@ -153,16 +136,15 @@ def sync(
 
     Returns:
         Any | Error
-     """
-
+    """
 
     return sync_detailed(
         provider=provider,
-client=client,
-code=code,
-state=state,
-
+        client=client,
+        code=code,
+        state=state,
     ).parsed
+
 
 async def asyncio_detailed(
     provider: GetAuthOauthProviderCallbackProvider,
@@ -170,9 +152,8 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     code: str | Unset = UNSET,
     state: str | Unset = UNSET,
-
 ) -> Response[Any | Error]:
-    """ OAuth callback (provider redirects here)
+    """OAuth callback (provider redirects here)
 
      Validates `state` against the cookie (constant-time), exchanges the code with PKCE, fetches userinfo
     and requires a verified email (Google: email_verified==true; GitHub: a primary verified email). Then
@@ -192,21 +173,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         provider=provider,
-code=code,
-state=state,
-
+        code=code,
+        state=state,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     provider: GetAuthOauthProviderCallbackProvider,
@@ -214,9 +192,8 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     code: str | Unset = UNSET,
     state: str | Unset = UNSET,
-
 ) -> Any | Error | None:
-    """ OAuth callback (provider redirects here)
+    """OAuth callback (provider redirects here)
 
      Validates `state` against the cookie (constant-time), exchanges the code with PKCE, fetches userinfo
     and requires a verified email (Google: email_verified==true; GitHub: a primary verified email). Then
@@ -236,13 +213,13 @@ async def asyncio(
 
     Returns:
         Any | Error
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        provider=provider,
-client=client,
-code=code,
-state=state,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            provider=provider,
+            client=client,
+            code=code,
+            state=state,
+        )
+    ).parsed

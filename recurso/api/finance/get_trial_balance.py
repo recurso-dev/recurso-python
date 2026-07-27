@@ -1,30 +1,21 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.get_trial_balance_response_200 import GetTrialBalanceResponse200
-from ...types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     entity_id: UUID | Unset = UNSET,
     consolidated: bool | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -35,9 +26,7 @@ def _get_kwargs(
 
     params["consolidated"] = consolidated
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -45,23 +34,19 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | GetTrialBalanceResponse200 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | GetTrialBalanceResponse200 | None:
     if response.status_code == 200:
         response_200 = GetTrialBalanceResponse200.from_dict(response.json())
-
-
 
         return response_200
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
@@ -71,7 +56,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | GetTrialBalanceResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | GetTrialBalanceResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -85,9 +72,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     entity_id: UUID | Unset = UNSET,
     consolidated: bool | Unset = UNSET,
-
 ) -> Response[Error | GetTrialBalanceResponse200]:
-    """ Trial balance
+    """Trial balance
 
      Every account with its posted debit/credit totals, its balance on the
     account's normal side, an abnormal-sign flag, and the double-entry
@@ -106,13 +92,11 @@ def sync_detailed(
 
     Returns:
         Response[Error | GetTrialBalanceResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         entity_id=entity_id,
-consolidated=consolidated,
-
+        consolidated=consolidated,
     )
 
     response = client.get_httpx_client().request(
@@ -121,14 +105,14 @@ consolidated=consolidated,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     entity_id: UUID | Unset = UNSET,
     consolidated: bool | Unset = UNSET,
-
 ) -> Error | GetTrialBalanceResponse200 | None:
-    """ Trial balance
+    """Trial balance
 
      Every account with its posted debit/credit totals, its balance on the
     account's normal side, an abnormal-sign flag, and the double-entry
@@ -147,24 +131,22 @@ def sync(
 
     Returns:
         Error | GetTrialBalanceResponse200
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-entity_id=entity_id,
-consolidated=consolidated,
-
+        entity_id=entity_id,
+        consolidated=consolidated,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     entity_id: UUID | Unset = UNSET,
     consolidated: bool | Unset = UNSET,
-
 ) -> Response[Error | GetTrialBalanceResponse200]:
-    """ Trial balance
+    """Trial balance
 
      Every account with its posted debit/credit totals, its balance on the
     account's normal side, an abnormal-sign flag, and the double-entry
@@ -183,29 +165,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | GetTrialBalanceResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         entity_id=entity_id,
-consolidated=consolidated,
-
+        consolidated=consolidated,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     entity_id: UUID | Unset = UNSET,
     consolidated: bool | Unset = UNSET,
-
 ) -> Error | GetTrialBalanceResponse200 | None:
-    """ Trial balance
+    """Trial balance
 
      Every account with its posted debit/credit totals, its balance on the
     account's normal side, an abnormal-sign flag, and the double-entry
@@ -224,12 +202,12 @@ async def asyncio(
 
     Returns:
         Error | GetTrialBalanceResponse200
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-entity_id=entity_id,
-consolidated=consolidated,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            entity_id=entity_id,
+            consolidated=consolidated,
+        )
+    ).parsed

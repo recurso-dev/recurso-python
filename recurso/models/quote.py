@@ -1,54 +1,47 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.quote_status import QuoteStatus
 from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.line_item import LineItem
-
-
-
+    from ..models.line_item import LineItem
 
 
 T = TypeVar("T", bound="Quote")
 
 
-
 @_attrs_define
 class Quote:
-    """ 
-        Attributes:
-            id (UUID | Unset):
-            tenant_id (UUID | Unset):
-            customer_id (UUID | Unset):
-            quote_number (str | Unset):
-            status (QuoteStatus | Unset):
-            line_items (list[LineItem] | Unset):
-            subtotal (int | Unset):
-            tax_amount (int | Unset):
-            discount_amount (int | Unset):
-            total (int | Unset):
-            currency (str | Unset):
-            valid_until (datetime.datetime | None | Unset):
-            notes (str | Unset):
-            terms (str | Unset):
-            invoice_id (None | Unset | UUID): Set once the quote has been converted to an invoice.
-            accepted_at (datetime.datetime | None | Unset):
-            declined_at (datetime.datetime | None | Unset):
-            created_at (datetime.datetime | Unset):
-            updated_at (datetime.datetime | Unset):
-     """
+    """
+    Attributes:
+        id (UUID | Unset):
+        tenant_id (UUID | Unset):
+        customer_id (UUID | Unset):
+        quote_number (str | Unset):
+        status (QuoteStatus | Unset):
+        line_items (list[LineItem] | Unset):
+        subtotal (int | Unset):
+        tax_amount (int | Unset):
+        discount_amount (int | Unset):
+        total (int | Unset):
+        currency (str | Unset):
+        valid_until (datetime.datetime | None | Unset):
+        notes (str | Unset):
+        terms (str | Unset):
+        invoice_id (None | Unset | UUID): Set once the quote has been converted to an invoice.
+        accepted_at (datetime.datetime | None | Unset):
+        declined_at (datetime.datetime | None | Unset):
+        created_at (datetime.datetime | Unset):
+        updated_at (datetime.datetime | Unset):
+    """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -71,12 +64,7 @@ class Quote:
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.line_item import LineItem
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
@@ -95,15 +83,12 @@ class Quote:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         line_items: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.line_items, Unset):
             line_items = []
             for line_items_item_data in self.line_items:
                 line_items_item = line_items_item_data.to_dict()
                 line_items.append(line_items_item)
-
-
 
         subtotal = self.subtotal
 
@@ -159,11 +144,9 @@ class Quote:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -205,53 +188,40 @@ class Quote:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.line_item import LineItem
+
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
-
-
-
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id,  Unset):
+        if isinstance(_tenant_id, Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
-
-
-
         _customer_id = d.pop("customer_id", UNSET)
         customer_id: UUID | Unset
-        if isinstance(_customer_id,  Unset):
+        if isinstance(_customer_id, Unset):
             customer_id = UNSET
         else:
             customer_id = UUID(_customer_id)
-
-
-
 
         quote_number = d.pop("quote_number", UNSET)
 
         _status = d.pop("status", UNSET)
         status: QuoteStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = QuoteStatus(_status)
-
-
-
 
         _line_items = d.pop("line_items", UNSET)
         line_items: list[LineItem] | Unset = UNSET
@@ -260,10 +230,7 @@ class Quote:
             for line_items_item_data in _line_items:
                 line_items_item = LineItem.from_dict(line_items_item_data)
 
-
-
                 line_items.append(line_items_item)
-
 
         subtotal = d.pop("subtotal", UNSET)
 
@@ -285,15 +252,12 @@ class Quote:
                     raise TypeError()
                 valid_until_type_0 = datetime.datetime.fromisoformat(data)
 
-
-
                 return valid_until_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         valid_until = _parse_valid_until(d.pop("valid_until", UNSET))
-
 
         notes = d.pop("notes", UNSET)
 
@@ -309,15 +273,12 @@ class Quote:
                     raise TypeError()
                 invoice_id_type_0 = UUID(data)
 
-
-
                 return invoice_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         invoice_id = _parse_invoice_id(d.pop("invoice_id", UNSET))
-
 
         def _parse_accepted_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -329,15 +290,12 @@ class Quote:
                     raise TypeError()
                 accepted_at_type_0 = datetime.datetime.fromisoformat(data)
 
-
-
                 return accepted_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         accepted_at = _parse_accepted_at(d.pop("accepted_at", UNSET))
-
 
         def _parse_declined_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -349,8 +307,6 @@ class Quote:
                     raise TypeError()
                 declined_at_type_0 = datetime.datetime.fromisoformat(data)
 
-
-
                 return declined_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -358,26 +314,19 @@ class Quote:
 
         declined_at = _parse_declined_at(d.pop("declined_at", UNSET))
 
-
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at,  Unset):
+        if isinstance(_created_at, Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
-
-
-
 
         quote = cls(
             id=id,
@@ -400,7 +349,6 @@ class Quote:
             created_at=created_at,
             updated_at=updated_at,
         )
-
 
         quote.additional_properties = d
         return quote

@@ -1,39 +1,27 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.api_key import APIKey
 from ...models.create_api_key_body import CreateAPIKeyBody
 from ...models.error import Error
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     body: CreateAPIKeyBody | Unset = UNSET,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/v1/developer/keys",
     }
 
-    
     if not isinstance(body, Unset):
         _kwargs["json"] = body.to_dict()
 
@@ -43,19 +31,14 @@ def _get_kwargs(
     return _kwargs
 
 
-
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> APIKey | Error | None:
     if response.status_code == 201:
         response_201 = APIKey.from_dict(response.json())
-
-
 
         return response_201
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
@@ -78,9 +61,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: CreateAPIKeyBody | Unset = UNSET,
-
 ) -> Response[APIKey | Error]:
-    """ Create an API key
+    """Create an API key
 
      Generates a new secret key. The raw `key_value` is returned only in this response. Choose the mode
     with `mode`: a `test` key (rsk_test_, the default) works on a non-live server; a `live` key
@@ -95,12 +77,10 @@ def sync_detailed(
 
     Returns:
         Response[APIKey | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -109,13 +89,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: CreateAPIKeyBody | Unset = UNSET,
-
 ) -> APIKey | Error | None:
-    """ Create an API key
+    """Create an API key
 
      Generates a new secret key. The raw `key_value` is returned only in this response. Choose the mode
     with `mode`: a `test` key (rsk_test_, the default) works on a non-live server; a `live` key
@@ -130,22 +110,20 @@ def sync(
 
     Returns:
         APIKey | Error
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: CreateAPIKeyBody | Unset = UNSET,
-
 ) -> Response[APIKey | Error]:
-    """ Create an API key
+    """Create an API key
 
      Generates a new secret key. The raw `key_value` is returned only in this response. Choose the mode
     with `mode`: a `test` key (rsk_test_, the default) works on a non-live server; a `live` key
@@ -160,27 +138,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[APIKey | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: CreateAPIKeyBody | Unset = UNSET,
-
 ) -> APIKey | Error | None:
-    """ Create an API key
+    """Create an API key
 
      Generates a new secret key. The raw `key_value` is returned only in this response. Choose the mode
     with `mode`: a `test` key (rsk_test_, the default) works on a non-live server; a `live` key
@@ -195,11 +169,11 @@ async def asyncio(
 
     Returns:
         APIKey | Error
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

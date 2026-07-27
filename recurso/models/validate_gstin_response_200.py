@@ -1,34 +1,26 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="ValidateGSTINResponse200")
-
 
 
 @_attrs_define
 class ValidateGSTINResponse200:
-    """ 
-        Attributes:
-            valid (bool | Unset):
-            state_code (str | Unset): Present when valid.
-            state_name (str | Unset): Present when valid.
-            pan (str | Unset): Present when valid.
-            message (str | Unset):
-     """
+    """
+    Attributes:
+        valid (bool | Unset):
+        state_code (str | Unset): Present when valid.
+        state_name (str | Unset): Present when valid.
+        pan (str | Unset): Present when valid.
+        message (str | Unset):
+    """
 
     valid: bool | Unset = UNSET
     state_code: str | Unset = UNSET
@@ -36,10 +28,6 @@ class ValidateGSTINResponse200:
     pan: str | Unset = UNSET
     message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         valid = self.valid
@@ -52,11 +40,9 @@ class ValidateGSTINResponse200:
 
         message = self.message
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if valid is not UNSET:
             field_dict["valid"] = valid
         if state_code is not UNSET:
@@ -69,8 +55,6 @@ class ValidateGSTINResponse200:
             field_dict["message"] = message
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -92,7 +76,6 @@ class ValidateGSTINResponse200:
             pan=pan,
             message=message,
         )
-
 
         validate_gstin_response_200.additional_properties = d
         return validate_gstin_response_200

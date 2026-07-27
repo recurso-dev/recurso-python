@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class MandateFrequency(str, Enum):
     MONTHLY = "monthly"
     QUARTERLY = "quarterly"

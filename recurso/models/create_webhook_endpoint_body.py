@@ -1,58 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from typing import cast
-
-
-
-
-
-
 T = TypeVar("T", bound="CreateWebhookEndpointBody")
-
 
 
 @_attrs_define
 class CreateWebhookEndpointBody:
-    """ 
-        Attributes:
-            url (str):
-            events (list[str]): Event types to deliver (see `GET /v1/events/types`).
-     """
+    """
+    Attributes:
+        url (str):
+        events (list[str]): Event types to deliver (see `GET /v1/events/types`).
+    """
 
     url: str
     events: list[str]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         url = self.url
 
         events = self.events
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "url": url,
-            "events": events,
-        })
+        field_dict.update(
+            {
+                "url": url,
+                "events": events,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -61,12 +44,10 @@ class CreateWebhookEndpointBody:
 
         events = cast(list[str], d.pop("events"))
 
-
         create_webhook_endpoint_body = cls(
             url=url,
             events=events,
         )
-
 
         create_webhook_endpoint_body.additional_properties = d
         return create_webhook_endpoint_body

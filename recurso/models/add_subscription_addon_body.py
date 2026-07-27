@@ -1,64 +1,47 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from uuid import UUID
-
-
-
-
-
-
 T = TypeVar("T", bound="AddSubscriptionAddonBody")
-
 
 
 @_attrs_define
 class AddSubscriptionAddonBody:
-    """ 
-        Attributes:
-            plan_id (UUID): The plan to attach as an add-on.
-            quantity (int):
-     """
+    """
+    Attributes:
+        plan_id (UUID): The plan to attach as an add-on.
+        quantity (int):
+    """
 
     plan_id: UUID
     quantity: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         plan_id = str(self.plan_id)
 
         quantity = self.quantity
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "plan_id": plan_id,
-            "quantity": quantity,
-        })
+        field_dict.update(
+            {
+                "plan_id": plan_id,
+                "quantity": quantity,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         plan_id = UUID(d.pop("plan_id"))
-
-
-
 
         quantity = d.pop("quantity")
 
@@ -66,7 +49,6 @@ class AddSubscriptionAddonBody:
             plan_id=plan_id,
             quantity=quantity,
         )
-
 
         add_subscription_addon_body.additional_properties = d
         return add_subscription_addon_body

@@ -1,43 +1,31 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="LineItem")
-
 
 
 @_attrs_define
 class LineItem:
-    """ 
-        Attributes:
-            description (str | Unset):
-            quantity (int | Unset):
-            unit_price (int | Unset): Price per unit in the lowest currency unit.
-            amount (int | Unset): quantity x unit_price, in the lowest currency unit.
-     """
+    """
+    Attributes:
+        description (str | Unset):
+        quantity (int | Unset):
+        unit_price (int | Unset): Price per unit in the lowest currency unit.
+        amount (int | Unset): quantity x unit_price, in the lowest currency unit.
+    """
 
     description: str | Unset = UNSET
     quantity: int | Unset = UNSET
     unit_price: int | Unset = UNSET
     amount: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         description = self.description
@@ -48,11 +36,9 @@ class LineItem:
 
         amount = self.amount
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if description is not UNSET:
             field_dict["description"] = description
         if quantity is not UNSET:
@@ -63,8 +49,6 @@ class LineItem:
             field_dict["amount"] = amount
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -83,7 +67,6 @@ class LineItem:
             unit_price=unit_price,
             amount=amount,
         )
-
 
         line_item.additional_properties = d
         return line_item

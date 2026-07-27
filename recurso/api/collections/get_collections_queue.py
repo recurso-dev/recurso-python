@@ -1,20 +1,15 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.get_collections_queue_managed_by import GetCollectionsQueueManagedBy
 from ...models.get_collections_queue_response_200 import GetCollectionsQueueResponse200
 from ...models.get_collections_queue_status import GetCollectionsQueueStatus
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -23,11 +18,7 @@ def _get_kwargs(
     managed_by: GetCollectionsQueueManagedBy | Unset = UNSET,
     page: int | Unset = 1,
     per_page: int | Unset = 50,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -47,9 +38,7 @@ def _get_kwargs(
 
     params["per_page"] = per_page
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -57,23 +46,19 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | GetCollectionsQueueResponse200 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | GetCollectionsQueueResponse200 | None:
     if response.status_code == 200:
         response_200 = GetCollectionsQueueResponse200.from_dict(response.json())
-
-
 
         return response_200
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
@@ -83,7 +68,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | GetCollectionsQueueResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | GetCollectionsQueueResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -99,9 +86,8 @@ def sync_detailed(
     managed_by: GetCollectionsQueueManagedBy | Unset = UNSET,
     page: int | Unset = 1,
     per_page: int | Unset = 50,
-
 ) -> Response[Error | GetCollectionsQueueResponse200]:
-    """ Collections worklist of currently-failing invoices
+    """Collections worklist of currently-failing invoices
 
      Operator-facing list of invoices in a recovery state (past_due or uncollectible with a balance
     owing), each with its customer, amount remaining, days overdue, retry count, last failure code, next
@@ -119,15 +105,13 @@ def sync_detailed(
 
     Returns:
         Response[Error | GetCollectionsQueueResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         status=status,
-managed_by=managed_by,
-page=page,
-per_page=per_page,
-
+        managed_by=managed_by,
+        page=page,
+        per_page=per_page,
     )
 
     response = client.get_httpx_client().request(
@@ -136,6 +120,7 @@ per_page=per_page,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
@@ -143,9 +128,8 @@ def sync(
     managed_by: GetCollectionsQueueManagedBy | Unset = UNSET,
     page: int | Unset = 1,
     per_page: int | Unset = 50,
-
 ) -> Error | GetCollectionsQueueResponse200 | None:
-    """ Collections worklist of currently-failing invoices
+    """Collections worklist of currently-failing invoices
 
      Operator-facing list of invoices in a recovery state (past_due or uncollectible with a balance
     owing), each with its customer, amount remaining, days overdue, retry count, last failure code, next
@@ -163,17 +147,16 @@ def sync(
 
     Returns:
         Error | GetCollectionsQueueResponse200
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-status=status,
-managed_by=managed_by,
-page=page,
-per_page=per_page,
-
+        status=status,
+        managed_by=managed_by,
+        page=page,
+        per_page=per_page,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -182,9 +165,8 @@ async def asyncio_detailed(
     managed_by: GetCollectionsQueueManagedBy | Unset = UNSET,
     page: int | Unset = 1,
     per_page: int | Unset = 50,
-
 ) -> Response[Error | GetCollectionsQueueResponse200]:
-    """ Collections worklist of currently-failing invoices
+    """Collections worklist of currently-failing invoices
 
      Operator-facing list of invoices in a recovery state (past_due or uncollectible with a balance
     owing), each with its customer, amount remaining, days overdue, retry count, last failure code, next
@@ -202,22 +184,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | GetCollectionsQueueResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         status=status,
-managed_by=managed_by,
-page=page,
-per_page=per_page,
-
+        managed_by=managed_by,
+        page=page,
+        per_page=per_page,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -226,9 +205,8 @@ async def asyncio(
     managed_by: GetCollectionsQueueManagedBy | Unset = UNSET,
     page: int | Unset = 1,
     per_page: int | Unset = 50,
-
 ) -> Error | GetCollectionsQueueResponse200 | None:
-    """ Collections worklist of currently-failing invoices
+    """Collections worklist of currently-failing invoices
 
      Operator-facing list of invoices in a recovery state (past_due or uncollectible with a balance
     owing), each with its customer, amount remaining, days overdue, retry count, last failure code, next
@@ -246,14 +224,14 @@ async def asyncio(
 
     Returns:
         Error | GetCollectionsQueueResponse200
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-status=status,
-managed_by=managed_by,
-page=page,
-per_page=per_page,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            status=status,
+            managed_by=managed_by,
+            page=page,
+            per_page=per_page,
+        )
+    ).parsed

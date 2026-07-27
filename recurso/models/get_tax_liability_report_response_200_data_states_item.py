@@ -1,39 +1,33 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.get_tax_liability_report_response_200_data_states_item_nexus_type import (
+    GetTaxLiabilityReportResponse200DataStatesItemNexusType,
+)
 from ..types import UNSET, Unset
-
-from ..models.get_tax_liability_report_response_200_data_states_item_nexus_type import GetTaxLiabilityReportResponse200DataStatesItemNexusType
-from ..types import UNSET, Unset
-
-
-
-
-
 
 T = TypeVar("T", bound="GetTaxLiabilityReportResponse200DataStatesItem")
 
 
-
 @_attrs_define
 class GetTaxLiabilityReportResponse200DataStatesItem:
-    """ 
-        Attributes:
-            state_code (str | Unset):
-            gross_sales (int | Unset):
-            taxable_sales (int | Unset):
-            exempt_sales (int | Unset):
-            non_taxable_sales (int | Unset):
-            tax_collected (int | Unset):
-            invoice_count (int | Unset):
-            has_nexus (bool | Unset):
-            nexus_type (GetTaxLiabilityReportResponse200DataStatesItemNexusType | Unset):
-     """
+    """
+    Attributes:
+        state_code (str | Unset):
+        gross_sales (int | Unset):
+        taxable_sales (int | Unset):
+        exempt_sales (int | Unset):
+        non_taxable_sales (int | Unset):
+        tax_collected (int | Unset):
+        invoice_count (int | Unset):
+        has_nexus (bool | Unset):
+        nexus_type (GetTaxLiabilityReportResponse200DataStatesItemNexusType | Unset):
+    """
 
     state_code: str | Unset = UNSET
     gross_sales: int | Unset = UNSET
@@ -45,10 +39,6 @@ class GetTaxLiabilityReportResponse200DataStatesItem:
     has_nexus: bool | Unset = UNSET
     nexus_type: GetTaxLiabilityReportResponse200DataStatesItemNexusType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         state_code = self.state_code
@@ -71,12 +61,9 @@ class GetTaxLiabilityReportResponse200DataStatesItem:
         if not isinstance(self.nexus_type, Unset):
             nexus_type = self.nexus_type.value
 
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if state_code is not UNSET:
             field_dict["state_code"] = state_code
         if gross_sales is not UNSET:
@@ -97,8 +84,6 @@ class GetTaxLiabilityReportResponse200DataStatesItem:
             field_dict["nexus_type"] = nexus_type
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -121,13 +106,10 @@ class GetTaxLiabilityReportResponse200DataStatesItem:
 
         _nexus_type = d.pop("nexus_type", UNSET)
         nexus_type: GetTaxLiabilityReportResponse200DataStatesItemNexusType | Unset
-        if isinstance(_nexus_type,  Unset):
+        if isinstance(_nexus_type, Unset):
             nexus_type = UNSET
         else:
             nexus_type = GetTaxLiabilityReportResponse200DataStatesItemNexusType(_nexus_type)
-
-
-
 
         get_tax_liability_report_response_200_data_states_item = cls(
             state_code=state_code,
@@ -140,7 +122,6 @@ class GetTaxLiabilityReportResponse200DataStatesItem:
             has_nexus=has_nexus,
             nexus_type=nexus_type,
         )
-
 
         get_tax_liability_report_response_200_data_states_item.additional_properties = d
         return get_tax_liability_report_response_200_data_states_item

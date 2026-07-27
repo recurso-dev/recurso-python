@@ -1,37 +1,28 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
-
 T = TypeVar("T", bound="Organization")
-
 
 
 @_attrs_define
 class Organization:
-    """ 
-        Attributes:
-            id (UUID | Unset):
-            name (str | Unset):
-            owner_email (str | Unset):
-            created_at (datetime.datetime | Unset):
-            updated_at (datetime.datetime | Unset):
-     """
+    """
+    Attributes:
+        id (UUID | Unset):
+        name (str | Unset):
+        owner_email (str | Unset):
+        created_at (datetime.datetime | Unset):
+        updated_at (datetime.datetime | Unset):
+    """
 
     id: UUID | Unset = UNSET
     name: str | Unset = UNSET
@@ -39,10 +30,6 @@ class Organization:
     created_at: datetime.datetime | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -61,11 +48,9 @@ class Organization:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -79,20 +64,15 @@ class Organization:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
-
-
-
 
         name = d.pop("name", UNSET)
 
@@ -100,23 +80,17 @@ class Organization:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at,  Unset):
+        if isinstance(_created_at, Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
-
-
-
 
         organization = cls(
             id=id,
@@ -125,7 +99,6 @@ class Organization:
             created_at=created_at,
             updated_at=updated_at,
         )
-
 
         organization.additional_properties = d
         return organization

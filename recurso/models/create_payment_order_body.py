@@ -1,64 +1,46 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from uuid import UUID
-
-
-
-
-
-
 T = TypeVar("T", bound="CreatePaymentOrderBody")
-
 
 
 @_attrs_define
 class CreatePaymentOrderBody:
-    """ 
-        Attributes:
-            invoice_id (UUID):
-     """
+    """
+    Attributes:
+        invoice_id (UUID):
+    """
 
     invoice_id: UUID
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
         invoice_id = str(self.invoice_id)
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "invoice_id": invoice_id,
-        })
+        field_dict.update(
+            {
+                "invoice_id": invoice_id,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         invoice_id = UUID(d.pop("invoice_id"))
 
-
-
-
         create_payment_order_body = cls(
             invoice_id=invoice_id,
         )
-
 
         create_payment_order_body.additional_properties = d
         return create_payment_order_body

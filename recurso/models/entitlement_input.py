@@ -1,44 +1,32 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.entitlement_input_kind import EntitlementInputKind
 from ..types import UNSET, Unset
-
-
-
-
-
 
 T = TypeVar("T", bound="EntitlementInput")
 
 
-
 @_attrs_define
 class EntitlementInput:
-    """ 
-        Attributes:
-            feature_key (str):
-            kind (EntitlementInputKind):
-            bool_value (bool | Unset):
-            limit_value (int | Unset):
-     """
+    """
+    Attributes:
+        feature_key (str):
+        kind (EntitlementInputKind):
+        bool_value (bool | Unset):
+        limit_value (int | Unset):
+    """
 
     feature_key: str
     kind: EntitlementInputKind
     bool_value: bool | Unset = UNSET
     limit_value: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         feature_key = self.feature_key
@@ -49,13 +37,14 @@ class EntitlementInput:
 
         limit_value = self.limit_value
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "feature_key": feature_key,
-            "kind": kind,
-        })
+        field_dict.update(
+            {
+                "feature_key": feature_key,
+                "kind": kind,
+            }
+        )
         if bool_value is not UNSET:
             field_dict["bool_value"] = bool_value
         if limit_value is not UNSET:
@@ -63,17 +52,12 @@ class EntitlementInput:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         feature_key = d.pop("feature_key")
 
         kind = EntitlementInputKind(d.pop("kind"))
-
-
-
 
         bool_value = d.pop("bool_value", UNSET)
 
@@ -85,7 +69,6 @@ class EntitlementInput:
             bool_value=bool_value,
             limit_value=limit_value,
         )
-
 
         entitlement_input.additional_properties = d
         return entitlement_input

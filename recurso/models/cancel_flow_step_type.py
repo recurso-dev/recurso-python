@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class CancelFlowStepType(str, Enum):
     CONFIRMATION = "confirmation"
     OFFER = "offer"
