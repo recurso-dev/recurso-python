@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class IntegrationConnectionViewCategory(str, Enum):
     CRM = "crm"
     STORAGE = "storage"

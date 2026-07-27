@@ -1,43 +1,31 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.ledger_transaction import LedgerTransaction
-
-
-
+    from ..models.ledger_transaction import LedgerTransaction
 
 
 T = TypeVar("T", bound="ListLedgerEntriesResponse200")
 
 
-
 @_attrs_define
 class ListLedgerEntriesResponse200:
-    """ 
-        Attributes:
-            data (list[LedgerTransaction] | Unset):
-     """
+    """
+    Attributes:
+        data (list[LedgerTransaction] | Unset):
+    """
 
     data: list[LedgerTransaction] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.ledger_transaction import LedgerTransaction
         data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
@@ -45,23 +33,18 @@ class ListLedgerEntriesResponse200:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if data is not UNSET:
             field_dict["data"] = data
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.ledger_transaction import LedgerTransaction
+
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
         data: list[LedgerTransaction] | Unset = UNSET
@@ -70,15 +53,11 @@ class ListLedgerEntriesResponse200:
             for data_item_data in _data:
                 data_item = LedgerTransaction.from_dict(data_item_data)
 
-
-
                 data.append(data_item)
-
 
         list_ledger_entries_response_200 = cls(
             data=data,
         )
-
 
         list_ledger_entries_response_200.additional_properties = d
         return list_ledger_entries_response_200

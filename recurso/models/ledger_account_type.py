@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class LedgerAccountType(str, Enum):
     ASSET = "asset"
     EQUITY = "equity"

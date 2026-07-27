@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class GiftStatus(str, Enum):
     PURCHASED = "purchased"
     REDEEMED = "redeemed"

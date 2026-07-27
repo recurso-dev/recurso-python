@@ -1,55 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
-
 T = TypeVar("T", bound="CancelEInvoiceBody")
-
 
 
 @_attrs_define
 class CancelEInvoiceBody:
-    """ 
-        Attributes:
-            cancel_code (int): IRP cancellation code (e.g. 1 = duplicate, 3 = data entry mistake).
-            reason (str):
-     """
+    """
+    Attributes:
+        cancel_code (int): IRP cancellation code (e.g. 1 = duplicate, 3 = data entry mistake).
+        reason (str):
+    """
 
     cancel_code: int
     reason: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         cancel_code = self.cancel_code
 
         reason = self.reason
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "cancel_code": cancel_code,
-            "reason": reason,
-        })
+        field_dict.update(
+            {
+                "cancel_code": cancel_code,
+                "reason": reason,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -62,7 +48,6 @@ class CancelEInvoiceBody:
             cancel_code=cancel_code,
             reason=reason,
         )
-
 
         cancel_e_invoice_body.additional_properties = d
         return cancel_e_invoice_body

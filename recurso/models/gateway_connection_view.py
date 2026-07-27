@@ -1,43 +1,34 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.gateway_connection_view_mode import GatewayConnectionViewMode
 from ..models.gateway_connection_view_provider import GatewayConnectionViewProvider
 from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="GatewayConnectionView")
 
 
-
 @_attrs_define
 class GatewayConnectionView:
-    """ Secret-free projection of a BYO gateway connection.
+    """Secret-free projection of a BYO gateway connection.
 
-        Attributes:
-            id (UUID | Unset):
-            provider (GatewayConnectionViewProvider | Unset):
-            mode (GatewayConnectionViewMode | Unset):
-            public_key (str | Unset):
-            has_webhook_secret (bool | Unset):
-            webhook_path (str | Unset): Append to the API origin for the gateway console (e.g. /webhooks/stripe/{id}).
-            created_at (datetime.datetime | Unset):
-            updated_at (datetime.datetime | Unset):
-     """
+    Attributes:
+        id (UUID | Unset):
+        provider (GatewayConnectionViewProvider | Unset):
+        mode (GatewayConnectionViewMode | Unset):
+        public_key (str | Unset):
+        has_webhook_secret (bool | Unset):
+        webhook_path (str | Unset): Append to the API origin for the gateway console (e.g. /webhooks/stripe/{id}).
+        created_at (datetime.datetime | Unset):
+        updated_at (datetime.datetime | Unset):
+    """
 
     id: UUID | Unset = UNSET
     provider: GatewayConnectionViewProvider | Unset = UNSET
@@ -49,10 +40,6 @@ class GatewayConnectionView:
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
@@ -62,11 +49,9 @@ class GatewayConnectionView:
         if not isinstance(self.provider, Unset):
             provider = self.provider.value
 
-
         mode: str | Unset = UNSET
         if not isinstance(self.mode, Unset):
             mode = self.mode.value
-
 
         public_key = self.public_key
 
@@ -82,11 +67,9 @@ class GatewayConnectionView:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if provider is not UNSET:
@@ -106,40 +89,29 @@ class GatewayConnectionView:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
-
-
-
         _provider = d.pop("provider", UNSET)
         provider: GatewayConnectionViewProvider | Unset
-        if isinstance(_provider,  Unset):
+        if isinstance(_provider, Unset):
             provider = UNSET
         else:
             provider = GatewayConnectionViewProvider(_provider)
 
-
-
-
         _mode = d.pop("mode", UNSET)
         mode: GatewayConnectionViewMode | Unset
-        if isinstance(_mode,  Unset):
+        if isinstance(_mode, Unset):
             mode = UNSET
         else:
             mode = GatewayConnectionViewMode(_mode)
-
-
-
 
         public_key = d.pop("public_key", UNSET)
 
@@ -149,23 +121,17 @@ class GatewayConnectionView:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at,  Unset):
+        if isinstance(_created_at, Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
-
-
-
 
         gateway_connection_view = cls(
             id=id,
@@ -177,7 +143,6 @@ class GatewayConnectionView:
             created_at=created_at,
             updated_at=updated_at,
         )
-
 
         gateway_connection_view.additional_properties = d
         return gateway_connection_view

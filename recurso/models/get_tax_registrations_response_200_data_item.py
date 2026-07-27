@@ -1,46 +1,33 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.get_tax_registrations_response_200_data_item_status import GetTaxRegistrationsResponse200DataItemStatus
 from ..types import UNSET, Unset
-from typing import cast
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="GetTaxRegistrationsResponse200DataItem")
 
 
-
 @_attrs_define
 class GetTaxRegistrationsResponse200DataItem:
-    """ 
-        Attributes:
-            state_code (str | Unset):
-            registration_number (str | Unset):
-            status (GetTaxRegistrationsResponse200DataItemStatus | Unset):
-            registered_at (datetime.date | None | Unset):
-     """
+    """
+    Attributes:
+        state_code (str | Unset):
+        registration_number (str | Unset):
+        status (GetTaxRegistrationsResponse200DataItemStatus | Unset):
+        registered_at (datetime.date | None | Unset):
+    """
 
     state_code: str | Unset = UNSET
     registration_number: str | Unset = UNSET
     status: GetTaxRegistrationsResponse200DataItemStatus | Unset = UNSET
     registered_at: datetime.date | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         state_code = self.state_code
@@ -51,7 +38,6 @@ class GetTaxRegistrationsResponse200DataItem:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         registered_at: None | str | Unset
         if isinstance(self.registered_at, Unset):
             registered_at = UNSET
@@ -60,11 +46,9 @@ class GetTaxRegistrationsResponse200DataItem:
         else:
             registered_at = self.registered_at
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if state_code is not UNSET:
             field_dict["state_code"] = state_code
         if registration_number is not UNSET:
@@ -76,8 +60,6 @@ class GetTaxRegistrationsResponse200DataItem:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -87,13 +69,10 @@ class GetTaxRegistrationsResponse200DataItem:
 
         _status = d.pop("status", UNSET)
         status: GetTaxRegistrationsResponse200DataItemStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = GetTaxRegistrationsResponse200DataItemStatus(_status)
-
-
-
 
         def _parse_registered_at(data: object) -> datetime.date | None | Unset:
             if data is None:
@@ -105,8 +84,6 @@ class GetTaxRegistrationsResponse200DataItem:
                     raise TypeError()
                 registered_at_type_0 = datetime.date.fromisoformat(data)
 
-
-
                 return registered_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -114,14 +91,12 @@ class GetTaxRegistrationsResponse200DataItem:
 
         registered_at = _parse_registered_at(d.pop("registered_at", UNSET))
 
-
         get_tax_registrations_response_200_data_item = cls(
             state_code=state_code,
             registration_number=registration_number,
             status=status,
             registered_at=registered_at,
         )
-
 
         get_tax_registrations_response_200_data_item.additional_properties = d
         return get_tax_registrations_response_200_data_item

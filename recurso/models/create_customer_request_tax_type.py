@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class CreateCustomerRequestTaxType(str, Enum):
     BUSINESS = "business"
     CONSUMER = "consumer"

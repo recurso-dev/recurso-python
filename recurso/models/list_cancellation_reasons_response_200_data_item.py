@@ -1,41 +1,29 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="ListCancellationReasonsResponse200DataItem")
-
 
 
 @_attrs_define
 class ListCancellationReasonsResponse200DataItem:
-    """ 
-        Attributes:
-            id (str | Unset):
-            label (str | Unset):
-            allows_feedback (bool | Unset):
-     """
+    """
+    Attributes:
+        id (str | Unset):
+        label (str | Unset):
+        allows_feedback (bool | Unset):
+    """
 
     id: str | Unset = UNSET
     label: str | Unset = UNSET
     allows_feedback: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
@@ -44,11 +32,9 @@ class ListCancellationReasonsResponse200DataItem:
 
         allows_feedback = self.allows_feedback
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if label is not UNSET:
@@ -57,8 +43,6 @@ class ListCancellationReasonsResponse200DataItem:
             field_dict["allows_feedback"] = allows_feedback
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -74,7 +58,6 @@ class ListCancellationReasonsResponse200DataItem:
             label=label,
             allows_feedback=allows_feedback,
         )
-
 
         list_cancellation_reasons_response_200_data_item.additional_properties = d
         return list_cancellation_reasons_response_200_data_item

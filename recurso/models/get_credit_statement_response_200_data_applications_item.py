@@ -1,38 +1,29 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
-
 T = TypeVar("T", bound="GetCreditStatementResponse200DataApplicationsItem")
-
 
 
 @_attrs_define
 class GetCreditStatementResponse200DataApplicationsItem:
-    """ 
-        Attributes:
-            credit_note_id (UUID | Unset):
-            invoice_id (UUID | Unset):
-            invoice_number (str | Unset):
-            currency (str | Unset):
-            amount (int | Unset):
-            created_at (datetime.datetime | Unset):
-     """
+    """
+    Attributes:
+        credit_note_id (UUID | Unset):
+        invoice_id (UUID | Unset):
+        invoice_number (str | Unset):
+        currency (str | Unset):
+        amount (int | Unset):
+        created_at (datetime.datetime | Unset):
+    """
 
     credit_note_id: UUID | Unset = UNSET
     invoice_id: UUID | Unset = UNSET
@@ -41,10 +32,6 @@ class GetCreditStatementResponse200DataApplicationsItem:
     amount: int | Unset = UNSET
     created_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         credit_note_id: str | Unset = UNSET
@@ -65,11 +52,9 @@ class GetCreditStatementResponse200DataApplicationsItem:
         if not isinstance(self.created_at, Unset):
             created_at = self.created_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if credit_note_id is not UNSET:
             field_dict["credit_note_id"] = credit_note_id
         if invoice_id is not UNSET:
@@ -85,30 +70,22 @@ class GetCreditStatementResponse200DataApplicationsItem:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _credit_note_id = d.pop("credit_note_id", UNSET)
         credit_note_id: UUID | Unset
-        if isinstance(_credit_note_id,  Unset):
+        if isinstance(_credit_note_id, Unset):
             credit_note_id = UNSET
         else:
             credit_note_id = UUID(_credit_note_id)
 
-
-
-
         _invoice_id = d.pop("invoice_id", UNSET)
         invoice_id: UUID | Unset
-        if isinstance(_invoice_id,  Unset):
+        if isinstance(_invoice_id, Unset):
             invoice_id = UNSET
         else:
             invoice_id = UUID(_invoice_id)
-
-
-
 
         invoice_number = d.pop("invoice_number", UNSET)
 
@@ -118,13 +95,10 @@ class GetCreditStatementResponse200DataApplicationsItem:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at,  Unset):
+        if isinstance(_created_at, Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
-
-
-
 
         get_credit_statement_response_200_data_applications_item = cls(
             credit_note_id=credit_note_id,
@@ -134,7 +108,6 @@ class GetCreditStatementResponse200DataApplicationsItem:
             amount=amount,
             created_at=created_at,
         )
-
 
         get_credit_statement_response_200_data_applications_item.additional_properties = d
         return get_credit_statement_response_200_data_applications_item

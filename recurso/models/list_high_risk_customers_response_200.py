@@ -1,43 +1,31 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.churn_score_result import ChurnScoreResult
-
-
-
+    from ..models.churn_score_result import ChurnScoreResult
 
 
 T = TypeVar("T", bound="ListHighRiskCustomersResponse200")
 
 
-
 @_attrs_define
 class ListHighRiskCustomersResponse200:
-    """ 
-        Attributes:
-            data (list[ChurnScoreResult] | Unset):
-     """
+    """
+    Attributes:
+        data (list[ChurnScoreResult] | Unset):
+    """
 
     data: list[ChurnScoreResult] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.churn_score_result import ChurnScoreResult
         data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
@@ -45,23 +33,18 @@ class ListHighRiskCustomersResponse200:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if data is not UNSET:
             field_dict["data"] = data
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.churn_score_result import ChurnScoreResult
+
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
         data: list[ChurnScoreResult] | Unset = UNSET
@@ -70,15 +53,11 @@ class ListHighRiskCustomersResponse200:
             for data_item_data in _data:
                 data_item = ChurnScoreResult.from_dict(data_item_data)
 
-
-
                 data.append(data_item)
-
 
         list_high_risk_customers_response_200 = cls(
             data=data,
         )
-
 
         list_high_risk_customers_response_200.additional_properties = d
         return list_high_risk_customers_response_200

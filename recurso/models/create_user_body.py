@@ -1,43 +1,31 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.create_user_body_role import CreateUserBodyRole
-
-
-
-
-
 
 T = TypeVar("T", bound="CreateUserBody")
 
 
-
 @_attrs_define
 class CreateUserBody:
-    """ 
-        Attributes:
-            email (str):
-            name (str):
-            role (CreateUserBodyRole):
-            password (str):
-     """
+    """
+    Attributes:
+        email (str):
+        name (str):
+        role (CreateUserBodyRole):
+        password (str):
+    """
 
     email: str
     name: str
     role: CreateUserBodyRole
     password: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         email = self.email
@@ -48,19 +36,18 @@ class CreateUserBody:
 
         password = self.password
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "email": email,
-            "name": name,
-            "role": role,
-            "password": password,
-        })
+        field_dict.update(
+            {
+                "email": email,
+                "name": name,
+                "role": role,
+                "password": password,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -71,9 +58,6 @@ class CreateUserBody:
 
         role = CreateUserBodyRole(d.pop("role"))
 
-
-
-
         password = d.pop("password")
 
         create_user_body = cls(
@@ -82,7 +66,6 @@ class CreateUserBody:
             role=role,
             password=password,
         )
-
 
         create_user_body.additional_properties = d
         return create_user_body

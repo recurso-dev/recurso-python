@@ -1,31 +1,21 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.portal_update_payment_method_body import PortalUpdatePaymentMethodBody
 from ...models.portal_update_payment_method_response_200 import PortalUpdatePaymentMethodResponse200
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
     body: PortalUpdatePaymentMethodBody,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "put",
@@ -40,26 +30,21 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | PortalUpdatePaymentMethodResponse200 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | PortalUpdatePaymentMethodResponse200 | None:
     if response.status_code == 200:
         response_200 = PortalUpdatePaymentMethodResponse200.from_dict(response.json())
-
-
 
         return response_200
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
-
-
         return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
@@ -69,7 +54,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | PortalUpdatePaymentMethodResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | PortalUpdatePaymentMethodResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,9 +69,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: PortalUpdatePaymentMethodBody,
-
 ) -> Response[Error | PortalUpdatePaymentMethodResponse200]:
-    """ Update the logged-in customer's payment method
+    """Update the logged-in customer's payment method
 
      Updates the vaulted payment method for the authenticated portal customer. The card metadata
     (brand/last4/expiry) is produced by the client-side gateway tokenization step — no raw PAN is ever
@@ -99,12 +85,10 @@ def sync_detailed(
 
     Returns:
         Response[Error | PortalUpdatePaymentMethodResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -113,13 +97,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient,
     body: PortalUpdatePaymentMethodBody,
-
 ) -> Error | PortalUpdatePaymentMethodResponse200 | None:
-    """ Update the logged-in customer's payment method
+    """Update the logged-in customer's payment method
 
      Updates the vaulted payment method for the authenticated portal customer. The card metadata
     (brand/last4/expiry) is produced by the client-side gateway tokenization step — no raw PAN is ever
@@ -134,22 +118,20 @@ def sync(
 
     Returns:
         Error | PortalUpdatePaymentMethodResponse200
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: PortalUpdatePaymentMethodBody,
-
 ) -> Response[Error | PortalUpdatePaymentMethodResponse200]:
-    """ Update the logged-in customer's payment method
+    """Update the logged-in customer's payment method
 
      Updates the vaulted payment method for the authenticated portal customer. The card metadata
     (brand/last4/expiry) is produced by the client-side gateway tokenization step — no raw PAN is ever
@@ -164,27 +146,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | PortalUpdatePaymentMethodResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient,
     body: PortalUpdatePaymentMethodBody,
-
 ) -> Error | PortalUpdatePaymentMethodResponse200 | None:
-    """ Update the logged-in customer's payment method
+    """Update the logged-in customer's payment method
 
      Updates the vaulted payment method for the authenticated portal customer. The card metadata
     (brand/last4/expiry) is produced by the client-side gateway tokenization step — no raw PAN is ever
@@ -199,11 +177,11 @@ async def asyncio(
 
     Returns:
         Error | PortalUpdatePaymentMethodResponse200
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

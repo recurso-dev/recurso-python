@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class CreateDunningCampaignStepBodyChannel(str, Enum):
     EMAIL = "email"
     IN_APP = "in_app"

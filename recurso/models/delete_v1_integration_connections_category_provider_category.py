@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class DeleteV1IntegrationConnectionsCategoryProviderCategory(str, Enum):
     CRM = "crm"
     STORAGE = "storage"

@@ -1,44 +1,35 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.referral_status import ReferralStatus
 from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="Referral")
 
 
-
 @_attrs_define
 class Referral:
-    """ 
-        Attributes:
-            id (UUID | Unset):
-            tenant_id (UUID | Unset):
-            referrer_id (UUID | Unset):
-            referred_id (UUID | Unset):
-            code (str | Unset):
-            status (ReferralStatus | Unset):
-            reward_amount (int | Unset):
-            currency (str | Unset):
-            created_at (datetime.datetime | Unset):
-            updated_at (datetime.datetime | Unset):
-            qualified_at (datetime.datetime | None | Unset):
-     """
+    """
+    Attributes:
+        id (UUID | Unset):
+        tenant_id (UUID | Unset):
+        referrer_id (UUID | Unset):
+        referred_id (UUID | Unset):
+        code (str | Unset):
+        status (ReferralStatus | Unset):
+        reward_amount (int | Unset):
+        currency (str | Unset):
+        created_at (datetime.datetime | Unset):
+        updated_at (datetime.datetime | Unset):
+        qualified_at (datetime.datetime | None | Unset):
+    """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -52,10 +43,6 @@ class Referral:
     updated_at: datetime.datetime | Unset = UNSET
     qualified_at: datetime.datetime | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -80,7 +67,6 @@ class Referral:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         reward_amount = self.reward_amount
 
         currency = self.currency
@@ -101,11 +87,9 @@ class Referral:
         else:
             qualified_at = self.qualified_at
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -131,62 +115,45 @@ class Referral:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
-
-
-
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id,  Unset):
+        if isinstance(_tenant_id, Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
-
-
-
         _referrer_id = d.pop("referrer_id", UNSET)
         referrer_id: UUID | Unset
-        if isinstance(_referrer_id,  Unset):
+        if isinstance(_referrer_id, Unset):
             referrer_id = UNSET
         else:
             referrer_id = UUID(_referrer_id)
 
-
-
-
         _referred_id = d.pop("referred_id", UNSET)
         referred_id: UUID | Unset
-        if isinstance(_referred_id,  Unset):
+        if isinstance(_referred_id, Unset):
             referred_id = UNSET
         else:
             referred_id = UUID(_referred_id)
-
-
-
 
         code = d.pop("code", UNSET)
 
         _status = d.pop("status", UNSET)
         status: ReferralStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = ReferralStatus(_status)
-
-
-
 
         reward_amount = d.pop("reward_amount", UNSET)
 
@@ -194,23 +161,17 @@ class Referral:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at,  Unset):
+        if isinstance(_created_at, Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = datetime.datetime.fromisoformat(_updated_at)
-
-
-
 
         def _parse_qualified_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -222,15 +183,12 @@ class Referral:
                     raise TypeError()
                 qualified_at_type_0 = datetime.datetime.fromisoformat(data)
 
-
-
                 return qualified_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         qualified_at = _parse_qualified_at(d.pop("qualified_at", UNSET))
-
 
         referral = cls(
             id=id,
@@ -245,7 +203,6 @@ class Referral:
             updated_at=updated_at,
             qualified_at=qualified_at,
         )
-
 
         referral.additional_properties = d
         return referral

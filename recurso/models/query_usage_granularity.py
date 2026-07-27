@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class QueryUsageGranularity(str, Enum):
     DAY = "day"
     MONTH = "month"

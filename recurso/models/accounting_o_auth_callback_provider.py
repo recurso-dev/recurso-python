@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class AccountingOAuthCallbackProvider(str, Enum):
     QUICKBOOKS = "quickbooks"
     XERO = "xero"

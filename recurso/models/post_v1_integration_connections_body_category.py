@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PostV1IntegrationConnectionsBodyCategory(str, Enum):
     CRM = "crm"
     STORAGE = "storage"

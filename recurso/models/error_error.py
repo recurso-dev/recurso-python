@@ -1,56 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
-
 T = TypeVar("T", bound="ErrorError")
-
 
 
 @_attrs_define
 class ErrorError:
-    """ Structured error detail.
+    """Structured error detail.
 
-        Attributes:
-            code (str): Stable machine-readable error code.
-            message (str): Human-readable explanation.
-     """
+    Attributes:
+        code (str): Stable machine-readable error code.
+        message (str): Human-readable explanation.
+    """
 
     code: str
     message: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         code = self.code
 
         message = self.message
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "code": code,
-            "message": message,
-        })
+        field_dict.update(
+            {
+                "code": code,
+                "message": message,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -63,7 +49,6 @@ class ErrorError:
             code=code,
             message=message,
         )
-
 
         error_error.additional_properties = d
         return error_error

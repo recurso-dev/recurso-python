@@ -4,34 +4,25 @@ from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.delete_v1_gateway_connections_provider_provider import DeleteV1GatewayConnectionsProviderProvider
 from ...models.error import Error
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     provider: DeleteV1GatewayConnectionsProviderProvider,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": "/v1/gateway-connections/{provider}".format(provider=quote(str(provider), safe=""),),
+        "url": "/v1/gateway-connections/{provider}".format(
+            provider=quote(str(provider), safe=""),
+        ),
     }
 
-
     return _kwargs
-
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | None:
@@ -42,21 +33,15 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
-
-
         return response_401
 
     if response.status_code == 403:
         response_403 = Error.from_dict(response.json())
 
-
-
         return response_403
 
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
-
-
 
         return response_404
 
@@ -79,9 +64,8 @@ def sync_detailed(
     provider: DeleteV1GatewayConnectionsProviderProvider,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[Any | Error]:
-    """ Disconnect a payment gateway
+    """Disconnect a payment gateway
 
      Soft-disconnects the tenant's active connection for a provider. Owner/admin only.
 
@@ -94,12 +78,10 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         provider=provider,
-
     )
 
     response = client.get_httpx_client().request(
@@ -108,13 +90,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     provider: DeleteV1GatewayConnectionsProviderProvider,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Any | Error | None:
-    """ Disconnect a payment gateway
+    """Disconnect a payment gateway
 
      Soft-disconnects the tenant's active connection for a provider. Owner/admin only.
 
@@ -127,22 +109,20 @@ def sync(
 
     Returns:
         Any | Error
-     """
-
+    """
 
     return sync_detailed(
         provider=provider,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     provider: DeleteV1GatewayConnectionsProviderProvider,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[Any | Error]:
-    """ Disconnect a payment gateway
+    """Disconnect a payment gateway
 
      Soft-disconnects the tenant's active connection for a provider. Owner/admin only.
 
@@ -155,27 +135,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         provider=provider,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     provider: DeleteV1GatewayConnectionsProviderProvider,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Any | Error | None:
-    """ Disconnect a payment gateway
+    """Disconnect a payment gateway
 
      Soft-disconnects the tenant's active connection for a provider. Owner/admin only.
 
@@ -188,11 +164,11 @@ async def asyncio(
 
     Returns:
         Any | Error
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        provider=provider,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            provider=provider,
+            client=client,
+        )
+    ).parsed

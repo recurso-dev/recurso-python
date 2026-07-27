@@ -1,38 +1,29 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.entitlement_kind import EntitlementKind
 from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
-
-
-
-
 
 T = TypeVar("T", bound="Entitlement")
 
 
-
 @_attrs_define
 class Entitlement:
-    """ 
-        Attributes:
-            id (UUID | Unset):
-            plan_id (UUID | Unset):
-            feature_key (str | Unset):
-            kind (EntitlementKind | Unset):
-            bool_value (bool | None | Unset):
-            limit_value (int | None | Unset):
-     """
+    """
+    Attributes:
+        id (UUID | Unset):
+        plan_id (UUID | Unset):
+        feature_key (str | Unset):
+        kind (EntitlementKind | Unset):
+        bool_value (bool | None | Unset):
+        limit_value (int | None | Unset):
+    """
 
     id: UUID | Unset = UNSET
     plan_id: UUID | Unset = UNSET
@@ -41,10 +32,6 @@ class Entitlement:
     bool_value: bool | None | Unset = UNSET
     limit_value: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -61,7 +48,6 @@ class Entitlement:
         if not isinstance(self.kind, Unset):
             kind = self.kind.value
 
-
         bool_value: bool | None | Unset
         if isinstance(self.bool_value, Unset):
             bool_value = UNSET
@@ -74,11 +60,9 @@ class Entitlement:
         else:
             limit_value = self.limit_value
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if plan_id is not UNSET:
@@ -94,42 +78,31 @@ class Entitlement:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
-
-
-
         _plan_id = d.pop("plan_id", UNSET)
         plan_id: UUID | Unset
-        if isinstance(_plan_id,  Unset):
+        if isinstance(_plan_id, Unset):
             plan_id = UNSET
         else:
             plan_id = UUID(_plan_id)
-
-
-
 
         feature_key = d.pop("feature_key", UNSET)
 
         _kind = d.pop("kind", UNSET)
         kind: EntitlementKind | Unset
-        if isinstance(_kind,  Unset):
+        if isinstance(_kind, Unset):
             kind = UNSET
         else:
             kind = EntitlementKind(_kind)
-
-
-
 
         def _parse_bool_value(data: object) -> bool | None | Unset:
             if data is None:
@@ -140,7 +113,6 @@ class Entitlement:
 
         bool_value = _parse_bool_value(d.pop("bool_value", UNSET))
 
-
         def _parse_limit_value(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -150,7 +122,6 @@ class Entitlement:
 
         limit_value = _parse_limit_value(d.pop("limit_value", UNSET))
 
-
         entitlement = cls(
             id=id,
             plan_id=plan_id,
@@ -159,7 +130,6 @@ class Entitlement:
             bool_value=bool_value,
             limit_value=limit_value,
         )
-
 
         entitlement.additional_properties = d
         return entitlement

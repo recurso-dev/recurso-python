@@ -1,49 +1,37 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.fx_snapshot_source import FXSnapshotSource
 from ..types import UNSET, Unset
-from typing import cast
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.fx_snapshot_rates import FXSnapshotRates
-
-
-
+    from ..models.fx_snapshot_rates import FXSnapshotRates
 
 
 T = TypeVar("T", bound="FXSnapshot")
 
 
-
 @_attrs_define
 class FXSnapshot:
-    """ 
-        Attributes:
-            rates (FXSnapshotRates | Unset):
-            source (FXSnapshotSource | Unset):
-            as_of (datetime.datetime | Unset):
-     """
+    """
+    Attributes:
+        rates (FXSnapshotRates | Unset):
+        source (FXSnapshotSource | Unset):
+        as_of (datetime.datetime | Unset):
+    """
 
     rates: FXSnapshotRates | Unset = UNSET
     source: FXSnapshotSource | Unset = UNSET
     as_of: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.fx_snapshot_rates import FXSnapshotRates
         rates: dict[str, Any] | Unset = UNSET
         if not isinstance(self.rates, Unset):
             rates = self.rates.to_dict()
@@ -52,16 +40,13 @@ class FXSnapshot:
         if not isinstance(self.source, Unset):
             source = self.source.value
 
-
         as_of: str | Unset = UNSET
         if not isinstance(self.as_of, Unset):
             as_of = self.as_of.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if rates is not UNSET:
             field_dict["rates"] = rates
         if source is not UNSET:
@@ -71,48 +56,37 @@ class FXSnapshot:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.fx_snapshot_rates import FXSnapshotRates
+
         d = dict(src_dict)
         _rates = d.pop("rates", UNSET)
         rates: FXSnapshotRates | Unset
-        if isinstance(_rates,  Unset):
+        if isinstance(_rates, Unset):
             rates = UNSET
         else:
             rates = FXSnapshotRates.from_dict(_rates)
 
-
-
-
         _source = d.pop("source", UNSET)
         source: FXSnapshotSource | Unset
-        if isinstance(_source,  Unset):
+        if isinstance(_source, Unset):
             source = UNSET
         else:
             source = FXSnapshotSource(_source)
 
-
-
-
         _as_of = d.pop("as_of", UNSET)
         as_of: datetime.datetime | Unset
-        if isinstance(_as_of,  Unset):
+        if isinstance(_as_of, Unset):
             as_of = UNSET
         else:
             as_of = datetime.datetime.fromisoformat(_as_of)
-
-
-
 
         fx_snapshot = cls(
             rates=rates,
             source=source,
             as_of=as_of,
         )
-
 
         fx_snapshot.additional_properties = d
         return fx_snapshot

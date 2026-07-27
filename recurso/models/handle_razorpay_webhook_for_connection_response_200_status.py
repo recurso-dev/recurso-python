@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class HandleRazorpayWebhookForConnectionResponse200Status(str, Enum):
     IGNORED = "ignored"
     OK = "ok"

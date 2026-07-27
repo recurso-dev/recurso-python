@@ -1,41 +1,29 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="GetCollectionsQueueResponse200Meta")
-
 
 
 @_attrs_define
 class GetCollectionsQueueResponse200Meta:
-    """ 
-        Attributes:
-            page (int | Unset):
-            per_page (int | Unset):
-            total (int | Unset):
-     """
+    """
+    Attributes:
+        page (int | Unset):
+        per_page (int | Unset):
+        total (int | Unset):
+    """
 
     page: int | Unset = UNSET
     per_page: int | Unset = UNSET
     total: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         page = self.page
@@ -44,11 +32,9 @@ class GetCollectionsQueueResponse200Meta:
 
         total = self.total
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if page is not UNSET:
             field_dict["page"] = page
         if per_page is not UNSET:
@@ -57,8 +43,6 @@ class GetCollectionsQueueResponse200Meta:
             field_dict["total"] = total
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -74,7 +58,6 @@ class GetCollectionsQueueResponse200Meta:
             per_page=per_page,
             total=total,
         )
-
 
         get_collections_queue_response_200_meta.additional_properties = d
         return get_collections_queue_response_200_meta

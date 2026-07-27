@@ -1,39 +1,34 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-import datetime
-
 if TYPE_CHECKING:
-  from ..models.get_tax_liability_report_response_200_data_states_item import GetTaxLiabilityReportResponse200DataStatesItem
-
-
-
+    from ..models.get_tax_liability_report_response_200_data_states_item import (
+        GetTaxLiabilityReportResponse200DataStatesItem,
+    )
 
 
 T = TypeVar("T", bound="GetTaxLiabilityReportResponse200Data")
 
 
-
 @_attrs_define
 class GetTaxLiabilityReportResponse200Data:
-    """ 
-        Attributes:
-            from_date (datetime.date | Unset):
-            to_date (datetime.date | Unset):
-            currency (str | Unset):
-            total_gross_sales (int | Unset):
-            total_tax_collected (int | Unset):
-            states (list[GetTaxLiabilityReportResponse200DataStatesItem] | Unset):
-     """
+    """
+    Attributes:
+        from_date (datetime.date | Unset):
+        to_date (datetime.date | Unset):
+        currency (str | Unset):
+        total_gross_sales (int | Unset):
+        total_tax_collected (int | Unset):
+        states (list[GetTaxLiabilityReportResponse200DataStatesItem] | Unset):
+    """
 
     from_date: datetime.date | Unset = UNSET
     to_date: datetime.date | Unset = UNSET
@@ -43,12 +38,7 @@ class GetTaxLiabilityReportResponse200Data:
     states: list[GetTaxLiabilityReportResponse200DataStatesItem] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.get_tax_liability_report_response_200_data_states_item import GetTaxLiabilityReportResponse200DataStatesItem
         from_date: str | Unset = UNSET
         if not isinstance(self.from_date, Unset):
             from_date = self.from_date.isoformat()
@@ -70,13 +60,9 @@ class GetTaxLiabilityReportResponse200Data:
                 states_item = states_item_data.to_dict()
                 states.append(states_item)
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if from_date is not UNSET:
             field_dict["from_date"] = from_date
         if to_date is not UNSET:
@@ -92,31 +78,26 @@ class GetTaxLiabilityReportResponse200Data:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.get_tax_liability_report_response_200_data_states_item import GetTaxLiabilityReportResponse200DataStatesItem
+        from ..models.get_tax_liability_report_response_200_data_states_item import (
+            GetTaxLiabilityReportResponse200DataStatesItem,
+        )
+
         d = dict(src_dict)
         _from_date = d.pop("from_date", UNSET)
         from_date: datetime.date | Unset
-        if isinstance(_from_date,  Unset):
+        if isinstance(_from_date, Unset):
             from_date = UNSET
         else:
             from_date = datetime.date.fromisoformat(_from_date)
 
-
-
-
         _to_date = d.pop("to_date", UNSET)
         to_date: datetime.date | Unset
-        if isinstance(_to_date,  Unset):
+        if isinstance(_to_date, Unset):
             to_date = UNSET
         else:
             to_date = datetime.date.fromisoformat(_to_date)
-
-
-
 
         currency = d.pop("currency", UNSET)
 
@@ -131,10 +112,7 @@ class GetTaxLiabilityReportResponse200Data:
             for states_item_data in _states:
                 states_item = GetTaxLiabilityReportResponse200DataStatesItem.from_dict(states_item_data)
 
-
-
                 states.append(states_item)
-
 
         get_tax_liability_report_response_200_data = cls(
             from_date=from_date,
@@ -144,7 +122,6 @@ class GetTaxLiabilityReportResponse200Data:
             total_tax_collected=total_tax_collected,
             states=states,
         )
-
 
         get_tax_liability_report_response_200_data.additional_properties = d
         return get_tax_liability_report_response_200_data

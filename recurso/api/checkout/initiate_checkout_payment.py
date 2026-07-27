@@ -1,66 +1,51 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.initiate_checkout_payment_response_200 import InitiateCheckoutPaymentResponse200
-from typing import cast
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     id: UUID,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/checkout/{id}/pay".format(id=quote(str(id), safe=""),),
+        "url": "/checkout/{id}/pay".format(
+            id=quote(str(id), safe=""),
+        ),
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | InitiateCheckoutPaymentResponse200 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | InitiateCheckoutPaymentResponse200 | None:
     if response.status_code == 200:
         response_200 = InitiateCheckoutPaymentResponse200.from_dict(response.json())
-
-
 
         return response_200
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
-
-
         return response_400
 
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
 
-
-
         return response_404
 
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
-
-
 
         return response_503
 
@@ -70,7 +55,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | InitiateCheckoutPaymentResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | InitiateCheckoutPaymentResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -83,9 +70,8 @@ def sync_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[Error | InitiateCheckoutPaymentResponse200]:
-    """ Initiate payment for an invoice
+    """Initiate payment for an invoice
 
      Creates a payment order on the currency-routed gateway for an unpaid invoice. The response tells the
     frontend which flow to drive: `stripe` returns a PaymentIntent `client_secret` + `publishable_key`
@@ -102,12 +88,10 @@ def sync_detailed(
 
     Returns:
         Response[Error | InitiateCheckoutPaymentResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -116,13 +100,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Error | InitiateCheckoutPaymentResponse200 | None:
-    """ Initiate payment for an invoice
+    """Initiate payment for an invoice
 
      Creates a payment order on the currency-routed gateway for an unpaid invoice. The response tells the
     frontend which flow to drive: `stripe` returns a PaymentIntent `client_secret` + `publishable_key`
@@ -139,22 +123,20 @@ def sync(
 
     Returns:
         Error | InitiateCheckoutPaymentResponse200
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[Error | InitiateCheckoutPaymentResponse200]:
-    """ Initiate payment for an invoice
+    """Initiate payment for an invoice
 
      Creates a payment order on the currency-routed gateway for an unpaid invoice. The response tells the
     frontend which flow to drive: `stripe` returns a PaymentIntent `client_secret` + `publishable_key`
@@ -171,27 +153,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | InitiateCheckoutPaymentResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Error | InitiateCheckoutPaymentResponse200 | None:
-    """ Initiate payment for an invoice
+    """Initiate payment for an invoice
 
      Creates a payment order on the currency-routed gateway for an unpaid invoice. The response tells the
     frontend which flow to drive: `stripe` returns a PaymentIntent `client_secret` + `publishable_key`
@@ -208,11 +186,11 @@ async def asyncio(
 
     Returns:
         Error | InitiateCheckoutPaymentResponse200
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+        )
+    ).parsed

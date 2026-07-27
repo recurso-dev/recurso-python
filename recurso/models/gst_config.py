@@ -1,39 +1,31 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="GSTConfig")
-
 
 
 @_attrs_define
 class GSTConfig:
-    """ 
-        Attributes:
-            gstin (str | Unset):
-            state_code (str | Unset): Two-digit Indian state code (derived from the GSTIN when omitted).
-            state_name (str | Unset):
-            sac_code (str | Unset):
-            gst_rate (float | Unset):
-            pan (str | Unset):
-            legal_name (str | Unset):
-            trade_name (str | Unset):
-            address (str | Unset):
-            has_lut (bool | Unset): Letter of Undertaking on file (zero-rated exports).
-     """
+    """
+    Attributes:
+        gstin (str | Unset):
+        state_code (str | Unset): Two-digit Indian state code (derived from the GSTIN when omitted).
+        state_name (str | Unset):
+        sac_code (str | Unset):
+        gst_rate (float | Unset):
+        pan (str | Unset):
+        legal_name (str | Unset):
+        trade_name (str | Unset):
+        address (str | Unset):
+        has_lut (bool | Unset): Letter of Undertaking on file (zero-rated exports).
+    """
 
     gstin: str | Unset = UNSET
     state_code: str | Unset = UNSET
@@ -46,10 +38,6 @@ class GSTConfig:
     address: str | Unset = UNSET
     has_lut: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         gstin = self.gstin
@@ -72,11 +60,9 @@ class GSTConfig:
 
         has_lut = self.has_lut
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if gstin is not UNSET:
             field_dict["gstin"] = gstin
         if state_code is not UNSET:
@@ -99,8 +85,6 @@ class GSTConfig:
             field_dict["has_lut"] = has_lut
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -137,7 +121,6 @@ class GSTConfig:
             address=address,
             has_lut=has_lut,
         )
-
 
         gst_config.additional_properties = d
         return gst_config

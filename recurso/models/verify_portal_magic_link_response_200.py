@@ -1,58 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="VerifyPortalMagicLinkResponse200")
-
 
 
 @_attrs_define
 class VerifyPortalMagicLinkResponse200:
-    """ 
-        Attributes:
-            message (str | Unset):
-            session_token (str | Unset):
-     """
+    """
+    Attributes:
+        message (str | Unset):
+        session_token (str | Unset):
+    """
 
     message: str | Unset = UNSET
     session_token: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         message = self.message
 
         session_token = self.session_token
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if message is not UNSET:
             field_dict["message"] = message
         if session_token is not UNSET:
             field_dict["session_token"] = session_token
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -65,7 +49,6 @@ class VerifyPortalMagicLinkResponse200:
             message=message,
             session_token=session_token,
         )
-
 
         verify_portal_magic_link_response_200.additional_properties = d
         return verify_portal_magic_link_response_200

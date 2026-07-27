@@ -1,59 +1,46 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.connect_accounting_provider_provider import ConnectAccountingProviderProvider
 from ...models.connect_accounting_provider_response_200 import ConnectAccountingProviderResponse200
 from ...models.error import Error
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     provider: ConnectAccountingProviderProvider,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v1/accounting/connect/{provider}".format(provider=quote(str(provider), safe=""),),
+        "url": "/v1/accounting/connect/{provider}".format(
+            provider=quote(str(provider), safe=""),
+        ),
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> ConnectAccountingProviderResponse200 | Error | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ConnectAccountingProviderResponse200 | Error | None:
     if response.status_code == 200:
         response_200 = ConnectAccountingProviderResponse200.from_dict(response.json())
-
-
 
         return response_200
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
-
-
         return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
@@ -63,7 +50,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[ConnectAccountingProviderResponse200 | Error]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ConnectAccountingProviderResponse200 | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,9 +65,8 @@ def sync_detailed(
     provider: ConnectAccountingProviderProvider,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[ConnectAccountingProviderResponse200 | Error]:
-    """ Start an accounting OAuth flow
+    """Start an accounting OAuth flow
 
      Returns the provider authorization URL. The state parameter is HMAC-signed with the tenant identity.
 
@@ -91,12 +79,10 @@ def sync_detailed(
 
     Returns:
         Response[ConnectAccountingProviderResponse200 | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         provider=provider,
-
     )
 
     response = client.get_httpx_client().request(
@@ -105,13 +91,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     provider: ConnectAccountingProviderProvider,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> ConnectAccountingProviderResponse200 | Error | None:
-    """ Start an accounting OAuth flow
+    """Start an accounting OAuth flow
 
      Returns the provider authorization URL. The state parameter is HMAC-signed with the tenant identity.
 
@@ -124,22 +110,20 @@ def sync(
 
     Returns:
         ConnectAccountingProviderResponse200 | Error
-     """
-
+    """
 
     return sync_detailed(
         provider=provider,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     provider: ConnectAccountingProviderProvider,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[ConnectAccountingProviderResponse200 | Error]:
-    """ Start an accounting OAuth flow
+    """Start an accounting OAuth flow
 
      Returns the provider authorization URL. The state parameter is HMAC-signed with the tenant identity.
 
@@ -152,27 +136,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[ConnectAccountingProviderResponse200 | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         provider=provider,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     provider: ConnectAccountingProviderProvider,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> ConnectAccountingProviderResponse200 | Error | None:
-    """ Start an accounting OAuth flow
+    """Start an accounting OAuth flow
 
      Returns the provider authorization URL. The state parameter is HMAC-signed with the tenant identity.
 
@@ -185,11 +165,11 @@ async def asyncio(
 
     Returns:
         ConnectAccountingProviderResponse200 | Error
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        provider=provider,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            provider=provider,
+            client=client,
+        )
+    ).parsed

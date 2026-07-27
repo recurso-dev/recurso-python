@@ -1,42 +1,29 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
-
 T = TypeVar("T", bound="UpdateCustomerPaymentMethodBody")
-
 
 
 @_attrs_define
 class UpdateCustomerPaymentMethodBody:
-    """ 
-        Attributes:
-            card_brand (str):
-            card_last4 (str):
-            card_exp_month (int):
-            card_exp_year (int):
-     """
+    """
+    Attributes:
+        card_brand (str):
+        card_last4 (str):
+        card_exp_month (int):
+        card_exp_year (int):
+    """
 
     card_brand: str
     card_last4: str
     card_exp_month: int
     card_exp_year: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         card_brand = self.card_brand
@@ -47,19 +34,18 @@ class UpdateCustomerPaymentMethodBody:
 
         card_exp_year = self.card_exp_year
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "card_brand": card_brand,
-            "card_last4": card_last4,
-            "card_exp_month": card_exp_month,
-            "card_exp_year": card_exp_year,
-        })
+        field_dict.update(
+            {
+                "card_brand": card_brand,
+                "card_last4": card_last4,
+                "card_exp_month": card_exp_month,
+                "card_exp_year": card_exp_year,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -78,7 +64,6 @@ class UpdateCustomerPaymentMethodBody:
             card_exp_month=card_exp_month,
             card_exp_year=card_exp_year,
         )
-
 
         update_customer_payment_method_body.additional_properties = d
         return update_customer_payment_method_body

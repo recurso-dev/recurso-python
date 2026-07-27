@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class QuoteStatus(str, Enum):
     ACCEPTED = "accepted"
     DECLINED = "declined"

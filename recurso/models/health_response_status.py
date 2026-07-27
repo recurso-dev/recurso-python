@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class HealthResponseStatus(str, Enum):
     DEGRADED = "degraded"
     OK = "ok"

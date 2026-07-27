@@ -1,44 +1,32 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="DunningTimingRate")
-
 
 
 @_attrs_define
 class DunningTimingRate:
-    """ One time bucket's retry success rate.
+    """One time bucket's retry success rate.
 
-        Attributes:
-            bucket (int | Unset): Hour (0-23) or day-of-week (0-6, Sunday=0), UTC.
-            total (int | Unset):
-            successes (int | Unset):
-            success_rate (float | Unset):
-     """
+    Attributes:
+        bucket (int | Unset): Hour (0-23) or day-of-week (0-6, Sunday=0), UTC.
+        total (int | Unset):
+        successes (int | Unset):
+        success_rate (float | Unset):
+    """
 
     bucket: int | Unset = UNSET
     total: int | Unset = UNSET
     successes: int | Unset = UNSET
     success_rate: float | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         bucket = self.bucket
@@ -49,11 +37,9 @@ class DunningTimingRate:
 
         success_rate = self.success_rate
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if bucket is not UNSET:
             field_dict["bucket"] = bucket
         if total is not UNSET:
@@ -64,8 +50,6 @@ class DunningTimingRate:
             field_dict["success_rate"] = success_rate
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -84,7 +68,6 @@ class DunningTimingRate:
             successes=successes,
             success_rate=success_rate,
         )
-
 
         dunning_timing_rate.additional_properties = d
         return dunning_timing_rate

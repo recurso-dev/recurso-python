@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class InitiateCheckoutPaymentResponse200DataGateway(str, Enum):
     MOCK = "mock"
     OTHER = "other"

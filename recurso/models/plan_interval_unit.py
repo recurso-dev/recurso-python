@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PlanIntervalUnit(str, Enum):
     DAY = "day"
     MONTH = "month"

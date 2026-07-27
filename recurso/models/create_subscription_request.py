@@ -1,43 +1,34 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.create_subscription_request_billing_anchor_type import CreateSubscriptionRequestBillingAnchorType
 from ..models.create_subscription_request_payment_terms import CreateSubscriptionRequestPaymentTerms
 from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="CreateSubscriptionRequest")
 
 
-
 @_attrs_define
 class CreateSubscriptionRequest:
-    """ 
-        Attributes:
-            customer_id (UUID):
-            plan_id (UUID):
-            entity_id (UUID | Unset): Multi-Entity Books: the issuing legal entity. Omit for the tenant's primary entity.
-            coupon_code (str | Unset):
-            start_date (datetime.datetime | Unset):
-            billing_anchor_type (CreateSubscriptionRequestBillingAnchorType | Unset):
-            payment_terms (CreateSubscriptionRequestPaymentTerms | Unset):
-            trial_days (int | Unset): When greater than zero, the subscription starts in `trialing` and converts to `active`
-                (generating its first invoice) when the trial ends.
-     """
+    """
+    Attributes:
+        customer_id (UUID):
+        plan_id (UUID):
+        entity_id (UUID | Unset): Multi-Entity Books: the issuing legal entity. Omit for the tenant's primary entity.
+        coupon_code (str | Unset):
+        start_date (datetime.datetime | Unset):
+        billing_anchor_type (CreateSubscriptionRequestBillingAnchorType | Unset):
+        payment_terms (CreateSubscriptionRequestPaymentTerms | Unset):
+        trial_days (int | Unset): When greater than zero, the subscription starts in `trialing` and converts to `active`
+            (generating its first invoice) when the trial ends.
+    """
 
     customer_id: UUID
     plan_id: UUID
@@ -48,10 +39,6 @@ class CreateSubscriptionRequest:
     payment_terms: CreateSubscriptionRequestPaymentTerms | Unset = UNSET
     trial_days: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         customer_id = str(self.customer_id)
@@ -72,21 +59,20 @@ class CreateSubscriptionRequest:
         if not isinstance(self.billing_anchor_type, Unset):
             billing_anchor_type = self.billing_anchor_type.value
 
-
         payment_terms: str | Unset = UNSET
         if not isinstance(self.payment_terms, Unset):
             payment_terms = self.payment_terms.value
 
-
         trial_days = self.trial_days
-
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "customer_id": customer_id,
-            "plan_id": plan_id,
-        })
+        field_dict.update(
+            {
+                "customer_id": customer_id,
+                "plan_id": plan_id,
+            }
+        )
         if entity_id is not UNSET:
             field_dict["entity_id"] = entity_id
         if coupon_code is not UNSET:
@@ -102,62 +88,42 @@ class CreateSubscriptionRequest:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         customer_id = UUID(d.pop("customer_id"))
 
-
-
-
         plan_id = UUID(d.pop("plan_id"))
-
-
-
 
         _entity_id = d.pop("entity_id", UNSET)
         entity_id: UUID | Unset
-        if isinstance(_entity_id,  Unset):
+        if isinstance(_entity_id, Unset):
             entity_id = UNSET
         else:
             entity_id = UUID(_entity_id)
-
-
-
 
         coupon_code = d.pop("coupon_code", UNSET)
 
         _start_date = d.pop("start_date", UNSET)
         start_date: datetime.datetime | Unset
-        if isinstance(_start_date,  Unset):
+        if isinstance(_start_date, Unset):
             start_date = UNSET
         else:
             start_date = datetime.datetime.fromisoformat(_start_date)
 
-
-
-
         _billing_anchor_type = d.pop("billing_anchor_type", UNSET)
         billing_anchor_type: CreateSubscriptionRequestBillingAnchorType | Unset
-        if isinstance(_billing_anchor_type,  Unset):
+        if isinstance(_billing_anchor_type, Unset):
             billing_anchor_type = UNSET
         else:
             billing_anchor_type = CreateSubscriptionRequestBillingAnchorType(_billing_anchor_type)
 
-
-
-
         _payment_terms = d.pop("payment_terms", UNSET)
         payment_terms: CreateSubscriptionRequestPaymentTerms | Unset
-        if isinstance(_payment_terms,  Unset):
+        if isinstance(_payment_terms, Unset):
             payment_terms = UNSET
         else:
             payment_terms = CreateSubscriptionRequestPaymentTerms(_payment_terms)
-
-
-
 
         trial_days = d.pop("trial_days", UNSET)
 
@@ -171,7 +137,6 @@ class CreateSubscriptionRequest:
             payment_terms=payment_terms,
             trial_days=trial_days,
         )
-
 
         create_subscription_request.additional_properties = d
         return create_subscription_request

@@ -1,43 +1,30 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
-
-
-
-
-
 T = TypeVar("T", bound="GetCreditStatementResponse200DataBalancesItem")
-
 
 
 @_attrs_define
 class GetCreditStatementResponse200DataBalancesItem:
-    """ 
-        Attributes:
-            currency (str | Unset):
-            entity_id (None | Unset | UUID):
-            balance (int | Unset):
-     """
+    """
+    Attributes:
+        currency (str | Unset):
+        entity_id (None | Unset | UUID):
+        balance (int | Unset):
+    """
 
     currency: str | Unset = UNSET
     entity_id: None | Unset | UUID = UNSET
     balance: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         currency = self.currency
@@ -52,11 +39,9 @@ class GetCreditStatementResponse200DataBalancesItem:
 
         balance = self.balance
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if currency is not UNSET:
             field_dict["currency"] = currency
         if entity_id is not UNSET:
@@ -65,8 +50,6 @@ class GetCreditStatementResponse200DataBalancesItem:
             field_dict["balance"] = balance
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -83,15 +66,12 @@ class GetCreditStatementResponse200DataBalancesItem:
                     raise TypeError()
                 entity_id_type_0 = UUID(data)
 
-
-
                 return entity_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         entity_id = _parse_entity_id(d.pop("entity_id", UNSET))
-
 
         balance = d.pop("balance", UNSET)
 
@@ -100,7 +80,6 @@ class GetCreditStatementResponse200DataBalancesItem:
             entity_id=entity_id,
             balance=balance,
         )
-
 
         get_credit_statement_response_200_data_balances_item.additional_properties = d
         return get_credit_statement_response_200_data_balances_item

@@ -1,57 +1,44 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="SubmitCancelFlowStepBody")
-
 
 
 @_attrs_define
 class SubmitCancelFlowStepBody:
-    """ 
-        Attributes:
-            response (Any): Step-type-specific response payload (e.g. selected survey reason, offer accepted flag).
-            step_index (int | Unset):
-     """
+    """
+    Attributes:
+        response (Any): Step-type-specific response payload (e.g. selected survey reason, offer accepted flag).
+        step_index (int | Unset):
+    """
 
     response: Any
     step_index: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         response = self.response
 
         step_index = self.step_index
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "response": response,
-        })
+        field_dict.update(
+            {
+                "response": response,
+            }
+        )
         if step_index is not UNSET:
             field_dict["step_index"] = step_index
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -64,7 +51,6 @@ class SubmitCancelFlowStepBody:
             response=response,
             step_index=step_index,
         )
-
 
         submit_cancel_flow_step_body.additional_properties = d
         return submit_cancel_flow_step_body

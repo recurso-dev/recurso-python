@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class DunningHistoryOutcome(str, Enum):
     FAILURE = "failure"
     SUCCESS = "success"

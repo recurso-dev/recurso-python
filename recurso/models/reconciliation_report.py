@@ -1,44 +1,37 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
 if TYPE_CHECKING:
-  from ..models.reconciliation_discrepancy import ReconciliationDiscrepancy
-
-
-
+    from ..models.reconciliation_discrepancy import ReconciliationDiscrepancy
 
 
 T = TypeVar("T", bound="ReconciliationReport")
 
 
-
 @_attrs_define
 class ReconciliationReport:
-    """ 
-        Attributes:
-            tenant_id (UUID | Unset):
-            started_at (datetime.datetime | Unset):
-            finished_at (datetime.datetime | Unset):
-            invoices_checked (int | Unset):
-            paid_invoices_checked (int | Unset):
-            total_discrepancies (int | Unset):
-            discrepancies (list[ReconciliationDiscrepancy] | Unset):
-            truncated (bool | Unset): True when more discrepancies exist than are listed.
-            tb_compared (bool | Unset): Whether TigerBeetle was included in the comparison.
-            tb_skip_reason (str | Unset):
-     """
+    """
+    Attributes:
+        tenant_id (UUID | Unset):
+        started_at (datetime.datetime | Unset):
+        finished_at (datetime.datetime | Unset):
+        invoices_checked (int | Unset):
+        paid_invoices_checked (int | Unset):
+        total_discrepancies (int | Unset):
+        discrepancies (list[ReconciliationDiscrepancy] | Unset):
+        truncated (bool | Unset): True when more discrepancies exist than are listed.
+        tb_compared (bool | Unset): Whether TigerBeetle was included in the comparison.
+        tb_skip_reason (str | Unset):
+    """
 
     tenant_id: UUID | Unset = UNSET
     started_at: datetime.datetime | Unset = UNSET
@@ -52,12 +45,7 @@ class ReconciliationReport:
     tb_skip_reason: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.reconciliation_discrepancy import ReconciliationDiscrepancy
         tenant_id: str | Unset = UNSET
         if not isinstance(self.tenant_id, Unset):
             tenant_id = str(self.tenant_id)
@@ -83,19 +71,15 @@ class ReconciliationReport:
                 discrepancies_item = discrepancies_item_data.to_dict()
                 discrepancies.append(discrepancies_item)
 
-
-
         truncated = self.truncated
 
         tb_compared = self.tb_compared
 
         tb_skip_reason = self.tb_skip_reason
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if tenant_id is not UNSET:
             field_dict["tenant_id"] = tenant_id
         if started_at is not UNSET:
@@ -119,41 +103,31 @@ class ReconciliationReport:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.reconciliation_discrepancy import ReconciliationDiscrepancy
+
         d = dict(src_dict)
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id,  Unset):
+        if isinstance(_tenant_id, Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
-
-
-
         _started_at = d.pop("started_at", UNSET)
         started_at: datetime.datetime | Unset
-        if isinstance(_started_at,  Unset):
+        if isinstance(_started_at, Unset):
             started_at = UNSET
         else:
             started_at = datetime.datetime.fromisoformat(_started_at)
 
-
-
-
         _finished_at = d.pop("finished_at", UNSET)
         finished_at: datetime.datetime | Unset
-        if isinstance(_finished_at,  Unset):
+        if isinstance(_finished_at, Unset):
             finished_at = UNSET
         else:
             finished_at = datetime.datetime.fromisoformat(_finished_at)
-
-
-
 
         invoices_checked = d.pop("invoices_checked", UNSET)
 
@@ -168,10 +142,7 @@ class ReconciliationReport:
             for discrepancies_item_data in _discrepancies:
                 discrepancies_item = ReconciliationDiscrepancy.from_dict(discrepancies_item_data)
 
-
-
                 discrepancies.append(discrepancies_item)
-
 
         truncated = d.pop("truncated", UNSET)
 
@@ -191,7 +162,6 @@ class ReconciliationReport:
             tb_compared=tb_compared,
             tb_skip_reason=tb_skip_reason,
         )
-
 
         reconciliation_report.additional_properties = d
         return reconciliation_report

@@ -1,43 +1,31 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="GetDunningRecoveredResponse200MonthlyItem")
-
 
 
 @_attrs_define
 class GetDunningRecoveredResponse200MonthlyItem:
-    """ 
-        Attributes:
-            month (str | Unset):
-            currency (str | Unset):
-            amount (int | Unset):
-            count (int | Unset):
-     """
+    """
+    Attributes:
+        month (str | Unset):
+        currency (str | Unset):
+        amount (int | Unset):
+        count (int | Unset):
+    """
 
     month: str | Unset = UNSET
     currency: str | Unset = UNSET
     amount: int | Unset = UNSET
     count: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         month = self.month
@@ -48,11 +36,9 @@ class GetDunningRecoveredResponse200MonthlyItem:
 
         count = self.count
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if month is not UNSET:
             field_dict["month"] = month
         if currency is not UNSET:
@@ -63,8 +49,6 @@ class GetDunningRecoveredResponse200MonthlyItem:
             field_dict["count"] = count
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -83,7 +67,6 @@ class GetDunningRecoveredResponse200MonthlyItem:
             amount=amount,
             count=count,
         )
-
 
         get_dunning_recovered_response_200_monthly_item.additional_properties = d
         return get_dunning_recovered_response_200_monthly_item

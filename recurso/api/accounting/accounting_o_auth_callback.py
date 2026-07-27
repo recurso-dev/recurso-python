@@ -4,15 +4,11 @@ from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.accounting_o_auth_callback_provider import AccountingOAuthCallbackProvider
 from ...models.error import Error
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -21,11 +17,7 @@ def _get_kwargs(
     code: str,
     state: str,
     realm_id: str | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -35,19 +27,17 @@ def _get_kwargs(
 
     params["realmId"] = realm_id
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/accounting/callback/{provider}".format(provider=quote(str(provider), safe=""),),
+        "url": "/v1/accounting/callback/{provider}".format(
+            provider=quote(str(provider), safe=""),
+        ),
         "params": params,
     }
 
-
     return _kwargs
-
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | None:
@@ -57,8 +47,6 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
@@ -84,9 +72,8 @@ def sync_detailed(
     code: str,
     state: str,
     realm_id: str | Unset = UNSET,
-
 ) -> Response[Any | Error]:
-    """ OAuth callback for accounting providers
+    """OAuth callback for accounting providers
 
      Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens, stores (or
     refreshes) the connection, and 302-redirects the browser back to the dashboard's Integrations page —
@@ -105,15 +92,13 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         provider=provider,
-code=code,
-state=state,
-realm_id=realm_id,
-
+        code=code,
+        state=state,
+        realm_id=realm_id,
     )
 
     response = client.get_httpx_client().request(
@@ -122,6 +107,7 @@ realm_id=realm_id,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     provider: AccountingOAuthCallbackProvider,
     *,
@@ -129,9 +115,8 @@ def sync(
     code: str,
     state: str,
     realm_id: str | Unset = UNSET,
-
 ) -> Any | Error | None:
-    """ OAuth callback for accounting providers
+    """OAuth callback for accounting providers
 
      Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens, stores (or
     refreshes) the connection, and 302-redirects the browser back to the dashboard's Integrations page —
@@ -150,17 +135,16 @@ def sync(
 
     Returns:
         Any | Error
-     """
-
+    """
 
     return sync_detailed(
         provider=provider,
-client=client,
-code=code,
-state=state,
-realm_id=realm_id,
-
+        client=client,
+        code=code,
+        state=state,
+        realm_id=realm_id,
     ).parsed
+
 
 async def asyncio_detailed(
     provider: AccountingOAuthCallbackProvider,
@@ -169,9 +153,8 @@ async def asyncio_detailed(
     code: str,
     state: str,
     realm_id: str | Unset = UNSET,
-
 ) -> Response[Any | Error]:
-    """ OAuth callback for accounting providers
+    """OAuth callback for accounting providers
 
      Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens, stores (or
     refreshes) the connection, and 302-redirects the browser back to the dashboard's Integrations page —
@@ -190,22 +173,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         provider=provider,
-code=code,
-state=state,
-realm_id=realm_id,
-
+        code=code,
+        state=state,
+        realm_id=realm_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     provider: AccountingOAuthCallbackProvider,
@@ -214,9 +194,8 @@ async def asyncio(
     code: str,
     state: str,
     realm_id: str | Unset = UNSET,
-
 ) -> Any | Error | None:
-    """ OAuth callback for accounting providers
+    """OAuth callback for accounting providers
 
      Redirect target for QuickBooks/Xero. Exchanges the authorization code for tokens, stores (or
     refreshes) the connection, and 302-redirects the browser back to the dashboard's Integrations page —
@@ -235,14 +214,14 @@ async def asyncio(
 
     Returns:
         Any | Error
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        provider=provider,
-client=client,
-code=code,
-state=state,
-realm_id=realm_id,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            provider=provider,
+            client=client,
+            code=code,
+            state=state,
+            realm_id=realm_id,
+        )
+    ).parsed

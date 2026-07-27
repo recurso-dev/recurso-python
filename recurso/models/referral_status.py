@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ReferralStatus(str, Enum):
     PENDING = "pending"
     QUALIFIED = "qualified"

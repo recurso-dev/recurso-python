@@ -1,39 +1,32 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.submit_step_result_status import SubmitStepResultStatus
 from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
 
 if TYPE_CHECKING:
-  from ..models.cancel_flow_step import CancelFlowStep
-
-
-
+    from ..models.cancel_flow_step import CancelFlowStep
 
 
 T = TypeVar("T", bound="SubmitStepResult")
 
 
-
 @_attrs_define
 class SubmitStepResult:
-    """ 
-        Attributes:
-            session_id (UUID | Unset):
-            status (SubmitStepResultStatus | Unset):
-            next_step (CancelFlowStep | Unset):
-            saved_by_offer (bool | Unset):
-            completed (bool | Unset):
-     """
+    """
+    Attributes:
+        session_id (UUID | Unset):
+        status (SubmitStepResultStatus | Unset):
+        next_step (CancelFlowStep | Unset):
+        saved_by_offer (bool | Unset):
+        completed (bool | Unset):
+    """
 
     session_id: UUID | Unset = UNSET
     status: SubmitStepResultStatus | Unset = UNSET
@@ -42,12 +35,7 @@ class SubmitStepResult:
     completed: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cancel_flow_step import CancelFlowStep
         session_id: str | Unset = UNSET
         if not isinstance(self.session_id, Unset):
             session_id = str(self.session_id)
@@ -55,7 +43,6 @@ class SubmitStepResult:
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
-
 
         next_step: dict[str, Any] | Unset = UNSET
         if not isinstance(self.next_step, Unset):
@@ -65,11 +52,9 @@ class SubmitStepResult:
 
         completed = self.completed
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if session_id is not UNSET:
             field_dict["session_id"] = session_id
         if status is not UNSET:
@@ -83,41 +68,31 @@ class SubmitStepResult:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.cancel_flow_step import CancelFlowStep
+
         d = dict(src_dict)
         _session_id = d.pop("session_id", UNSET)
         session_id: UUID | Unset
-        if isinstance(_session_id,  Unset):
+        if isinstance(_session_id, Unset):
             session_id = UNSET
         else:
             session_id = UUID(_session_id)
 
-
-
-
         _status = d.pop("status", UNSET)
         status: SubmitStepResultStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = SubmitStepResultStatus(_status)
 
-
-
-
         _next_step = d.pop("next_step", UNSET)
         next_step: CancelFlowStep | Unset
-        if isinstance(_next_step,  Unset):
+        if isinstance(_next_step, Unset):
             next_step = UNSET
         else:
             next_step = CancelFlowStep.from_dict(_next_step)
-
-
-
 
         saved_by_offer = d.pop("saved_by_offer", UNSET)
 
@@ -130,7 +105,6 @@ class SubmitStepResult:
             saved_by_offer=saved_by_offer,
             completed=completed,
         )
-
 
         submit_step_result.additional_properties = d
         return submit_step_result

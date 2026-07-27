@@ -1,31 +1,21 @@
 from http import HTTPStatus
 from typing import Any, cast
-from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.post_v1_gateway_connections_body import PostV1GatewayConnectionsBody
 from ...models.post_v1_gateway_connections_response_201 import PostV1GatewayConnectionsResponse201
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
     body: PostV1GatewayConnectionsBody,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -40,33 +30,26 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | PostV1GatewayConnectionsResponse201 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Any | Error | PostV1GatewayConnectionsResponse201 | None:
     if response.status_code == 201:
         response_201 = PostV1GatewayConnectionsResponse201.from_dict(response.json())
-
-
 
         return response_201
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
-
-
         return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
-
-
         return response_401
 
     if response.status_code == 403:
         response_403 = Error.from_dict(response.json())
-
-
 
         return response_403
 
@@ -80,7 +63,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Any | Error | PostV1GatewayConnectionsResponse201]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | Error | PostV1GatewayConnectionsResponse201]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -93,9 +78,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: PostV1GatewayConnectionsBody,
-
 ) -> Response[Any | Error | PostV1GatewayConnectionsResponse201]:
-    """ Connect (or replace) a payment gateway
+    """Connect (or replace) a payment gateway
 
      Stores the tenant's own gateway credentials, sealed at rest. Secrets are
     write-only and never returned. Replaces any existing active connection
@@ -110,12 +94,10 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error | PostV1GatewayConnectionsResponse201]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -124,13 +106,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: PostV1GatewayConnectionsBody,
-
 ) -> Any | Error | PostV1GatewayConnectionsResponse201 | None:
-    """ Connect (or replace) a payment gateway
+    """Connect (or replace) a payment gateway
 
      Stores the tenant's own gateway credentials, sealed at rest. Secrets are
     write-only and never returned. Replaces any existing active connection
@@ -145,22 +127,20 @@ def sync(
 
     Returns:
         Any | Error | PostV1GatewayConnectionsResponse201
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: PostV1GatewayConnectionsBody,
-
 ) -> Response[Any | Error | PostV1GatewayConnectionsResponse201]:
-    """ Connect (or replace) a payment gateway
+    """Connect (or replace) a payment gateway
 
      Stores the tenant's own gateway credentials, sealed at rest. Secrets are
     write-only and never returned. Replaces any existing active connection
@@ -175,27 +155,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error | PostV1GatewayConnectionsResponse201]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: PostV1GatewayConnectionsBody,
-
 ) -> Any | Error | PostV1GatewayConnectionsResponse201 | None:
-    """ Connect (or replace) a payment gateway
+    """Connect (or replace) a payment gateway
 
      Stores the tenant's own gateway credentials, sealed at rest. Secrets are
     write-only and never returned. Replaces any existing active connection
@@ -210,11 +186,11 @@ async def asyncio(
 
     Returns:
         Any | Error | PostV1GatewayConnectionsResponse201
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

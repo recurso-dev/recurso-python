@@ -1,18 +1,13 @@
 from http import HTTPStatus
 from typing import Any, cast
-from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -21,11 +16,7 @@ def _get_kwargs(
     dimension: str | Unset = UNSET,
     limit: int | Unset = 50,
     offset: int | Unset = 0,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -40,9 +31,7 @@ def _get_kwargs(
 
     params["offset"] = offset
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -50,9 +39,7 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
-
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | None:
@@ -63,14 +50,10 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
-
-
         return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
-
-
 
         return response_401
 
@@ -96,9 +79,8 @@ def sync_detailed(
     dimension: str | Unset = UNSET,
     limit: int | Unset = 50,
     offset: int | Unset = 0,
-
 ) -> Response[Any | Error]:
-    r""" List recent raw usage events
+    r"""List recent raw usage events
 
      Newest-first raw ingestion stream for debugging metering — \"did my events actually land?\".
     Optional customer_id and dimension filters; limit (max 200, default 50) and offset paging.
@@ -115,15 +97,13 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         customer_id=customer_id,
-dimension=dimension,
-limit=limit,
-offset=offset,
-
+        dimension=dimension,
+        limit=limit,
+        offset=offset,
     )
 
     response = client.get_httpx_client().request(
@@ -132,6 +112,7 @@ offset=offset,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
@@ -139,9 +120,8 @@ def sync(
     dimension: str | Unset = UNSET,
     limit: int | Unset = 50,
     offset: int | Unset = 0,
-
 ) -> Any | Error | None:
-    r""" List recent raw usage events
+    r"""List recent raw usage events
 
      Newest-first raw ingestion stream for debugging metering — \"did my events actually land?\".
     Optional customer_id and dimension filters; limit (max 200, default 50) and offset paging.
@@ -158,17 +138,16 @@ def sync(
 
     Returns:
         Any | Error
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-customer_id=customer_id,
-dimension=dimension,
-limit=limit,
-offset=offset,
-
+        customer_id=customer_id,
+        dimension=dimension,
+        limit=limit,
+        offset=offset,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -177,9 +156,8 @@ async def asyncio_detailed(
     dimension: str | Unset = UNSET,
     limit: int | Unset = 50,
     offset: int | Unset = 0,
-
 ) -> Response[Any | Error]:
-    r""" List recent raw usage events
+    r"""List recent raw usage events
 
      Newest-first raw ingestion stream for debugging metering — \"did my events actually land?\".
     Optional customer_id and dimension filters; limit (max 200, default 50) and offset paging.
@@ -196,22 +174,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         customer_id=customer_id,
-dimension=dimension,
-limit=limit,
-offset=offset,
-
+        dimension=dimension,
+        limit=limit,
+        offset=offset,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -220,9 +195,8 @@ async def asyncio(
     dimension: str | Unset = UNSET,
     limit: int | Unset = 50,
     offset: int | Unset = 0,
-
 ) -> Any | Error | None:
-    r""" List recent raw usage events
+    r"""List recent raw usage events
 
      Newest-first raw ingestion stream for debugging metering — \"did my events actually land?\".
     Optional customer_id and dimension filters; limit (max 200, default 50) and offset paging.
@@ -239,14 +213,14 @@ async def asyncio(
 
     Returns:
         Any | Error
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-customer_id=customer_id,
-dimension=dimension,
-limit=limit,
-offset=offset,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            customer_id=customer_id,
+            dimension=dimension,
+            limit=limit,
+            offset=offset,
+        )
+    ).parsed

@@ -1,47 +1,34 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.collections_queue_item import CollectionsQueueItem
-  from ..models.get_collections_queue_response_200_meta import GetCollectionsQueueResponse200Meta
-
-
-
+    from ..models.collections_queue_item import CollectionsQueueItem
+    from ..models.get_collections_queue_response_200_meta import GetCollectionsQueueResponse200Meta
 
 
 T = TypeVar("T", bound="GetCollectionsQueueResponse200")
 
 
-
 @_attrs_define
 class GetCollectionsQueueResponse200:
-    """ 
-        Attributes:
-            data (list[CollectionsQueueItem] | Unset):
-            meta (GetCollectionsQueueResponse200Meta | Unset):
-     """
+    """
+    Attributes:
+        data (list[CollectionsQueueItem] | Unset):
+        meta (GetCollectionsQueueResponse200Meta | Unset):
+    """
 
     data: list[CollectionsQueueItem] | Unset = UNSET
     meta: GetCollectionsQueueResponse200Meta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.collections_queue_item import CollectionsQueueItem
-        from ..models.get_collections_queue_response_200_meta import GetCollectionsQueueResponse200Meta
         data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
@@ -49,17 +36,13 @@ class GetCollectionsQueueResponse200:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
 
-
-
         meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if data is not UNSET:
             field_dict["data"] = data
         if meta is not UNSET:
@@ -67,12 +50,11 @@ class GetCollectionsQueueResponse200:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.collections_queue_item import CollectionsQueueItem
         from ..models.get_collections_queue_response_200_meta import GetCollectionsQueueResponse200Meta
+
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
         data: list[CollectionsQueueItem] | Unset = UNSET
@@ -81,26 +63,19 @@ class GetCollectionsQueueResponse200:
             for data_item_data in _data:
                 data_item = CollectionsQueueItem.from_dict(data_item_data)
 
-
-
                 data.append(data_item)
-
 
         _meta = d.pop("meta", UNSET)
         meta: GetCollectionsQueueResponse200Meta | Unset
-        if isinstance(_meta,  Unset):
+        if isinstance(_meta, Unset):
             meta = UNSET
         else:
             meta = GetCollectionsQueueResponse200Meta.from_dict(_meta)
-
-
-
 
         get_collections_queue_response_200 = cls(
             data=data,
             meta=meta,
         )
-
 
         get_collections_queue_response_200.additional_properties = d
         return get_collections_queue_response_200

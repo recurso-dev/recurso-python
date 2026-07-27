@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ChurnScoreResultRiskLevel(str, Enum):
     CRITICAL = "critical"
     HIGH = "high"

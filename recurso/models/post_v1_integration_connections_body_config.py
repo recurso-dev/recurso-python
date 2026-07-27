@@ -1,50 +1,31 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
-
 T = TypeVar("T", bound="PostV1IntegrationConnectionsBodyConfig")
-
 
 
 @_attrs_define
 class PostV1IntegrationConnectionsBodyConfig:
-    """ Provider config (e.g. api_key; or bucket/region/keys for s3).
-
-     """
+    """Provider config (e.g. api_key; or bucket/region/keys for s3)."""
 
     additional_properties: dict[str, str] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        post_v1_integration_connections_body_config = cls(
-        )
-
+        post_v1_integration_connections_body_config = cls()
 
         post_v1_integration_connections_body_config.additional_properties = d
         return post_v1_integration_connections_body_config

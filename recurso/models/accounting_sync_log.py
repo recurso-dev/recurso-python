@@ -1,42 +1,33 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
-
 T = TypeVar("T", bound="AccountingSyncLog")
-
 
 
 @_attrs_define
 class AccountingSyncLog:
-    """ 
-        Attributes:
-            id (UUID | Unset):
-            tenant_id (UUID | Unset):
-            connection_id (UUID | Unset):
-            entity_type (str | Unset):
-            entity_id (UUID | Unset):
-            external_id (str | Unset): ID assigned by the accounting provider.
-            action (str | Unset):
-            status (str | Unset):
-            error_message (str | Unset):
-            synced_at (datetime.datetime | Unset):
-     """
+    """
+    Attributes:
+        id (UUID | Unset):
+        tenant_id (UUID | Unset):
+        connection_id (UUID | Unset):
+        entity_type (str | Unset):
+        entity_id (UUID | Unset):
+        external_id (str | Unset): ID assigned by the accounting provider.
+        action (str | Unset):
+        status (str | Unset):
+        error_message (str | Unset):
+        synced_at (datetime.datetime | Unset):
+    """
 
     id: UUID | Unset = UNSET
     tenant_id: UUID | Unset = UNSET
@@ -49,10 +40,6 @@ class AccountingSyncLog:
     error_message: str | Unset = UNSET
     synced_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -85,11 +72,9 @@ class AccountingSyncLog:
         if not isinstance(self.synced_at, Unset):
             synced_at = self.synced_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if tenant_id is not UNSET:
@@ -113,52 +98,38 @@ class AccountingSyncLog:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
-
-
-
         _tenant_id = d.pop("tenant_id", UNSET)
         tenant_id: UUID | Unset
-        if isinstance(_tenant_id,  Unset):
+        if isinstance(_tenant_id, Unset):
             tenant_id = UNSET
         else:
             tenant_id = UUID(_tenant_id)
 
-
-
-
         _connection_id = d.pop("connection_id", UNSET)
         connection_id: UUID | Unset
-        if isinstance(_connection_id,  Unset):
+        if isinstance(_connection_id, Unset):
             connection_id = UNSET
         else:
             connection_id = UUID(_connection_id)
-
-
-
 
         entity_type = d.pop("entity_type", UNSET)
 
         _entity_id = d.pop("entity_id", UNSET)
         entity_id: UUID | Unset
-        if isinstance(_entity_id,  Unset):
+        if isinstance(_entity_id, Unset):
             entity_id = UNSET
         else:
             entity_id = UUID(_entity_id)
-
-
-
 
         external_id = d.pop("external_id", UNSET)
 
@@ -170,13 +141,10 @@ class AccountingSyncLog:
 
         _synced_at = d.pop("synced_at", UNSET)
         synced_at: datetime.datetime | Unset
-        if isinstance(_synced_at,  Unset):
+        if isinstance(_synced_at, Unset):
             synced_at = UNSET
         else:
             synced_at = datetime.datetime.fromisoformat(_synced_at)
-
-
-
 
         accounting_sync_log = cls(
             id=id,
@@ -190,7 +158,6 @@ class AccountingSyncLog:
             error_message=error_message,
             synced_at=synced_at,
         )
-
 
         accounting_sync_log.additional_properties = d
         return accounting_sync_log

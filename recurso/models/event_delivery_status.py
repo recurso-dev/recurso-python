@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class EventDeliveryStatus(str, Enum):
     FAILED = "failed"
     PENDING = "pending"

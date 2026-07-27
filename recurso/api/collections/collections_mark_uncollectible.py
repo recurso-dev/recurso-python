@@ -1,37 +1,28 @@
 from http import HTTPStatus
 from typing import Any, cast
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from typing import cast
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     id: UUID,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v1/collections/invoices/{id}/mark-uncollectible".format(id=quote(str(id), safe=""),),
+        "url": "/v1/collections/invoices/{id}/mark-uncollectible".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
-
     return _kwargs
-
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | None:
@@ -42,14 +33,10 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
-
-
         return response_401
 
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
-
-
 
         return response_404
 
@@ -72,9 +59,8 @@ def sync_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[Any | Error]:
-    """ Manually write off an invoice as uncollectible
+    """Manually write off an invoice as uncollectible
 
      Operator-initiated write-off (status change only, no ledger leg — matching the automated path). Only
     flips a still-collectible invoice.
@@ -88,12 +74,10 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -102,13 +86,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Any | Error | None:
-    """ Manually write off an invoice as uncollectible
+    """Manually write off an invoice as uncollectible
 
      Operator-initiated write-off (status change only, no ledger leg — matching the automated path). Only
     flips a still-collectible invoice.
@@ -122,22 +106,20 @@ def sync(
 
     Returns:
         Any | Error
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[Any | Error]:
-    """ Manually write off an invoice as uncollectible
+    """Manually write off an invoice as uncollectible
 
      Operator-initiated write-off (status change only, no ledger leg — matching the automated path). Only
     flips a still-collectible invoice.
@@ -151,27 +133,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Any | Error | None:
-    """ Manually write off an invoice as uncollectible
+    """Manually write off an invoice as uncollectible
 
      Operator-initiated write-off (status change only, no ledger leg — matching the automated path). Only
     flips a still-collectible invoice.
@@ -185,11 +163,11 @@ async def asyncio(
 
     Returns:
         Any | Error
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+        )
+    ).parsed

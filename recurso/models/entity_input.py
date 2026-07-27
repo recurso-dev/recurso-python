@@ -1,43 +1,31 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="EntityInput")
-
 
 
 @_attrs_define
 class EntityInput:
-    """ 
-        Attributes:
-            name (str):
-            legal_name (str | Unset):
-            invoice_prefix (str | Unset): Optional; defaults to a slug of the name.
-            country_code (str | Unset):
-     """
+    """
+    Attributes:
+        name (str):
+        legal_name (str | Unset):
+        invoice_prefix (str | Unset): Optional; defaults to a slug of the name.
+        country_code (str | Unset):
+    """
 
     name: str
     legal_name: str | Unset = UNSET
     invoice_prefix: str | Unset = UNSET
     country_code: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
@@ -48,12 +36,13 @@ class EntityInput:
 
         country_code = self.country_code
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "name": name,
-        })
+        field_dict.update(
+            {
+                "name": name,
+            }
+        )
         if legal_name is not UNSET:
             field_dict["legal_name"] = legal_name
         if invoice_prefix is not UNSET:
@@ -62,8 +51,6 @@ class EntityInput:
             field_dict["country_code"] = country_code
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -82,7 +69,6 @@ class EntityInput:
             invoice_prefix=invoice_prefix,
             country_code=country_code,
         )
-
 
         entity_input.additional_properties = d
         return entity_input

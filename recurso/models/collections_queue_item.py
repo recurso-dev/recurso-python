@@ -1,50 +1,41 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.collections_queue_item_managed_by import CollectionsQueueItemManagedBy
 from ..models.collections_queue_item_status import CollectionsQueueItemStatus
 from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="CollectionsQueueItem")
 
 
-
 @_attrs_define
 class CollectionsQueueItem:
-    """ One currently-failing invoice on the collections worklist.
+    """One currently-failing invoice on the collections worklist.
 
-        Attributes:
-            id (UUID | Unset):
-            customer_id (UUID | Unset):
-            customer_name (str | Unset):
-            customer_email (str | Unset):
-            invoice_number (str | Unset):
-            status (CollectionsQueueItemStatus | Unset):
-            currency (str | Unset):
-            amount_remaining (int | Unset): Total minus amount paid, in minor units.
-            due_date (datetime.datetime | Unset):
-            days_overdue (int | Unset):
-            retry_count (int | Unset):
-            last_payment_error (str | Unset): Raw gateway/ACH failure code from the last attempt, if any.
-            next_retry_at (datetime.datetime | None | Unset):
-            managed_by (CollectionsQueueItemManagedBy | Unset):
-            attempt_status (str | Unset): Status of the latest payment attempt (ACH), if one exists.
-     """
+    Attributes:
+        id (UUID | Unset):
+        customer_id (UUID | Unset):
+        customer_name (str | Unset):
+        customer_email (str | Unset):
+        invoice_number (str | Unset):
+        status (CollectionsQueueItemStatus | Unset):
+        currency (str | Unset):
+        amount_remaining (int | Unset): Total minus amount paid, in minor units.
+        due_date (datetime.datetime | Unset):
+        days_overdue (int | Unset):
+        retry_count (int | Unset):
+        last_payment_error (str | Unset): Raw gateway/ACH failure code from the last attempt, if any.
+        next_retry_at (datetime.datetime | None | Unset):
+        managed_by (CollectionsQueueItemManagedBy | Unset):
+        attempt_status (str | Unset): Status of the latest payment attempt (ACH), if one exists.
+    """
 
     id: UUID | Unset = UNSET
     customer_id: UUID | Unset = UNSET
@@ -62,10 +53,6 @@ class CollectionsQueueItem:
     managed_by: CollectionsQueueItemManagedBy | Unset = UNSET
     attempt_status: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -85,7 +72,6 @@ class CollectionsQueueItem:
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
-
 
         currency = self.currency
 
@@ -113,14 +99,11 @@ class CollectionsQueueItem:
         if not isinstance(self.managed_by, Unset):
             managed_by = self.managed_by.value
 
-
         attempt_status = self.attempt_status
-
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if customer_id is not UNSET:
@@ -154,30 +137,22 @@ class CollectionsQueueItem:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
-
-
-
         _customer_id = d.pop("customer_id", UNSET)
         customer_id: UUID | Unset
-        if isinstance(_customer_id,  Unset):
+        if isinstance(_customer_id, Unset):
             customer_id = UNSET
         else:
             customer_id = UUID(_customer_id)
-
-
-
 
         customer_name = d.pop("customer_name", UNSET)
 
@@ -187,13 +162,10 @@ class CollectionsQueueItem:
 
         _status = d.pop("status", UNSET)
         status: CollectionsQueueItemStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = CollectionsQueueItemStatus(_status)
-
-
-
 
         currency = d.pop("currency", UNSET)
 
@@ -201,13 +173,10 @@ class CollectionsQueueItem:
 
         _due_date = d.pop("due_date", UNSET)
         due_date: datetime.datetime | Unset
-        if isinstance(_due_date,  Unset):
+        if isinstance(_due_date, Unset):
             due_date = UNSET
         else:
             due_date = datetime.datetime.fromisoformat(_due_date)
-
-
-
 
         days_overdue = d.pop("days_overdue", UNSET)
 
@@ -225,8 +194,6 @@ class CollectionsQueueItem:
                     raise TypeError()
                 next_retry_at_type_0 = datetime.datetime.fromisoformat(data)
 
-
-
                 return next_retry_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -234,16 +201,12 @@ class CollectionsQueueItem:
 
         next_retry_at = _parse_next_retry_at(d.pop("next_retry_at", UNSET))
 
-
         _managed_by = d.pop("managed_by", UNSET)
         managed_by: CollectionsQueueItemManagedBy | Unset
-        if isinstance(_managed_by,  Unset):
+        if isinstance(_managed_by, Unset):
             managed_by = UNSET
         else:
             managed_by = CollectionsQueueItemManagedBy(_managed_by)
-
-
-
 
         attempt_status = d.pop("attempt_status", UNSET)
 
@@ -264,7 +227,6 @@ class CollectionsQueueItem:
             managed_by=managed_by,
             attempt_status=attempt_status,
         )
-
 
         collections_queue_item.additional_properties = d
         return collections_queue_item

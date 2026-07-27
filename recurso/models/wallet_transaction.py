@@ -1,45 +1,36 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.wallet_transaction_source import WalletTransactionSource
 from ..models.wallet_transaction_type import WalletTransactionType
 from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="WalletTransaction")
 
 
-
 @_attrs_define
 class WalletTransaction:
-    """ One append-only wallet movement with the balance after it.
+    """One append-only wallet movement with the balance after it.
 
-        Attributes:
-            id (UUID | Unset):
-            wallet_id (UUID | Unset):
-            type_ (WalletTransactionType | Unset):
-            source (WalletTransactionSource | Unset):
-            amount (int | Unset):
-            remaining (int | None | Unset): Undrained residue of a top_up row.
-            balance_after (int | Unset):
-            invoice_id (None | Unset | UUID):
-            expires_at (datetime.datetime | None | Unset):
-            created_at (datetime.datetime | Unset):
-     """
+    Attributes:
+        id (UUID | Unset):
+        wallet_id (UUID | Unset):
+        type_ (WalletTransactionType | Unset):
+        source (WalletTransactionSource | Unset):
+        amount (int | Unset):
+        remaining (int | None | Unset): Undrained residue of a top_up row.
+        balance_after (int | Unset):
+        invoice_id (None | Unset | UUID):
+        expires_at (datetime.datetime | None | Unset):
+        created_at (datetime.datetime | Unset):
+    """
 
     id: UUID | Unset = UNSET
     wallet_id: UUID | Unset = UNSET
@@ -52,10 +43,6 @@ class WalletTransaction:
     expires_at: datetime.datetime | None | Unset = UNSET
     created_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id: str | Unset = UNSET
@@ -70,11 +57,9 @@ class WalletTransaction:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-
         source: str | Unset = UNSET
         if not isinstance(self.source, Unset):
             source = self.source.value
-
 
         amount = self.amount
 
@@ -106,11 +91,9 @@ class WalletTransaction:
         if not isinstance(self.created_at, Unset):
             created_at = self.created_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if wallet_id is not UNSET:
@@ -134,50 +117,36 @@ class WalletTransaction:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
-
-
-
         _wallet_id = d.pop("wallet_id", UNSET)
         wallet_id: UUID | Unset
-        if isinstance(_wallet_id,  Unset):
+        if isinstance(_wallet_id, Unset):
             wallet_id = UNSET
         else:
             wallet_id = UUID(_wallet_id)
 
-
-
-
         _type_ = d.pop("type", UNSET)
         type_: WalletTransactionType | Unset
-        if isinstance(_type_,  Unset):
+        if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = WalletTransactionType(_type_)
 
-
-
-
         _source = d.pop("source", UNSET)
         source: WalletTransactionSource | Unset
-        if isinstance(_source,  Unset):
+        if isinstance(_source, Unset):
             source = UNSET
         else:
             source = WalletTransactionSource(_source)
-
-
-
 
         amount = d.pop("amount", UNSET)
 
@@ -189,7 +158,6 @@ class WalletTransaction:
             return cast(int | None | Unset, data)
 
         remaining = _parse_remaining(d.pop("remaining", UNSET))
-
 
         balance_after = d.pop("balance_after", UNSET)
 
@@ -203,15 +171,12 @@ class WalletTransaction:
                     raise TypeError()
                 invoice_id_type_0 = UUID(data)
 
-
-
                 return invoice_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         invoice_id = _parse_invoice_id(d.pop("invoice_id", UNSET))
-
 
         def _parse_expires_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -223,8 +188,6 @@ class WalletTransaction:
                     raise TypeError()
                 expires_at_type_0 = datetime.datetime.fromisoformat(data)
 
-
-
                 return expires_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -232,16 +195,12 @@ class WalletTransaction:
 
         expires_at = _parse_expires_at(d.pop("expires_at", UNSET))
 
-
         _created_at = d.pop("created_at", UNSET)
         created_at: datetime.datetime | Unset
-        if isinstance(_created_at,  Unset):
+        if isinstance(_created_at, Unset):
             created_at = UNSET
         else:
             created_at = datetime.datetime.fromisoformat(_created_at)
-
-
-
 
         wallet_transaction = cls(
             id=id,
@@ -255,7 +214,6 @@ class WalletTransaction:
             expires_at=expires_at,
             created_at=created_at,
         )
-
 
         wallet_transaction.additional_properties = d
         return wallet_transaction

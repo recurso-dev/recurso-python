@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RecordConsentBodyConsentType(str, Enum):
     DATA_PROCESSING = "data_processing"
     EMAIL_MARKETING = "email_marketing"

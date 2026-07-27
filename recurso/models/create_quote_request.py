@@ -1,42 +1,35 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-import datetime
-
 if TYPE_CHECKING:
-  from ..models.line_item import LineItem
-
-
-
+    from ..models.line_item import LineItem
 
 
 T = TypeVar("T", bound="CreateQuoteRequest")
 
 
-
 @_attrs_define
 class CreateQuoteRequest:
-    """ 
-        Attributes:
-            customer_id (UUID):
-            line_items (list[LineItem]):
-            currency (str | Unset):
-            valid_until (datetime.datetime | None | Unset):
-            notes (str | Unset):
-            terms (str | Unset):
-            tax_amount (int | Unset):
-            discount_amount (int | Unset):
-     """
+    """
+    Attributes:
+        customer_id (UUID):
+        line_items (list[LineItem]):
+        currency (str | Unset):
+        valid_until (datetime.datetime | None | Unset):
+        notes (str | Unset):
+        terms (str | Unset):
+        tax_amount (int | Unset):
+        discount_amount (int | Unset):
+    """
 
     customer_id: UUID
     line_items: list[LineItem]
@@ -48,20 +41,13 @@ class CreateQuoteRequest:
     discount_amount: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.line_item import LineItem
         customer_id = str(self.customer_id)
 
         line_items = []
         for line_items_item_data in self.line_items:
             line_items_item = line_items_item_data.to_dict()
             line_items.append(line_items_item)
-
-
 
         currency = self.currency
 
@@ -81,13 +67,14 @@ class CreateQuoteRequest:
 
         discount_amount = self.discount_amount
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "customer_id": customer_id,
-            "line_items": line_items,
-        })
+        field_dict.update(
+            {
+                "customer_id": customer_id,
+                "line_items": line_items,
+            }
+        )
         if currency is not UNSET:
             field_dict["currency"] = currency
         if valid_until is not UNSET:
@@ -103,26 +90,19 @@ class CreateQuoteRequest:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.line_item import LineItem
+
         d = dict(src_dict)
         customer_id = UUID(d.pop("customer_id"))
 
-
-
-
         line_items = []
         _line_items = d.pop("line_items")
-        for line_items_item_data in (_line_items):
+        for line_items_item_data in _line_items:
             line_items_item = LineItem.from_dict(line_items_item_data)
 
-
-
             line_items.append(line_items_item)
-
 
         currency = d.pop("currency", UNSET)
 
@@ -136,15 +116,12 @@ class CreateQuoteRequest:
                     raise TypeError()
                 valid_until_type_0 = datetime.datetime.fromisoformat(data)
 
-
-
                 return valid_until_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         valid_until = _parse_valid_until(d.pop("valid_until", UNSET))
-
 
         notes = d.pop("notes", UNSET)
 
@@ -164,7 +141,6 @@ class CreateQuoteRequest:
             tax_amount=tax_amount,
             discount_amount=discount_amount,
         )
-
 
         create_quote_request.additional_properties = d
         return create_quote_request

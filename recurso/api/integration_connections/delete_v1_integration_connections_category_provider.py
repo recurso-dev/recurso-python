@@ -4,35 +4,29 @@ from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.delete_v1_integration_connections_category_provider_category import DeleteV1IntegrationConnectionsCategoryProviderCategory
+from ...client import AuthenticatedClient, Client
+from ...models.delete_v1_integration_connections_category_provider_category import (
+    DeleteV1IntegrationConnectionsCategoryProviderCategory,
+)
 from ...models.error import Error
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     category: DeleteV1IntegrationConnectionsCategoryProviderCategory,
     provider: str,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": "/v1/integration-connections/{category}/{provider}".format(category=quote(str(category), safe=""),provider=quote(str(provider), safe=""),),
+        "url": "/v1/integration-connections/{category}/{provider}".format(
+            category=quote(str(category), safe=""),
+            provider=quote(str(provider), safe=""),
+        ),
     }
 
-
     return _kwargs
-
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | None:
@@ -43,21 +37,15 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
-
-
         return response_401
 
     if response.status_code == 403:
         response_403 = Error.from_dict(response.json())
 
-
-
         return response_403
 
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
-
-
 
         return response_404
 
@@ -81,9 +69,8 @@ def sync_detailed(
     provider: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[Any | Error]:
-    """ Disconnect a tax/CRM/storage integration
+    """Disconnect a tax/CRM/storage integration
 
      Soft-disconnects the tenant's active connection. Owner/admin only.
 
@@ -97,13 +84,11 @@ def sync_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         category=category,
-provider=provider,
-
+        provider=provider,
     )
 
     response = client.get_httpx_client().request(
@@ -112,14 +97,14 @@ provider=provider,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     category: DeleteV1IntegrationConnectionsCategoryProviderCategory,
     provider: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Any | Error | None:
-    """ Disconnect a tax/CRM/storage integration
+    """Disconnect a tax/CRM/storage integration
 
      Soft-disconnects the tenant's active connection. Owner/admin only.
 
@@ -133,24 +118,22 @@ def sync(
 
     Returns:
         Any | Error
-     """
-
+    """
 
     return sync_detailed(
         category=category,
-provider=provider,
-client=client,
-
+        provider=provider,
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     category: DeleteV1IntegrationConnectionsCategoryProviderCategory,
     provider: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[Any | Error]:
-    """ Disconnect a tax/CRM/storage integration
+    """Disconnect a tax/CRM/storage integration
 
      Soft-disconnects the tenant's active connection. Owner/admin only.
 
@@ -164,29 +147,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Error]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         category=category,
-provider=provider,
-
+        provider=provider,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     category: DeleteV1IntegrationConnectionsCategoryProviderCategory,
     provider: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Any | Error | None:
-    """ Disconnect a tax/CRM/storage integration
+    """Disconnect a tax/CRM/storage integration
 
      Soft-disconnects the tenant's active connection. Owner/admin only.
 
@@ -200,12 +179,12 @@ async def asyncio(
 
     Returns:
         Any | Error
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        category=category,
-provider=provider,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            category=category,
+            provider=provider,
+            client=client,
+        )
+    ).parsed

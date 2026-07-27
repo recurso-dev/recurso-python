@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class GatewayConnectionViewMode(str, Enum):
     LIVE = "live"
     TEST = "test"

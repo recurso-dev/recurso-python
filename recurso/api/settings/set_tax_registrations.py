@@ -1,31 +1,21 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.set_tax_registrations_body import SetTaxRegistrationsBody
 from ...models.set_tax_registrations_response_200 import SetTaxRegistrationsResponse200
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
     body: SetTaxRegistrationsBody,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "put",
@@ -40,26 +30,21 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SetTaxRegistrationsResponse200 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | SetTaxRegistrationsResponse200 | None:
     if response.status_code == 200:
         response_200 = SetTaxRegistrationsResponse200.from_dict(response.json())
-
-
 
         return response_200
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
-
-
         return response_401
 
     if response.status_code == 403:
         response_403 = Error.from_dict(response.json())
-
-
 
         return response_403
 
@@ -69,7 +54,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | SetTaxRegistrationsResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SetTaxRegistrationsResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,9 +69,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: SetTaxRegistrationsBody,
-
 ) -> Response[Error | SetTaxRegistrationsResponse200]:
-    """ Set US sales-tax registrations
+    """Set US sales-tax registrations
 
      Replaces the tenant's entire registration set. Owner/admin only.
 
@@ -97,12 +83,10 @@ def sync_detailed(
 
     Returns:
         Response[Error | SetTaxRegistrationsResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -111,13 +95,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: SetTaxRegistrationsBody,
-
 ) -> Error | SetTaxRegistrationsResponse200 | None:
-    """ Set US sales-tax registrations
+    """Set US sales-tax registrations
 
      Replaces the tenant's entire registration set. Owner/admin only.
 
@@ -130,22 +114,20 @@ def sync(
 
     Returns:
         Error | SetTaxRegistrationsResponse200
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: SetTaxRegistrationsBody,
-
 ) -> Response[Error | SetTaxRegistrationsResponse200]:
-    """ Set US sales-tax registrations
+    """Set US sales-tax registrations
 
      Replaces the tenant's entire registration set. Owner/admin only.
 
@@ -158,27 +140,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Error | SetTaxRegistrationsResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: SetTaxRegistrationsBody,
-
 ) -> Error | SetTaxRegistrationsResponse200 | None:
-    """ Set US sales-tax registrations
+    """Set US sales-tax registrations
 
      Replaces the tenant's entire registration set. Owner/admin only.
 
@@ -191,11 +169,11 @@ async def asyncio(
 
     Returns:
         Error | SetTaxRegistrationsResponse200
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed
