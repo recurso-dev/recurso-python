@@ -1,50 +1,61 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="TriggerAccountingSyncResponse200")
+if TYPE_CHECKING:
+    from ..models.sync_crm_now_response_200_data import SyncCRMNowResponse200Data
+
+
+T = TypeVar("T", bound="SyncCRMNowResponse200")
 
 
 @_attrs_define
-class TriggerAccountingSyncResponse200:
+class SyncCRMNowResponse200:
     """
     Attributes:
-        status (Literal['sync_already_running'] | Unset):
+        data (SyncCRMNowResponse200Data | Unset):
     """
 
-    status: Literal["sync_already_running"] | Unset = UNSET
+    data: SyncCRMNowResponse200Data | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        status = self.status
+        data: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.data, Unset):
+            data = self.data.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if status is not UNSET:
-            field_dict["status"] = status
+        if data is not UNSET:
+            field_dict["data"] = data
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        status = cast(Literal["sync_already_running"] | Unset, d.pop("status", UNSET))
-        if status != "sync_already_running" and not isinstance(status, Unset):
-            raise ValueError(f"status must match const 'sync_already_running', got '{status}'")
+        from ..models.sync_crm_now_response_200_data import SyncCRMNowResponse200Data
 
-        trigger_accounting_sync_response_200 = cls(
-            status=status,
+        d = dict(src_dict)
+        _data = d.pop("data", UNSET)
+        data: SyncCRMNowResponse200Data | Unset
+        if isinstance(_data, Unset):
+            data = UNSET
+        else:
+            data = SyncCRMNowResponse200Data.from_dict(_data)
+
+        sync_crm_now_response_200 = cls(
+            data=data,
         )
 
-        trigger_accounting_sync_response_200.additional_properties = d
-        return trigger_accounting_sync_response_200
+        sync_crm_now_response_200.additional_properties = d
+        return sync_crm_now_response_200
 
     @property
     def additional_keys(self) -> list[str]:

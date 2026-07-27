@@ -8,17 +8,17 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="TriggerAccountingSyncResponse200")
+T = TypeVar("T", bound="TriggerAccountingSyncResponse202")
 
 
 @_attrs_define
-class TriggerAccountingSyncResponse200:
+class TriggerAccountingSyncResponse202:
     """
     Attributes:
-        status (Literal['sync_already_running'] | Unset):
+        status (Literal['sync_triggered'] | Unset):
     """
 
-    status: Literal["sync_already_running"] | Unset = UNSET
+    status: Literal["sync_triggered"] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -35,16 +35,16 @@ class TriggerAccountingSyncResponse200:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        status = cast(Literal["sync_already_running"] | Unset, d.pop("status", UNSET))
-        if status != "sync_already_running" and not isinstance(status, Unset):
-            raise ValueError(f"status must match const 'sync_already_running', got '{status}'")
+        status = cast(Literal["sync_triggered"] | Unset, d.pop("status", UNSET))
+        if status != "sync_triggered" and not isinstance(status, Unset):
+            raise ValueError(f"status must match const 'sync_triggered', got '{status}'")
 
-        trigger_accounting_sync_response_200 = cls(
+        trigger_accounting_sync_response_202 = cls(
             status=status,
         )
 
-        trigger_accounting_sync_response_200.additional_properties = d
-        return trigger_accounting_sync_response_200
+        trigger_accounting_sync_response_202.additional_properties = d
+        return trigger_accounting_sync_response_202
 
     @property
     def additional_keys(self) -> list[str]:

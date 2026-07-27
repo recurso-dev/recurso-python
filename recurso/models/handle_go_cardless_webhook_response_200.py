@@ -1,50 +1,65 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, cast
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.handle_go_cardless_webhook_response_200_status import HandleGoCardlessWebhookResponse200Status
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="TriggerAccountingSyncResponse200")
+T = TypeVar("T", bound="HandleGoCardlessWebhookResponse200")
 
 
 @_attrs_define
-class TriggerAccountingSyncResponse200:
+class HandleGoCardlessWebhookResponse200:
     """
     Attributes:
-        status (Literal['sync_already_running'] | Unset):
+        status (HandleGoCardlessWebhookResponse200Status | Unset):
+        processed (int | Unset):
     """
 
-    status: Literal["sync_already_running"] | Unset = UNSET
+    status: HandleGoCardlessWebhookResponse200Status | Unset = UNSET
+    processed: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        status = self.status
+        status: str | Unset = UNSET
+        if not isinstance(self.status, Unset):
+            status = self.status.value
+
+        processed = self.processed
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if status is not UNSET:
             field_dict["status"] = status
+        if processed is not UNSET:
+            field_dict["processed"] = processed
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        status = cast(Literal["sync_already_running"] | Unset, d.pop("status", UNSET))
-        if status != "sync_already_running" and not isinstance(status, Unset):
-            raise ValueError(f"status must match const 'sync_already_running', got '{status}'")
+        _status = d.pop("status", UNSET)
+        status: HandleGoCardlessWebhookResponse200Status | Unset
+        if isinstance(_status, Unset):
+            status = UNSET
+        else:
+            status = HandleGoCardlessWebhookResponse200Status(_status)
 
-        trigger_accounting_sync_response_200 = cls(
+        processed = d.pop("processed", UNSET)
+
+        handle_go_cardless_webhook_response_200 = cls(
             status=status,
+            processed=processed,
         )
 
-        trigger_accounting_sync_response_200.additional_properties = d
-        return trigger_accounting_sync_response_200
+        handle_go_cardless_webhook_response_200.additional_properties = d
+        return handle_go_cardless_webhook_response_200
 
     @property
     def additional_keys(self) -> list[str]:

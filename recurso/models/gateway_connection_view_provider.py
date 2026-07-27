@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class GatewayConnectionViewProvider(str, Enum):
+    GOCARDLESS = "gocardless"
     RAZORPAY = "razorpay"
     STRIPE = "stripe"
 
