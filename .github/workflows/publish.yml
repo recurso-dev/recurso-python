@@ -1,0 +1,23 @@
+# Publishes the package to PyPI when a GitHub release is published.
+# Requires the PYPI_API_TOKEN repository secret. Until the secret is
+# configured the job fails fast at the publish step — by design, so releases
+# are an explicit, credentialed act. Note: the "recurso" name on PyPI is
+# currently UNCLAIMED — the first publish claims it.
+name: Publish to PyPI
+on:
+  release:
+    types: [published]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install poetry
+      - run: python tests/smoke_test.py
+      - run: poetry build
+      - run: poetry publish
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_API_TOKEN }}
