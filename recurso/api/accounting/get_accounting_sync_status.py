@@ -7,14 +7,41 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.get_accounting_sync_status_response_200 import GetAccountingSyncStatusResponse200
-from ...types import Response
+from ...models.get_accounting_sync_status_status import GetAccountingSyncStatusStatus
+from ...types import UNSET, Response, Unset
 
 
-def _get_kwargs() -> dict[str, Any]:
+def _get_kwargs(
+    *,
+    provider: str | Unset = UNSET,
+    status: GetAccountingSyncStatusStatus | Unset = UNSET,
+    search: str | Unset = UNSET,
+    limit: int | Unset = 25,
+    offset: int | Unset = 0,
+) -> dict[str, Any]:
+
+    params: dict[str, Any] = {}
+
+    params["provider"] = provider
+
+    json_status: str | Unset = UNSET
+    if not isinstance(status, Unset):
+        json_status = status.value
+
+    params["status"] = json_status
+
+    params["search"] = search
+
+    params["limit"] = limit
+
+    params["offset"] = offset
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/accounting/sync/status",
+        "params": params,
     }
 
     return _kwargs
@@ -53,10 +80,22 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
+    provider: str | Unset = UNSET,
+    status: GetAccountingSyncStatusStatus | Unset = UNSET,
+    search: str | Unset = UNSET,
+    limit: int | Unset = 25,
+    offset: int | Unset = 0,
 ) -> Response[Error | GetAccountingSyncStatusResponse200]:
     """Recent accounting sync log
 
      The 50 most recent per-entity sync results.
+
+    Args:
+        provider (str | Unset):
+        status (GetAccountingSyncStatusStatus | Unset):
+        search (str | Unset):
+        limit (int | Unset):  Default: 25.
+        offset (int | Unset):  Default: 0.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -66,7 +105,13 @@ def sync_detailed(
         Response[Error | GetAccountingSyncStatusResponse200]
     """
 
-    kwargs = _get_kwargs()
+    kwargs = _get_kwargs(
+        provider=provider,
+        status=status,
+        search=search,
+        limit=limit,
+        offset=offset,
+    )
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -78,10 +123,22 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
+    provider: str | Unset = UNSET,
+    status: GetAccountingSyncStatusStatus | Unset = UNSET,
+    search: str | Unset = UNSET,
+    limit: int | Unset = 25,
+    offset: int | Unset = 0,
 ) -> Error | GetAccountingSyncStatusResponse200 | None:
     """Recent accounting sync log
 
      The 50 most recent per-entity sync results.
+
+    Args:
+        provider (str | Unset):
+        status (GetAccountingSyncStatusStatus | Unset):
+        search (str | Unset):
+        limit (int | Unset):  Default: 25.
+        offset (int | Unset):  Default: 0.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -93,16 +150,33 @@ def sync(
 
     return sync_detailed(
         client=client,
+        provider=provider,
+        status=status,
+        search=search,
+        limit=limit,
+        offset=offset,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
+    provider: str | Unset = UNSET,
+    status: GetAccountingSyncStatusStatus | Unset = UNSET,
+    search: str | Unset = UNSET,
+    limit: int | Unset = 25,
+    offset: int | Unset = 0,
 ) -> Response[Error | GetAccountingSyncStatusResponse200]:
     """Recent accounting sync log
 
      The 50 most recent per-entity sync results.
+
+    Args:
+        provider (str | Unset):
+        status (GetAccountingSyncStatusStatus | Unset):
+        search (str | Unset):
+        limit (int | Unset):  Default: 25.
+        offset (int | Unset):  Default: 0.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -112,7 +186,13 @@ async def asyncio_detailed(
         Response[Error | GetAccountingSyncStatusResponse200]
     """
 
-    kwargs = _get_kwargs()
+    kwargs = _get_kwargs(
+        provider=provider,
+        status=status,
+        search=search,
+        limit=limit,
+        offset=offset,
+    )
 
     response = await client.get_async_httpx_client().request(**kwargs)
 
@@ -122,10 +202,22 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
+    provider: str | Unset = UNSET,
+    status: GetAccountingSyncStatusStatus | Unset = UNSET,
+    search: str | Unset = UNSET,
+    limit: int | Unset = 25,
+    offset: int | Unset = 0,
 ) -> Error | GetAccountingSyncStatusResponse200 | None:
     """Recent accounting sync log
 
      The 50 most recent per-entity sync results.
+
+    Args:
+        provider (str | Unset):
+        status (GetAccountingSyncStatusStatus | Unset):
+        search (str | Unset):
+        limit (int | Unset):  Default: 25.
+        offset (int | Unset):  Default: 0.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -138,5 +230,10 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            provider=provider,
+            status=status,
+            search=search,
+            limit=limit,
+            offset=offset,
         )
     ).parsed

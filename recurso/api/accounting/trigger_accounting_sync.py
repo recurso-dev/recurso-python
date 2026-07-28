@@ -6,16 +6,31 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
+from ...models.trigger_accounting_sync_provider import TriggerAccountingSyncProvider
 from ...models.trigger_accounting_sync_response_200 import TriggerAccountingSyncResponse200
 from ...models.trigger_accounting_sync_response_202 import TriggerAccountingSyncResponse202
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
-def _get_kwargs() -> dict[str, Any]:
+def _get_kwargs(
+    *,
+    provider: TriggerAccountingSyncProvider | Unset = UNSET,
+) -> dict[str, Any]:
+
+    params: dict[str, Any] = {}
+
+    json_provider: str | Unset = UNSET
+    if not isinstance(provider, Unset):
+        json_provider = provider.value
+
+    params["provider"] = json_provider
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/v1/accounting/sync",
+        "params": params,
     }
 
     return _kwargs
@@ -59,6 +74,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
+    provider: TriggerAccountingSyncProvider | Unset = UNSET,
 ) -> Response[Error | TriggerAccountingSyncResponse200 | TriggerAccountingSyncResponse202]:
     """Trigger a sync to connected accounting systems
 
@@ -69,6 +85,9 @@ def sync_detailed(
     a time; a request while one is running returns 200 with
     status=sync_already_running.
 
+    Args:
+        provider (TriggerAccountingSyncProvider | Unset):
+
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -77,7 +96,9 @@ def sync_detailed(
         Response[Error | TriggerAccountingSyncResponse200 | TriggerAccountingSyncResponse202]
     """
 
-    kwargs = _get_kwargs()
+    kwargs = _get_kwargs(
+        provider=provider,
+    )
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -89,6 +110,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
+    provider: TriggerAccountingSyncProvider | Unset = UNSET,
 ) -> Error | TriggerAccountingSyncResponse200 | TriggerAccountingSyncResponse202 | None:
     """Trigger a sync to connected accounting systems
 
@@ -98,6 +120,9 @@ def sync(
     and each connection's sync_status. One manual sync runs per tenant at
     a time; a request while one is running returns 200 with
     status=sync_already_running.
+
+    Args:
+        provider (TriggerAccountingSyncProvider | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,12 +134,14 @@ def sync(
 
     return sync_detailed(
         client=client,
+        provider=provider,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
+    provider: TriggerAccountingSyncProvider | Unset = UNSET,
 ) -> Response[Error | TriggerAccountingSyncResponse200 | TriggerAccountingSyncResponse202]:
     """Trigger a sync to connected accounting systems
 
@@ -125,6 +152,9 @@ async def asyncio_detailed(
     a time; a request while one is running returns 200 with
     status=sync_already_running.
 
+    Args:
+        provider (TriggerAccountingSyncProvider | Unset):
+
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -133,7 +163,9 @@ async def asyncio_detailed(
         Response[Error | TriggerAccountingSyncResponse200 | TriggerAccountingSyncResponse202]
     """
 
-    kwargs = _get_kwargs()
+    kwargs = _get_kwargs(
+        provider=provider,
+    )
 
     response = await client.get_async_httpx_client().request(**kwargs)
 
@@ -143,6 +175,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
+    provider: TriggerAccountingSyncProvider | Unset = UNSET,
 ) -> Error | TriggerAccountingSyncResponse200 | TriggerAccountingSyncResponse202 | None:
     """Trigger a sync to connected accounting systems
 
@@ -152,6 +185,9 @@ async def asyncio(
     and each connection's sync_status. One manual sync runs per tenant at
     a time; a request while one is running returns 200 with
     status=sync_already_running.
+
+    Args:
+        provider (TriggerAccountingSyncProvider | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -164,5 +200,6 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            provider=provider,
         )
     ).parsed
