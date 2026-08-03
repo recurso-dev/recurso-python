@@ -18,7 +18,8 @@ class LineItem:
         description (str | Unset):
         quantity (int | Unset):
         unit_price (int | Unset): Price per unit in the lowest currency unit.
-        amount (int | Unset): quantity x unit_price, in the lowest currency unit.
+        amount (int | Unset): Line total in the lowest currency unit. Computed as quantity x unit_price for itemized
+            lines; for a lump-sum line send `amount` directly with quantity/unit_price omitted.
     """
 
     description: str | Unset = UNSET

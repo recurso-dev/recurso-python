@@ -2,13 +2,17 @@ from __future__ import annotations
 
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.create_customer_request_tax_type import CreateCustomerRequestTaxType
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.billing_address import BillingAddress
+
 
 T = TypeVar("T", bound="CreateCustomerRequest")
 
@@ -36,6 +40,7 @@ class CreateCustomerRequest:
         state (str | Unset):
         zip_ (str | Unset):
         country (str | Unset): ISO 3166-1 alpha-2 code.
+        billing_address (BillingAddress | Unset):
     """
 
     email: str
@@ -54,6 +59,7 @@ class CreateCustomerRequest:
     state: str | Unset = UNSET
     zip_: str | Unset = UNSET
     country: str | Unset = UNSET
+    billing_address: BillingAddress | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -97,6 +103,10 @@ class CreateCustomerRequest:
 
         country = self.country
 
+        billing_address: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.billing_address, Unset):
+            billing_address = self.billing_address.to_dict()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -133,11 +143,15 @@ class CreateCustomerRequest:
             field_dict["zip"] = zip_
         if country is not UNSET:
             field_dict["country"] = country
+        if billing_address is not UNSET:
+            field_dict["billing_address"] = billing_address
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.billing_address import BillingAddress
+
         d = dict(src_dict)
         email = d.pop("email")
 
@@ -191,6 +205,13 @@ class CreateCustomerRequest:
 
         country = d.pop("country", UNSET)
 
+        _billing_address = d.pop("billing_address", UNSET)
+        billing_address: BillingAddress | Unset
+        if isinstance(_billing_address, Unset):
+            billing_address = UNSET
+        else:
+            billing_address = BillingAddress.from_dict(_billing_address)
+
         create_customer_request = cls(
             email=email,
             name=name,
@@ -208,6 +229,7 @@ class CreateCustomerRequest:
             state=state,
             zip_=zip_,
             country=country,
+            billing_address=billing_address,
         )
 
         create_customer_request.additional_properties = d

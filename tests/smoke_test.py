@@ -418,11 +418,11 @@ def main() -> int:
 
     def mandate_currency_field():
         from recurso.models import CreateMandateBody
-        from recurso.models.gateway_connection_view_provider import GatewayConnectionViewProvider
 
         # Bank-debit rails (recurso #234/#237): currency picks UPI vs SEPA/Bacs,
         # and gocardless is a connectable BYO provider.
         from recurso.models.create_mandate_body_frequency import CreateMandateBodyFrequency
+        from recurso.models.gateway_connection_view_provider import GatewayConnectionViewProvider
 
         body = CreateMandateBody(
             customer_id="c",

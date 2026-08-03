@@ -16,6 +16,8 @@ class BillingAddress:
     """
     Attributes:
         line1 (str | Unset):
+        line2 (str | Unset):
+        postal_code (str | Unset): Synonym for zip.
         city (str | Unset):
         state (str | Unset):
         zip_ (str | Unset):
@@ -23,6 +25,8 @@ class BillingAddress:
     """
 
     line1: str | Unset = UNSET
+    line2: str | Unset = UNSET
+    postal_code: str | Unset = UNSET
     city: str | Unset = UNSET
     state: str | Unset = UNSET
     zip_: str | Unset = UNSET
@@ -31,6 +35,10 @@ class BillingAddress:
 
     def to_dict(self) -> dict[str, Any]:
         line1 = self.line1
+
+        line2 = self.line2
+
+        postal_code = self.postal_code
 
         city = self.city
 
@@ -45,6 +53,10 @@ class BillingAddress:
         field_dict.update({})
         if line1 is not UNSET:
             field_dict["line1"] = line1
+        if line2 is not UNSET:
+            field_dict["line2"] = line2
+        if postal_code is not UNSET:
+            field_dict["postal_code"] = postal_code
         if city is not UNSET:
             field_dict["city"] = city
         if state is not UNSET:
@@ -61,6 +73,10 @@ class BillingAddress:
         d = dict(src_dict)
         line1 = d.pop("line1", UNSET)
 
+        line2 = d.pop("line2", UNSET)
+
+        postal_code = d.pop("postal_code", UNSET)
+
         city = d.pop("city", UNSET)
 
         state = d.pop("state", UNSET)
@@ -71,6 +87,8 @@ class BillingAddress:
 
         billing_address = cls(
             line1=line1,
+            line2=line2,
+            postal_code=postal_code,
             city=city,
             state=state,
             zip_=zip_,

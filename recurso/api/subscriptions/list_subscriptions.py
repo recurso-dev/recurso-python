@@ -15,7 +15,7 @@ def _get_kwargs(
     *,
     status: SubscriptionStatus | Unset = UNSET,
     q: str | Unset = UNSET,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> dict[str, Any]:
 
@@ -79,7 +79,7 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
     q: str | Unset = UNSET,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Response[Error | ListSubscriptionsResponse200]:
     """List subscriptions
@@ -87,7 +87,7 @@ def sync_detailed(
     Args:
         status (SubscriptionStatus | Unset):
         q (str | Unset):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
     Raises:
@@ -117,7 +117,7 @@ def sync(
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
     q: str | Unset = UNSET,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Error | ListSubscriptionsResponse200 | None:
     """List subscriptions
@@ -125,7 +125,7 @@ def sync(
     Args:
         status (SubscriptionStatus | Unset):
         q (str | Unset):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
     Raises:
@@ -150,7 +150,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
     q: str | Unset = UNSET,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Response[Error | ListSubscriptionsResponse200]:
     """List subscriptions
@@ -158,7 +158,7 @@ async def asyncio_detailed(
     Args:
         status (SubscriptionStatus | Unset):
         q (str | Unset):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
     Raises:
@@ -186,7 +186,7 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
     q: str | Unset = UNSET,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Error | ListSubscriptionsResponse200 | None:
     """List subscriptions
@@ -194,7 +194,7 @@ async def asyncio(
     Args:
         status (SubscriptionStatus | Unset):
         q (str | Unset):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
     Raises:
