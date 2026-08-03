@@ -1,36 +1,26 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.list_plans_response_200 import ListPlansResponse200
-from ...types import UNSET, Response, Unset
+from ...models.void_credit_note_response_200 import VoidCreditNoteResponse200
+from ...types import Response
 
 
 def _get_kwargs(
-    *,
-    q: str | Unset = UNSET,
-    limit: int | Unset = 50,
-    page: int | Unset = 1,
+    id: UUID,
 ) -> dict[str, Any]:
 
-    params: dict[str, Any] = {}
-
-    params["q"] = q
-
-    params["limit"] = limit
-
-    params["page"] = page
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
     _kwargs: dict[str, Any] = {
-        "method": "get",
-        "url": "/v1/plans",
-        "params": params,
+        "method": "post",
+        "url": "/v1/credit-notes/{id}/void".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     return _kwargs
@@ -38,16 +28,26 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | ListPlansResponse200 | None:
+) -> Error | VoidCreditNoteResponse200 | None:
     if response.status_code == 200:
-        response_200 = ListPlansResponse200.from_dict(response.json())
+        response_200 = VoidCreditNoteResponse200.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Error.from_dict(response.json())
+
+        return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 403:
+        response_403 = Error.from_dict(response.json())
+
+        return response_403
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -57,7 +57,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | ListPlansResponse200]:
+) -> Response[Error | VoidCreditNoteResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -67,31 +67,29 @@ def _build_response(
 
 
 def sync_detailed(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    q: str | Unset = UNSET,
-    limit: int | Unset = 50,
-    page: int | Unset = 1,
-) -> Response[Error | ListPlansResponse200]:
-    """List plans
+) -> Response[Error | VoidCreditNoteResponse200]:
+    """Void an issued account-credit note
+
+     Cancels an issued adjustment (account-credit) note and writes off its unspent balance, posting the
+    GL reversal. Only the unspent portion is reversed; any already-applied credit stays real. Refund
+    notes cannot be voided (the money left through the payment gateway). Admins/owners only.
 
     Args:
-        q (str | Unset):
-        limit (int | Unset):  Default: 50.
-        page (int | Unset):  Default: 1.
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | ListPlansResponse200]
+        Response[Error | VoidCreditNoteResponse200]
     """
 
     kwargs = _get_kwargs(
-        q=q,
-        limit=limit,
-        page=page,
+        id=id,
     )
 
     response = client.get_httpx_client().request(
@@ -102,61 +100,57 @@ def sync_detailed(
 
 
 def sync(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    q: str | Unset = UNSET,
-    limit: int | Unset = 50,
-    page: int | Unset = 1,
-) -> Error | ListPlansResponse200 | None:
-    """List plans
+) -> Error | VoidCreditNoteResponse200 | None:
+    """Void an issued account-credit note
+
+     Cancels an issued adjustment (account-credit) note and writes off its unspent balance, posting the
+    GL reversal. Only the unspent portion is reversed; any already-applied credit stays real. Refund
+    notes cannot be voided (the money left through the payment gateway). Admins/owners only.
 
     Args:
-        q (str | Unset):
-        limit (int | Unset):  Default: 50.
-        page (int | Unset):  Default: 1.
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | ListPlansResponse200
+        Error | VoidCreditNoteResponse200
     """
 
     return sync_detailed(
+        id=id,
         client=client,
-        q=q,
-        limit=limit,
-        page=page,
     ).parsed
 
 
 async def asyncio_detailed(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    q: str | Unset = UNSET,
-    limit: int | Unset = 50,
-    page: int | Unset = 1,
-) -> Response[Error | ListPlansResponse200]:
-    """List plans
+) -> Response[Error | VoidCreditNoteResponse200]:
+    """Void an issued account-credit note
+
+     Cancels an issued adjustment (account-credit) note and writes off its unspent balance, posting the
+    GL reversal. Only the unspent portion is reversed; any already-applied credit stays real. Refund
+    notes cannot be voided (the money left through the payment gateway). Admins/owners only.
 
     Args:
-        q (str | Unset):
-        limit (int | Unset):  Default: 50.
-        page (int | Unset):  Default: 1.
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | ListPlansResponse200]
+        Response[Error | VoidCreditNoteResponse200]
     """
 
     kwargs = _get_kwargs(
-        q=q,
-        limit=limit,
-        page=page,
+        id=id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -165,32 +159,30 @@ async def asyncio_detailed(
 
 
 async def asyncio(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    q: str | Unset = UNSET,
-    limit: int | Unset = 50,
-    page: int | Unset = 1,
-) -> Error | ListPlansResponse200 | None:
-    """List plans
+) -> Error | VoidCreditNoteResponse200 | None:
+    """Void an issued account-credit note
+
+     Cancels an issued adjustment (account-credit) note and writes off its unspent balance, posting the
+    GL reversal. Only the unspent portion is reversed; any already-applied credit stays real. Refund
+    notes cannot be voided (the money left through the payment gateway). Admins/owners only.
 
     Args:
-        q (str | Unset):
-        limit (int | Unset):  Default: 50.
-        page (int | Unset):  Default: 1.
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | ListPlansResponse200
+        Error | VoidCreditNoteResponse200
     """
 
     return (
         await asyncio_detailed(
+            id=id,
             client=client,
-            q=q,
-            limit=limit,
-            page=page,
         )
     ).parsed

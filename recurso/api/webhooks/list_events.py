@@ -12,7 +12,7 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     offset: int | Unset = 0,
 ) -> dict[str, Any]:
 
@@ -66,7 +66,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     offset: int | Unset = 0,
 ) -> Response[Error | ListEventsResponse200]:
     """List events
@@ -74,7 +74,7 @@ def sync_detailed(
      Chronological feed of billing events emitted for this tenant.
 
     Args:
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         offset (int | Unset):  Default: 0.
 
     Raises:
@@ -100,7 +100,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     offset: int | Unset = 0,
 ) -> Error | ListEventsResponse200 | None:
     """List events
@@ -108,7 +108,7 @@ def sync(
      Chronological feed of billing events emitted for this tenant.
 
     Args:
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         offset (int | Unset):  Default: 0.
 
     Raises:
@@ -129,7 +129,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     offset: int | Unset = 0,
 ) -> Response[Error | ListEventsResponse200]:
     """List events
@@ -137,7 +137,7 @@ async def asyncio_detailed(
      Chronological feed of billing events emitted for this tenant.
 
     Args:
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         offset (int | Unset):  Default: 0.
 
     Raises:
@@ -161,7 +161,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     offset: int | Unset = 0,
 ) -> Error | ListEventsResponse200 | None:
     """List events
@@ -169,7 +169,7 @@ async def asyncio(
      Chronological feed of billing events emitted for this tenant.
 
     Args:
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         offset (int | Unset):  Default: 0.
 
     Raises:

@@ -16,7 +16,7 @@ def _get_kwargs(
     q: str | Unset = UNSET,
     country: str | Unset = UNSET,
     status: ListCustomersStatus | Unset = UNSET,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> dict[str, Any]:
 
@@ -83,7 +83,7 @@ def sync_detailed(
     q: str | Unset = UNSET,
     country: str | Unset = UNSET,
     status: ListCustomersStatus | Unset = UNSET,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Response[Error | ListCustomersResponse200]:
     """List customers
@@ -92,7 +92,7 @@ def sync_detailed(
         q (str | Unset):
         country (str | Unset):
         status (ListCustomersStatus | Unset):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
     Raises:
@@ -124,7 +124,7 @@ def sync(
     q: str | Unset = UNSET,
     country: str | Unset = UNSET,
     status: ListCustomersStatus | Unset = UNSET,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Error | ListCustomersResponse200 | None:
     """List customers
@@ -133,7 +133,7 @@ def sync(
         q (str | Unset):
         country (str | Unset):
         status (ListCustomersStatus | Unset):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
     Raises:
@@ -160,7 +160,7 @@ async def asyncio_detailed(
     q: str | Unset = UNSET,
     country: str | Unset = UNSET,
     status: ListCustomersStatus | Unset = UNSET,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Response[Error | ListCustomersResponse200]:
     """List customers
@@ -169,7 +169,7 @@ async def asyncio_detailed(
         q (str | Unset):
         country (str | Unset):
         status (ListCustomersStatus | Unset):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
     Raises:
@@ -199,7 +199,7 @@ async def asyncio(
     q: str | Unset = UNSET,
     country: str | Unset = UNSET,
     status: ListCustomersStatus | Unset = UNSET,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Error | ListCustomersResponse200 | None:
     """List customers
@@ -208,7 +208,7 @@ async def asyncio(
         q (str | Unset):
         country (str | Unset):
         status (ListCustomersStatus | Unset):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
     Raises:

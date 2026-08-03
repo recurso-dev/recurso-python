@@ -1,53 +1,49 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.list_plans_response_200 import ListPlansResponse200
-from ...types import UNSET, Response, Unset
+from ...types import Response
 
 
 def _get_kwargs(
-    *,
-    q: str | Unset = UNSET,
-    limit: int | Unset = 50,
-    page: int | Unset = 1,
+    id: UUID,
 ) -> dict[str, Any]:
-
-    params: dict[str, Any] = {}
-
-    params["q"] = q
-
-    params["limit"] = limit
-
-    params["page"] = page
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/plans",
-        "params": params,
+        "url": "/v1/credit-notes/{id}/pdf".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | ListPlansResponse200 | None:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | str | None:
     if response.status_code == 200:
-        response_200 = ListPlansResponse200.from_dict(response.json())
-
+        response_200 = response.text
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Error.from_dict(response.json())
+
+        return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 404:
+        response_404 = Error.from_dict(response.json())
+
+        return response_404
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -55,9 +51,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | ListPlansResponse200]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | str]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -67,31 +61,29 @@ def _build_response(
 
 
 def sync_detailed(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    q: str | Unset = UNSET,
-    limit: int | Unset = 50,
-    page: int | Unset = 1,
-) -> Response[Error | ListPlansResponse200]:
-    """List plans
+) -> Response[Error | str]:
+    """Download a printable credit note
+
+     Returns a print-ready HTML rendering of the credit note, tenant-scoped. Requires authentication (API
+    key or dashboard session): the document carries the customer's legal name and address, so it is
+    never publicly fetchable by UUID.
 
     Args:
-        q (str | Unset):
-        limit (int | Unset):  Default: 50.
-        page (int | Unset):  Default: 1.
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | ListPlansResponse200]
+        Response[Error | str]
     """
 
     kwargs = _get_kwargs(
-        q=q,
-        limit=limit,
-        page=page,
+        id=id,
     )
 
     response = client.get_httpx_client().request(
@@ -102,61 +94,57 @@ def sync_detailed(
 
 
 def sync(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    q: str | Unset = UNSET,
-    limit: int | Unset = 50,
-    page: int | Unset = 1,
-) -> Error | ListPlansResponse200 | None:
-    """List plans
+) -> Error | str | None:
+    """Download a printable credit note
+
+     Returns a print-ready HTML rendering of the credit note, tenant-scoped. Requires authentication (API
+    key or dashboard session): the document carries the customer's legal name and address, so it is
+    never publicly fetchable by UUID.
 
     Args:
-        q (str | Unset):
-        limit (int | Unset):  Default: 50.
-        page (int | Unset):  Default: 1.
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | ListPlansResponse200
+        Error | str
     """
 
     return sync_detailed(
+        id=id,
         client=client,
-        q=q,
-        limit=limit,
-        page=page,
     ).parsed
 
 
 async def asyncio_detailed(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    q: str | Unset = UNSET,
-    limit: int | Unset = 50,
-    page: int | Unset = 1,
-) -> Response[Error | ListPlansResponse200]:
-    """List plans
+) -> Response[Error | str]:
+    """Download a printable credit note
+
+     Returns a print-ready HTML rendering of the credit note, tenant-scoped. Requires authentication (API
+    key or dashboard session): the document carries the customer's legal name and address, so it is
+    never publicly fetchable by UUID.
 
     Args:
-        q (str | Unset):
-        limit (int | Unset):  Default: 50.
-        page (int | Unset):  Default: 1.
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | ListPlansResponse200]
+        Response[Error | str]
     """
 
     kwargs = _get_kwargs(
-        q=q,
-        limit=limit,
-        page=page,
+        id=id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -165,32 +153,30 @@ async def asyncio_detailed(
 
 
 async def asyncio(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    q: str | Unset = UNSET,
-    limit: int | Unset = 50,
-    page: int | Unset = 1,
-) -> Error | ListPlansResponse200 | None:
-    """List plans
+) -> Error | str | None:
+    """Download a printable credit note
+
+     Returns a print-ready HTML rendering of the credit note, tenant-scoped. Requires authentication (API
+    key or dashboard session): the document carries the customer's legal name and address, so it is
+    never publicly fetchable by UUID.
 
     Args:
-        q (str | Unset):
-        limit (int | Unset):  Default: 50.
-        page (int | Unset):  Default: 1.
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | ListPlansResponse200
+        Error | str
     """
 
     return (
         await asyncio_detailed(
+            id=id,
             client=client,
-            q=q,
-            limit=limit,
-            page=page,
         )
     ).parsed

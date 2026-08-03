@@ -18,13 +18,16 @@ class EntityInput:
         name (str):
         legal_name (str | Unset):
         invoice_prefix (str | Unset): Optional; defaults to a slug of the name.
-        country_code (str | Unset):
+        country_code (str | Unset): ISO 3166-1 alpha-2. `country` is accepted as an alias; country_code wins if both are
+            sent.
+        country (str | Unset): Alias for country_code (the field /auth/register uses).
     """
 
     name: str
     legal_name: str | Unset = UNSET
     invoice_prefix: str | Unset = UNSET
     country_code: str | Unset = UNSET
+    country: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -35,6 +38,8 @@ class EntityInput:
         invoice_prefix = self.invoice_prefix
 
         country_code = self.country_code
+
+        country = self.country
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -49,6 +54,8 @@ class EntityInput:
             field_dict["invoice_prefix"] = invoice_prefix
         if country_code is not UNSET:
             field_dict["country_code"] = country_code
+        if country is not UNSET:
+            field_dict["country"] = country
 
         return field_dict
 
@@ -63,11 +70,14 @@ class EntityInput:
 
         country_code = d.pop("country_code", UNSET)
 
+        country = d.pop("country", UNSET)
+
         entity_input = cls(
             name=name,
             legal_name=legal_name,
             invoice_prefix=invoice_prefix,
             country_code=country_code,
+            country=country,
         )
 
         entity_input.additional_properties = d

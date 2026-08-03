@@ -30,6 +30,15 @@ class CreditNote:
             referenced invoice's entity.
         reference (None | str | Unset):
         amount (int | Unset):
+        subtotal (int | Unset): Taxable (net-of-tax) value of the credit, minor units. Present (non-zero) when the note
+            recorded a tax breakdown at creation — invoice-linked credits slice the invoice's tax proportionally, downgrade
+            credits carry the reversed proration tax. 0 on legacy rows and standalone goodwill credits (gross-only).
+        tax_amount (int | Unset): Tax reversed by this credit, minor units.
+        igst_amount (int | Unset):
+        cgst_amount (int | Unset):
+        sgst_amount (int | Unset):
+        tax_type (str | Unset): Tax regime of the breakdown (e.g. inter_state, intra_state); empty when none recorded.
+        hsn_code (str | Unset):
         balance (int | Unset): Remaining unapplied credit.
         currency (str | Unset):
         status (CreditNoteStatus | Unset):
@@ -47,6 +56,13 @@ class CreditNote:
     entity_id: None | Unset | UUID = UNSET
     reference: None | str | Unset = UNSET
     amount: int | Unset = UNSET
+    subtotal: int | Unset = UNSET
+    tax_amount: int | Unset = UNSET
+    igst_amount: int | Unset = UNSET
+    cgst_amount: int | Unset = UNSET
+    sgst_amount: int | Unset = UNSET
+    tax_type: str | Unset = UNSET
+    hsn_code: str | Unset = UNSET
     balance: int | Unset = UNSET
     currency: str | Unset = UNSET
     status: CreditNoteStatus | Unset = UNSET
@@ -93,6 +109,20 @@ class CreditNote:
             reference = self.reference
 
         amount = self.amount
+
+        subtotal = self.subtotal
+
+        tax_amount = self.tax_amount
+
+        igst_amount = self.igst_amount
+
+        cgst_amount = self.cgst_amount
+
+        sgst_amount = self.sgst_amount
+
+        tax_type = self.tax_type
+
+        hsn_code = self.hsn_code
 
         balance = self.balance
 
@@ -141,6 +171,20 @@ class CreditNote:
             field_dict["reference"] = reference
         if amount is not UNSET:
             field_dict["amount"] = amount
+        if subtotal is not UNSET:
+            field_dict["subtotal"] = subtotal
+        if tax_amount is not UNSET:
+            field_dict["tax_amount"] = tax_amount
+        if igst_amount is not UNSET:
+            field_dict["igst_amount"] = igst_amount
+        if cgst_amount is not UNSET:
+            field_dict["cgst_amount"] = cgst_amount
+        if sgst_amount is not UNSET:
+            field_dict["sgst_amount"] = sgst_amount
+        if tax_type is not UNSET:
+            field_dict["tax_type"] = tax_type
+        if hsn_code is not UNSET:
+            field_dict["hsn_code"] = hsn_code
         if balance is not UNSET:
             field_dict["balance"] = balance
         if currency is not UNSET:
@@ -231,6 +275,20 @@ class CreditNote:
 
         amount = d.pop("amount", UNSET)
 
+        subtotal = d.pop("subtotal", UNSET)
+
+        tax_amount = d.pop("tax_amount", UNSET)
+
+        igst_amount = d.pop("igst_amount", UNSET)
+
+        cgst_amount = d.pop("cgst_amount", UNSET)
+
+        sgst_amount = d.pop("sgst_amount", UNSET)
+
+        tax_type = d.pop("tax_type", UNSET)
+
+        hsn_code = d.pop("hsn_code", UNSET)
+
         balance = d.pop("balance", UNSET)
 
         currency = d.pop("currency", UNSET)
@@ -290,6 +348,13 @@ class CreditNote:
             entity_id=entity_id,
             reference=reference,
             amount=amount,
+            subtotal=subtotal,
+            tax_amount=tax_amount,
+            igst_amount=igst_amount,
+            cgst_amount=cgst_amount,
+            sgst_amount=sgst_amount,
+            tax_type=tax_type,
+            hsn_code=hsn_code,
             balance=balance,
             currency=currency,
             status=status,

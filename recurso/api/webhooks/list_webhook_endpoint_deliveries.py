@@ -16,7 +16,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     id: UUID,
     *,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     offset: int | Unset = 0,
     status: ListWebhookEndpointDeliveriesStatus | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -90,7 +90,7 @@ def sync_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     offset: int | Unset = 0,
     status: ListWebhookEndpointDeliveriesStatus | Unset = UNSET,
 ) -> Response[Error | ListWebhookEndpointDeliveriesResponse200]:
@@ -100,7 +100,7 @@ def sync_detailed(
 
     Args:
         id (UUID):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         offset (int | Unset):  Default: 0.
         status (ListWebhookEndpointDeliveriesStatus | Unset):
 
@@ -130,7 +130,7 @@ def sync(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     offset: int | Unset = 0,
     status: ListWebhookEndpointDeliveriesStatus | Unset = UNSET,
 ) -> Error | ListWebhookEndpointDeliveriesResponse200 | None:
@@ -140,7 +140,7 @@ def sync(
 
     Args:
         id (UUID):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         offset (int | Unset):  Default: 0.
         status (ListWebhookEndpointDeliveriesStatus | Unset):
 
@@ -165,7 +165,7 @@ async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     offset: int | Unset = 0,
     status: ListWebhookEndpointDeliveriesStatus | Unset = UNSET,
 ) -> Response[Error | ListWebhookEndpointDeliveriesResponse200]:
@@ -175,7 +175,7 @@ async def asyncio_detailed(
 
     Args:
         id (UUID):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         offset (int | Unset):  Default: 0.
         status (ListWebhookEndpointDeliveriesStatus | Unset):
 
@@ -203,7 +203,7 @@ async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    limit: int | Unset = UNSET,
+    limit: int | Unset = 50,
     offset: int | Unset = 0,
     status: ListWebhookEndpointDeliveriesStatus | Unset = UNSET,
 ) -> Error | ListWebhookEndpointDeliveriesResponse200 | None:
@@ -213,7 +213,7 @@ async def asyncio(
 
     Args:
         id (UUID):
-        limit (int | Unset):
+        limit (int | Unset):  Default: 50.
         offset (int | Unset):  Default: 0.
         status (ListWebhookEndpointDeliveriesStatus | Unset):
 
