@@ -17,6 +17,7 @@ def _get_kwargs(
     *,
     status: SubscriptionStatus | Unset = UNSET,
     plan_id: UUID | Unset = UNSET,
+    customer_id: UUID | Unset = UNSET,
     started_after: datetime.datetime | Unset = UNSET,
     q: str | Unset = UNSET,
     limit: int | Unset = 50,
@@ -35,6 +36,11 @@ def _get_kwargs(
     if not isinstance(plan_id, Unset):
         json_plan_id = str(plan_id)
     params["plan_id"] = json_plan_id
+
+    json_customer_id: str | Unset = UNSET
+    if not isinstance(customer_id, Unset):
+        json_customer_id = str(customer_id)
+    params["customer_id"] = json_customer_id
 
     json_started_after: str | Unset = UNSET
     if not isinstance(started_after, Unset):
@@ -93,6 +99,7 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
     plan_id: UUID | Unset = UNSET,
+    customer_id: UUID | Unset = UNSET,
     started_after: datetime.datetime | Unset = UNSET,
     q: str | Unset = UNSET,
     limit: int | Unset = 50,
@@ -103,6 +110,7 @@ def sync_detailed(
     Args:
         status (SubscriptionStatus | Unset):
         plan_id (UUID | Unset):
+        customer_id (UUID | Unset):
         started_after (datetime.datetime | Unset):
         q (str | Unset):
         limit (int | Unset):  Default: 50.
@@ -119,6 +127,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         status=status,
         plan_id=plan_id,
+        customer_id=customer_id,
         started_after=started_after,
         q=q,
         limit=limit,
@@ -137,6 +146,7 @@ def sync(
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
     plan_id: UUID | Unset = UNSET,
+    customer_id: UUID | Unset = UNSET,
     started_after: datetime.datetime | Unset = UNSET,
     q: str | Unset = UNSET,
     limit: int | Unset = 50,
@@ -147,6 +157,7 @@ def sync(
     Args:
         status (SubscriptionStatus | Unset):
         plan_id (UUID | Unset):
+        customer_id (UUID | Unset):
         started_after (datetime.datetime | Unset):
         q (str | Unset):
         limit (int | Unset):  Default: 50.
@@ -164,6 +175,7 @@ def sync(
         client=client,
         status=status,
         plan_id=plan_id,
+        customer_id=customer_id,
         started_after=started_after,
         q=q,
         limit=limit,
@@ -176,6 +188,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
     plan_id: UUID | Unset = UNSET,
+    customer_id: UUID | Unset = UNSET,
     started_after: datetime.datetime | Unset = UNSET,
     q: str | Unset = UNSET,
     limit: int | Unset = 50,
@@ -186,6 +199,7 @@ async def asyncio_detailed(
     Args:
         status (SubscriptionStatus | Unset):
         plan_id (UUID | Unset):
+        customer_id (UUID | Unset):
         started_after (datetime.datetime | Unset):
         q (str | Unset):
         limit (int | Unset):  Default: 50.
@@ -202,6 +216,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         status=status,
         plan_id=plan_id,
+        customer_id=customer_id,
         started_after=started_after,
         q=q,
         limit=limit,
@@ -218,6 +233,7 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
     plan_id: UUID | Unset = UNSET,
+    customer_id: UUID | Unset = UNSET,
     started_after: datetime.datetime | Unset = UNSET,
     q: str | Unset = UNSET,
     limit: int | Unset = 50,
@@ -228,6 +244,7 @@ async def asyncio(
     Args:
         status (SubscriptionStatus | Unset):
         plan_id (UUID | Unset):
+        customer_id (UUID | Unset):
         started_after (datetime.datetime | Unset):
         q (str | Unset):
         limit (int | Unset):  Default: 50.
@@ -246,6 +263,7 @@ async def asyncio(
             client=client,
             status=status,
             plan_id=plan_id,
+            customer_id=customer_id,
             started_after=started_after,
             q=q,
             limit=limit,

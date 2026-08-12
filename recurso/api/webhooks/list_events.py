@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from uuid import UUID
 
 import httpx
 
@@ -13,6 +14,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     type_: str | Unset = UNSET,
+    object_id: UUID | Unset = UNSET,
     limit: int | Unset = 50,
     offset: int | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -20,6 +22,11 @@ def _get_kwargs(
     params: dict[str, Any] = {}
 
     params["type"] = type_
+
+    json_object_id: str | Unset = UNSET
+    if not isinstance(object_id, Unset):
+        json_object_id = str(object_id)
+    params["object_id"] = json_object_id
 
     params["limit"] = limit
 
@@ -70,6 +77,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     type_: str | Unset = UNSET,
+    object_id: UUID | Unset = UNSET,
     limit: int | Unset = 50,
     offset: int | Unset = UNSET,
 ) -> Response[Error | ListEventsResponse200]:
@@ -79,6 +87,7 @@ def sync_detailed(
 
     Args:
         type_ (str | Unset):
+        object_id (UUID | Unset):
         limit (int | Unset):  Default: 50.
         offset (int | Unset):
 
@@ -92,6 +101,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         type_=type_,
+        object_id=object_id,
         limit=limit,
         offset=offset,
     )
@@ -107,6 +117,7 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     type_: str | Unset = UNSET,
+    object_id: UUID | Unset = UNSET,
     limit: int | Unset = 50,
     offset: int | Unset = UNSET,
 ) -> Error | ListEventsResponse200 | None:
@@ -116,6 +127,7 @@ def sync(
 
     Args:
         type_ (str | Unset):
+        object_id (UUID | Unset):
         limit (int | Unset):  Default: 50.
         offset (int | Unset):
 
@@ -130,6 +142,7 @@ def sync(
     return sync_detailed(
         client=client,
         type_=type_,
+        object_id=object_id,
         limit=limit,
         offset=offset,
     ).parsed
@@ -139,6 +152,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     type_: str | Unset = UNSET,
+    object_id: UUID | Unset = UNSET,
     limit: int | Unset = 50,
     offset: int | Unset = UNSET,
 ) -> Response[Error | ListEventsResponse200]:
@@ -148,6 +162,7 @@ async def asyncio_detailed(
 
     Args:
         type_ (str | Unset):
+        object_id (UUID | Unset):
         limit (int | Unset):  Default: 50.
         offset (int | Unset):
 
@@ -161,6 +176,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         type_=type_,
+        object_id=object_id,
         limit=limit,
         offset=offset,
     )
@@ -174,6 +190,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     type_: str | Unset = UNSET,
+    object_id: UUID | Unset = UNSET,
     limit: int | Unset = 50,
     offset: int | Unset = UNSET,
 ) -> Error | ListEventsResponse200 | None:
@@ -183,6 +200,7 @@ async def asyncio(
 
     Args:
         type_ (str | Unset):
+        object_id (UUID | Unset):
         limit (int | Unset):  Default: 50.
         offset (int | Unset):
 
@@ -198,6 +216,7 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             type_=type_,
+            object_id=object_id,
             limit=limit,
             offset=offset,
         )

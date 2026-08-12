@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -7,34 +8,19 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.list_invoices_response_200 import ListInvoicesResponse200
-from ...types import UNSET, Response, Unset
+from ...models.get_invoice_response_200 import GetInvoiceResponse200
+from ...types import Response
 
 
 def _get_kwargs(
-    *,
-    customer_id: UUID | Unset = UNSET,
-    subscription_id: UUID | Unset = UNSET,
+    id: UUID,
 ) -> dict[str, Any]:
-
-    params: dict[str, Any] = {}
-
-    json_customer_id: str | Unset = UNSET
-    if not isinstance(customer_id, Unset):
-        json_customer_id = str(customer_id)
-    params["customer_id"] = json_customer_id
-
-    json_subscription_id: str | Unset = UNSET
-    if not isinstance(subscription_id, Unset):
-        json_subscription_id = str(subscription_id)
-    params["subscription_id"] = json_subscription_id
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/invoices",
-        "params": params,
+        "url": "/v1/invoices/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     return _kwargs
@@ -42,9 +28,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | ListInvoicesResponse200 | None:
+) -> Error | GetInvoiceResponse200 | None:
     if response.status_code == 200:
-        response_200 = ListInvoicesResponse200.from_dict(response.json())
+        response_200 = GetInvoiceResponse200.from_dict(response.json())
 
         return response_200
 
@@ -52,6 +38,11 @@ def _parse_response(
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 404:
+        response_404 = Error.from_dict(response.json())
+
+        return response_404
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -61,7 +52,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | ListInvoicesResponse200]:
+) -> Response[Error | GetInvoiceResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -71,28 +62,28 @@ def _build_response(
 
 
 def sync_detailed(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    customer_id: UUID | Unset = UNSET,
-    subscription_id: UUID | Unset = UNSET,
-) -> Response[Error | ListInvoicesResponse200]:
-    """List invoices
+) -> Response[Error | GetInvoiceResponse200]:
+    """Get an invoice by id
+
+     One invoice, tenant-scoped. A foreign or missing invoice is a flat 404. Serves the dashboard's
+    addressable /invoices/:id route.
 
     Args:
-        customer_id (UUID | Unset):
-        subscription_id (UUID | Unset):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | ListInvoicesResponse200]
+        Response[Error | GetInvoiceResponse200]
     """
 
     kwargs = _get_kwargs(
-        customer_id=customer_id,
-        subscription_id=subscription_id,
+        id=id,
     )
 
     response = client.get_httpx_client().request(
@@ -103,55 +94,55 @@ def sync_detailed(
 
 
 def sync(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    customer_id: UUID | Unset = UNSET,
-    subscription_id: UUID | Unset = UNSET,
-) -> Error | ListInvoicesResponse200 | None:
-    """List invoices
+) -> Error | GetInvoiceResponse200 | None:
+    """Get an invoice by id
+
+     One invoice, tenant-scoped. A foreign or missing invoice is a flat 404. Serves the dashboard's
+    addressable /invoices/:id route.
 
     Args:
-        customer_id (UUID | Unset):
-        subscription_id (UUID | Unset):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | ListInvoicesResponse200
+        Error | GetInvoiceResponse200
     """
 
     return sync_detailed(
+        id=id,
         client=client,
-        customer_id=customer_id,
-        subscription_id=subscription_id,
     ).parsed
 
 
 async def asyncio_detailed(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    customer_id: UUID | Unset = UNSET,
-    subscription_id: UUID | Unset = UNSET,
-) -> Response[Error | ListInvoicesResponse200]:
-    """List invoices
+) -> Response[Error | GetInvoiceResponse200]:
+    """Get an invoice by id
+
+     One invoice, tenant-scoped. A foreign or missing invoice is a flat 404. Serves the dashboard's
+    addressable /invoices/:id route.
 
     Args:
-        customer_id (UUID | Unset):
-        subscription_id (UUID | Unset):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | ListInvoicesResponse200]
+        Response[Error | GetInvoiceResponse200]
     """
 
     kwargs = _get_kwargs(
-        customer_id=customer_id,
-        subscription_id=subscription_id,
+        id=id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -160,29 +151,29 @@ async def asyncio_detailed(
 
 
 async def asyncio(
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-    customer_id: UUID | Unset = UNSET,
-    subscription_id: UUID | Unset = UNSET,
-) -> Error | ListInvoicesResponse200 | None:
-    """List invoices
+) -> Error | GetInvoiceResponse200 | None:
+    """Get an invoice by id
+
+     One invoice, tenant-scoped. A foreign or missing invoice is a flat 404. Serves the dashboard's
+    addressable /invoices/:id route.
 
     Args:
-        customer_id (UUID | Unset):
-        subscription_id (UUID | Unset):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | ListInvoicesResponse200
+        Error | GetInvoiceResponse200
     """
 
     return (
         await asyncio_detailed(
+            id=id,
             client=client,
-            customer_id=customer_id,
-            subscription_id=subscription_id,
         )
     ).parsed
