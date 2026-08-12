@@ -68,7 +68,8 @@ def main() -> int:
             get_plan_entitlements,
             set_plan_entitlements,
         )
-        from recurso.api.invoices import download_invoice_pdf, list_invoices
+        from recurso.api.credit_notes import get_credit_note
+        from recurso.api.invoices import download_invoice_pdf, get_invoice, list_invoices
         from recurso.api.plans import create_plan, list_plans
         from recurso.api.subscriptions import (
             cancel_subscription,
@@ -87,14 +88,19 @@ def main() -> int:
         assert_endpoint(create_customer, sync_params=["client", "body"])
         assert_endpoint(list_customers, sync_params=["client", "q", "country", "status", "limit", "page"])
         assert_endpoint(create_subscription, sync_params=["client", "body"])
+        # customer_id landed with the customer object page (recurso v0.12.0).
         assert_endpoint(
             list_subscriptions,
-            sync_params=["client", "status", "plan_id", "started_after", "q", "limit", "page"],
+            sync_params=["client", "status", "plan_id", "customer_id", "started_after", "q", "limit", "page"],
         )
         assert_endpoint(cancel_subscription, sync_params=["id", "client", "body"])
         assert_endpoint(pause_subscription, sync_params=["id", "client"])
         assert_endpoint(resume_subscription, sync_params=["id", "client"])
-        assert_endpoint(list_invoices, sync_params=["client"])
+        # customer_id/subscription_id + the single-object reads landed with
+        # the object pages (recurso v0.12.0).
+        assert_endpoint(list_invoices, sync_params=["client", "customer_id", "subscription_id"])
+        assert_endpoint(get_invoice, sync_params=["id", "client"])
+        assert_endpoint(get_credit_note, sync_params=["id", "client"])
         assert_endpoint(create_coupon, sync_params=["client", "body"])
         # limit/offset landed with the API-wide list clamp (recurso #224).
         assert_endpoint(list_coupons, sync_params=["client", "limit", "offset"])
@@ -102,7 +108,7 @@ def main() -> int:
         # Event feed type filter (recurso v0.11.0); endpoint-deliveries came
         # back once the spec's duplicate limit/offset params were fixed —
         # openapi-python-client silently drops an op with duplicate params.
-        assert_endpoint(list_events, sync_params=["client", "type_", "limit", "offset"])
+        assert_endpoint(list_events, sync_params=["client", "type_", "object_id", "limit", "offset"])
         assert_endpoint(
             list_webhook_endpoint_deliveries,
             sync_params=["id", "client", "limit", "offset", "status"],

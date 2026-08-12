@@ -235,6 +235,7 @@ from .get_collections_queue_response_200_meta import GetCollectionsQueueResponse
 from .get_collections_queue_status import GetCollectionsQueueStatus
 from .get_compare_report_response_200 import GetCompareReportResponse200
 from .get_compare_report_response_200_data import GetCompareReportResponse200Data
+from .get_credit_note_response_200 import GetCreditNoteResponse200
 from .get_credit_statement_response_200 import GetCreditStatementResponse200
 from .get_credit_statement_response_200_data import GetCreditStatementResponse200Data
 from .get_credit_statement_response_200_data_applications_item import GetCreditStatementResponse200DataApplicationsItem
@@ -275,6 +276,7 @@ from .get_gstr3b_response_200_gov_schema import GetGSTR3BResponse200GovSchema
 from .get_invoice_aging_response_200 import GetInvoiceAgingResponse200
 from .get_invoice_aging_response_200_data import GetInvoiceAgingResponse200Data
 from .get_invoice_branding_response_200 import GetInvoiceBrandingResponse200
+from .get_invoice_response_200 import GetInvoiceResponse200
 from .get_irp_config_response_200 import GetIRPConfigResponse200
 from .get_mandate_response_200 import GetMandateResponse200
 from .get_mcp_settings_response_200 import GetMCPSettingsResponse200
@@ -925,6 +927,7 @@ __all__ = (
     "GetCollectionsQueueStatus",
     "GetCompareReportResponse200",
     "GetCompareReportResponse200Data",
+    "GetCreditNoteResponse200",
     "GetCreditStatementResponse200",
     "GetCreditStatementResponse200Data",
     "GetCreditStatementResponse200DataApplicationsItem",
@@ -963,6 +966,7 @@ __all__ = (
     "GetInvoiceAgingResponse200",
     "GetInvoiceAgingResponse200Data",
     "GetInvoiceBrandingResponse200",
+    "GetInvoiceResponse200",
     "GetIRPConfigResponse200",
     "GetMandateResponse200",
     "GetMCPSettingsResponse200",
