@@ -12,10 +12,16 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
+    limit: int | Unset = 1000,
+    offset: int | Unset = UNSET,
     threshold: int | Unset = 70,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
+
+    params["limit"] = limit
+
+    params["offset"] = offset
 
     params["threshold"] = threshold
 
@@ -63,11 +69,15 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 1000,
+    offset: int | Unset = UNSET,
     threshold: int | Unset = 70,
 ) -> Response[Error | ListHighRiskCustomersResponse200]:
     """List high-churn-risk customers
 
     Args:
+        limit (int | Unset):  Default: 1000.
+        offset (int | Unset):
         threshold (int | Unset):  Default: 70.
 
     Raises:
@@ -79,6 +89,8 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
+        limit=limit,
+        offset=offset,
         threshold=threshold,
     )
 
@@ -92,11 +104,15 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 1000,
+    offset: int | Unset = UNSET,
     threshold: int | Unset = 70,
 ) -> Error | ListHighRiskCustomersResponse200 | None:
     """List high-churn-risk customers
 
     Args:
+        limit (int | Unset):  Default: 1000.
+        offset (int | Unset):
         threshold (int | Unset):  Default: 70.
 
     Raises:
@@ -109,6 +125,8 @@ def sync(
 
     return sync_detailed(
         client=client,
+        limit=limit,
+        offset=offset,
         threshold=threshold,
     ).parsed
 
@@ -116,11 +134,15 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 1000,
+    offset: int | Unset = UNSET,
     threshold: int | Unset = 70,
 ) -> Response[Error | ListHighRiskCustomersResponse200]:
     """List high-churn-risk customers
 
     Args:
+        limit (int | Unset):  Default: 1000.
+        offset (int | Unset):
         threshold (int | Unset):  Default: 70.
 
     Raises:
@@ -132,6 +154,8 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
+        limit=limit,
+        offset=offset,
         threshold=threshold,
     )
 
@@ -143,11 +167,15 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 1000,
+    offset: int | Unset = UNSET,
     threshold: int | Unset = 70,
 ) -> Error | ListHighRiskCustomersResponse200 | None:
     """List high-churn-risk customers
 
     Args:
+        limit (int | Unset):  Default: 1000.
+        offset (int | Unset):
         threshold (int | Unset):  Default: 70.
 
     Raises:
@@ -161,6 +189,8 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            limit=limit,
+            offset=offset,
             threshold=threshold,
         )
     ).parsed

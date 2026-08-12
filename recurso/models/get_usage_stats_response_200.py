@@ -20,9 +20,11 @@ class GetUsageStatsResponse200:
     """
     Attributes:
         data (list[UsageStats] | Unset):
+        customers_metered (int | Unset): Distinct customers with any recorded usage.
     """
 
     data: list[UsageStats] | Unset = UNSET
+    customers_metered: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,11 +35,15 @@ class GetUsageStatsResponse200:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
 
+        customers_metered = self.customers_metered
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if data is not UNSET:
             field_dict["data"] = data
+        if customers_metered is not UNSET:
+            field_dict["customers_metered"] = customers_metered
 
         return field_dict
 
@@ -55,8 +61,11 @@ class GetUsageStatsResponse200:
 
                 data.append(data_item)
 
+        customers_metered = d.pop("customers_metered", UNSET)
+
         get_usage_stats_response_200 = cls(
             data=data,
+            customers_metered=customers_metered,
         )
 
         get_usage_stats_response_200.additional_properties = d

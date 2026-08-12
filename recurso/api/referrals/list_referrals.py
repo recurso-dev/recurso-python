@@ -12,11 +12,17 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
+    limit: int | Unset = 50,
+    offset: int | Unset = UNSET,
     page: int | Unset = 1,
     per_page: int | Unset = 50,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
+
+    params["limit"] = limit
+
+    params["offset"] = offset
 
     params["page"] = page
 
@@ -66,12 +72,16 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 50,
+    offset: int | Unset = UNSET,
     page: int | Unset = 1,
     per_page: int | Unset = 50,
 ) -> Response[Error | ListReferralsResponse200]:
     """List referrals
 
     Args:
+        limit (int | Unset):  Default: 50.
+        offset (int | Unset):
         page (int | Unset):  Default: 1.
         per_page (int | Unset):  Default: 50.
 
@@ -84,6 +94,8 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
+        limit=limit,
+        offset=offset,
         page=page,
         per_page=per_page,
     )
@@ -98,12 +110,16 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 50,
+    offset: int | Unset = UNSET,
     page: int | Unset = 1,
     per_page: int | Unset = 50,
 ) -> Error | ListReferralsResponse200 | None:
     """List referrals
 
     Args:
+        limit (int | Unset):  Default: 50.
+        offset (int | Unset):
         page (int | Unset):  Default: 1.
         per_page (int | Unset):  Default: 50.
 
@@ -117,6 +133,8 @@ def sync(
 
     return sync_detailed(
         client=client,
+        limit=limit,
+        offset=offset,
         page=page,
         per_page=per_page,
     ).parsed
@@ -125,12 +143,16 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 50,
+    offset: int | Unset = UNSET,
     page: int | Unset = 1,
     per_page: int | Unset = 50,
 ) -> Response[Error | ListReferralsResponse200]:
     """List referrals
 
     Args:
+        limit (int | Unset):  Default: 50.
+        offset (int | Unset):
         page (int | Unset):  Default: 1.
         per_page (int | Unset):  Default: 50.
 
@@ -143,6 +165,8 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
+        limit=limit,
+        offset=offset,
         page=page,
         per_page=per_page,
     )
@@ -155,12 +179,16 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 50,
+    offset: int | Unset = UNSET,
     page: int | Unset = 1,
     per_page: int | Unset = 50,
 ) -> Error | ListReferralsResponse200 | None:
     """List referrals
 
     Args:
+        limit (int | Unset):  Default: 50.
+        offset (int | Unset):
         page (int | Unset):  Default: 1.
         per_page (int | Unset):  Default: 50.
 
@@ -175,6 +203,8 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            limit=limit,
+            offset=offset,
             page=page,
             per_page=per_page,
         )

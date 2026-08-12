@@ -88,7 +88,7 @@ def sync_detailed(
 ) -> Response[Error | GetAccountingSyncStatusResponse200]:
     """Recent accounting sync log
 
-     The 50 most recent per-entity sync results.
+     Recent per-entity sync results, newest first (paged via limit/offset).
 
     Args:
         provider (str | Unset):
@@ -131,7 +131,7 @@ def sync(
 ) -> Error | GetAccountingSyncStatusResponse200 | None:
     """Recent accounting sync log
 
-     The 50 most recent per-entity sync results.
+     Recent per-entity sync results, newest first (paged via limit/offset).
 
     Args:
         provider (str | Unset):
@@ -169,7 +169,7 @@ async def asyncio_detailed(
 ) -> Response[Error | GetAccountingSyncStatusResponse200]:
     """Recent accounting sync log
 
-     The 50 most recent per-entity sync results.
+     Recent per-entity sync results, newest first (paged via limit/offset).
 
     Args:
         provider (str | Unset):
@@ -210,7 +210,7 @@ async def asyncio(
 ) -> Error | GetAccountingSyncStatusResponse200 | None:
     """Recent accounting sync log
 
-     The 50 most recent per-entity sync results.
+     Recent per-entity sync results, newest first (paged via limit/offset).
 
     Args:
         provider (str | Unset):

@@ -13,6 +13,8 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     q: str | Unset = UNSET,
+    currency: str | Unset = UNSET,
+    interval_unit: str | Unset = UNSET,
     limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> dict[str, Any]:
@@ -20,6 +22,10 @@ def _get_kwargs(
     params: dict[str, Any] = {}
 
     params["q"] = q
+
+    params["currency"] = currency
+
+    params["interval_unit"] = interval_unit
 
     params["limit"] = limit
 
@@ -70,6 +76,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     q: str | Unset = UNSET,
+    currency: str | Unset = UNSET,
+    interval_unit: str | Unset = UNSET,
     limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Response[Error | ListPlansResponse200]:
@@ -77,6 +85,8 @@ def sync_detailed(
 
     Args:
         q (str | Unset):
+        currency (str | Unset):
+        interval_unit (str | Unset):
         limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
@@ -90,6 +100,8 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         q=q,
+        currency=currency,
+        interval_unit=interval_unit,
         limit=limit,
         page=page,
     )
@@ -105,6 +117,8 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     q: str | Unset = UNSET,
+    currency: str | Unset = UNSET,
+    interval_unit: str | Unset = UNSET,
     limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Error | ListPlansResponse200 | None:
@@ -112,6 +126,8 @@ def sync(
 
     Args:
         q (str | Unset):
+        currency (str | Unset):
+        interval_unit (str | Unset):
         limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
@@ -126,6 +142,8 @@ def sync(
     return sync_detailed(
         client=client,
         q=q,
+        currency=currency,
+        interval_unit=interval_unit,
         limit=limit,
         page=page,
     ).parsed
@@ -135,6 +153,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     q: str | Unset = UNSET,
+    currency: str | Unset = UNSET,
+    interval_unit: str | Unset = UNSET,
     limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Response[Error | ListPlansResponse200]:
@@ -142,6 +162,8 @@ async def asyncio_detailed(
 
     Args:
         q (str | Unset):
+        currency (str | Unset):
+        interval_unit (str | Unset):
         limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
@@ -155,6 +177,8 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         q=q,
+        currency=currency,
+        interval_unit=interval_unit,
         limit=limit,
         page=page,
     )
@@ -168,6 +192,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     q: str | Unset = UNSET,
+    currency: str | Unset = UNSET,
+    interval_unit: str | Unset = UNSET,
     limit: int | Unset = 50,
     page: int | Unset = 1,
 ) -> Error | ListPlansResponse200 | None:
@@ -175,6 +201,8 @@ async def asyncio(
 
     Args:
         q (str | Unset):
+        currency (str | Unset):
+        interval_unit (str | Unset):
         limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
 
@@ -190,6 +218,8 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             q=q,
+            currency=currency,
+            interval_unit=interval_unit,
             limit=limit,
             page=page,
         )

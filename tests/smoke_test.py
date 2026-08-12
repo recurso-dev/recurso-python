@@ -78,13 +78,19 @@ def main() -> int:
             resume_subscription,
         )
         from recurso.api.usage import record_usage_event
+        from recurso.api.webhooks import list_events, list_webhook_endpoint_deliveries
 
         assert_endpoint(create_plan, sync_params=["client", "body"])
-        assert_endpoint(list_plans, sync_params=["client", "q", "limit", "page"])
+        # currency/interval_unit + plan_id/started_after landed with the
+        # server-side list filters (recurso v0.11.0).
+        assert_endpoint(list_plans, sync_params=["client", "q", "currency", "interval_unit", "limit", "page"])
         assert_endpoint(create_customer, sync_params=["client", "body"])
         assert_endpoint(list_customers, sync_params=["client", "q", "country", "status", "limit", "page"])
         assert_endpoint(create_subscription, sync_params=["client", "body"])
-        assert_endpoint(list_subscriptions, sync_params=["client", "status", "q", "limit", "page"])
+        assert_endpoint(
+            list_subscriptions,
+            sync_params=["client", "status", "plan_id", "started_after", "q", "limit", "page"],
+        )
         assert_endpoint(cancel_subscription, sync_params=["id", "client", "body"])
         assert_endpoint(pause_subscription, sync_params=["id", "client"])
         assert_endpoint(resume_subscription, sync_params=["id", "client"])
@@ -93,6 +99,14 @@ def main() -> int:
         # limit/offset landed with the API-wide list clamp (recurso #224).
         assert_endpoint(list_coupons, sync_params=["client", "limit", "offset"])
         assert_endpoint(record_usage_event, sync_params=["client", "body"])
+        # Event feed type filter (recurso v0.11.0); endpoint-deliveries came
+        # back once the spec's duplicate limit/offset params were fixed —
+        # openapi-python-client silently drops an op with duplicate params.
+        assert_endpoint(list_events, sync_params=["client", "type_", "limit", "offset"])
+        assert_endpoint(
+            list_webhook_endpoint_deliveries,
+            sync_params=["id", "client", "limit", "offset", "status"],
+        )
         assert_endpoint(check_entitlement, sync_params=["client", "customer_id", "feature"])
         assert_endpoint(get_plan_entitlements, sync_params=["id", "client"])
         assert_endpoint(set_plan_entitlements, sync_params=["id", "client", "body"])
