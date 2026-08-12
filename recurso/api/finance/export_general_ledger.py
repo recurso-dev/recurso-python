@@ -13,6 +13,8 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     entity_id: UUID | Unset = UNSET,
+    month: int | Unset = UNSET,
+    year: int | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -21,6 +23,10 @@ def _get_kwargs(
     if not isinstance(entity_id, Unset):
         json_entity_id = str(entity_id)
     params["entity_id"] = json_entity_id
+
+    params["month"] = month
+
+    params["year"] = year
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -62,15 +68,22 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     entity_id: UUID | Unset = UNSET,
+    month: int | Unset = UNSET,
+    year: int | Unset = UNSET,
 ) -> Response[Error | str]:
     """Export the general ledger (CSV)
 
      Every posted transaction for the tenant, flattened with both account
     codes/names, amount, and provenance, as a CSV download. Read-only. Pass
-    `entity_id` to scope the export to one legal entity's ledger.
+    `entity_id` to scope the export to one legal entity's ledger. Pass
+    `month` and `year` together to export a single calendar month's
+    postings (the month-end close pack's period export); omit both for the
+    full ledger.
 
     Args:
         entity_id (UUID | Unset):
+        month (int | Unset):
+        year (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -82,6 +95,8 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         entity_id=entity_id,
+        month=month,
+        year=year,
     )
 
     response = client.get_httpx_client().request(
@@ -95,15 +110,22 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     entity_id: UUID | Unset = UNSET,
+    month: int | Unset = UNSET,
+    year: int | Unset = UNSET,
 ) -> Error | str | None:
     """Export the general ledger (CSV)
 
      Every posted transaction for the tenant, flattened with both account
     codes/names, amount, and provenance, as a CSV download. Read-only. Pass
-    `entity_id` to scope the export to one legal entity's ledger.
+    `entity_id` to scope the export to one legal entity's ledger. Pass
+    `month` and `year` together to export a single calendar month's
+    postings (the month-end close pack's period export); omit both for the
+    full ledger.
 
     Args:
         entity_id (UUID | Unset):
+        month (int | Unset):
+        year (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -116,6 +138,8 @@ def sync(
     return sync_detailed(
         client=client,
         entity_id=entity_id,
+        month=month,
+        year=year,
     ).parsed
 
 
@@ -123,15 +147,22 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     entity_id: UUID | Unset = UNSET,
+    month: int | Unset = UNSET,
+    year: int | Unset = UNSET,
 ) -> Response[Error | str]:
     """Export the general ledger (CSV)
 
      Every posted transaction for the tenant, flattened with both account
     codes/names, amount, and provenance, as a CSV download. Read-only. Pass
-    `entity_id` to scope the export to one legal entity's ledger.
+    `entity_id` to scope the export to one legal entity's ledger. Pass
+    `month` and `year` together to export a single calendar month's
+    postings (the month-end close pack's period export); omit both for the
+    full ledger.
 
     Args:
         entity_id (UUID | Unset):
+        month (int | Unset):
+        year (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -143,6 +174,8 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         entity_id=entity_id,
+        month=month,
+        year=year,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -154,15 +187,22 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     entity_id: UUID | Unset = UNSET,
+    month: int | Unset = UNSET,
+    year: int | Unset = UNSET,
 ) -> Error | str | None:
     """Export the general ledger (CSV)
 
      Every posted transaction for the tenant, flattened with both account
     codes/names, amount, and provenance, as a CSV download. Read-only. Pass
-    `entity_id` to scope the export to one legal entity's ledger.
+    `entity_id` to scope the export to one legal entity's ledger. Pass
+    `month` and `year` together to export a single calendar month's
+    postings (the month-end close pack's period export); omit both for the
+    full ledger.
 
     Args:
         entity_id (UUID | Unset):
+        month (int | Unset):
+        year (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -176,5 +216,7 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             entity_id=entity_id,
+            month=month,
+            year=year,
         )
     ).parsed

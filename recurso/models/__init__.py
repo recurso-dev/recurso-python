@@ -83,6 +83,26 @@ from .commit_stripe_import_response_200 import CommitStripeImportResponse200
 from .commit_stripe_import_response_200_created import CommitStripeImportResponse200Created
 from .commit_stripe_import_response_200_failures_item import CommitStripeImportResponse200FailuresItem
 from .commit_stripe_import_response_200_plan import CommitStripeImportResponse200Plan
+from .compare_chargebee_import_body import CompareChargebeeImportBody
+from .compare_chargebee_import_body_customers_item import CompareChargebeeImportBodyCustomersItem
+from .compare_chargebee_import_body_plans_item import CompareChargebeeImportBodyPlansItem
+from .compare_chargebee_import_body_subscriptions_item import CompareChargebeeImportBodySubscriptionsItem
+from .compare_chargebee_import_response_200 import CompareChargebeeImportResponse200
+from .compare_chargebee_import_response_200_issues_item import CompareChargebeeImportResponse200IssuesItem
+from .compare_count import CompareCount
+from .compare_revenue_cat_import_body import CompareRevenueCatImportBody
+from .compare_revenue_cat_import_body_products_item import CompareRevenueCatImportBodyProductsItem
+from .compare_revenue_cat_import_body_subscribers_item import CompareRevenueCatImportBodySubscribersItem
+from .compare_revenue_cat_import_response_200 import CompareRevenueCatImportResponse200
+from .compare_revenue_cat_import_response_200_issues_item import CompareRevenueCatImportResponse200IssuesItem
+from .compare_stripe_import_body import CompareStripeImportBody
+from .compare_stripe_import_body_customers_item import CompareStripeImportBodyCustomersItem
+from .compare_stripe_import_body_payment_methods_item import CompareStripeImportBodyPaymentMethodsItem
+from .compare_stripe_import_body_prices_item import CompareStripeImportBodyPricesItem
+from .compare_stripe_import_body_products_item import CompareStripeImportBodyProductsItem
+from .compare_stripe_import_body_subscriptions_item import CompareStripeImportBodySubscriptionsItem
+from .compare_stripe_import_response_200 import CompareStripeImportResponse200
+from .compare_stripe_import_response_200_issues_item import CompareStripeImportResponse200IssuesItem
 from .connect_accounting_provider_provider import ConnectAccountingProviderProvider
 from .connect_accounting_provider_response_200 import ConnectAccountingProviderResponse200
 from .connect_accounting_provider_token_body import ConnectAccountingProviderTokenBody
@@ -111,6 +131,14 @@ from .create_dunning_campaign_body import CreateDunningCampaignBody
 from .create_dunning_campaign_step_body import CreateDunningCampaignStepBody
 from .create_dunning_campaign_step_body_channel import CreateDunningCampaignStepBodyChannel
 from .create_entity_response_201 import CreateEntityResponse201
+from .create_gateway_connection_body import CreateGatewayConnectionBody
+from .create_gateway_connection_body_mode import CreateGatewayConnectionBodyMode
+from .create_gateway_connection_body_provider import CreateGatewayConnectionBodyProvider
+from .create_gateway_connection_response_201 import CreateGatewayConnectionResponse201
+from .create_integration_connection_body import CreateIntegrationConnectionBody
+from .create_integration_connection_body_category import CreateIntegrationConnectionBodyCategory
+from .create_integration_connection_body_config import CreateIntegrationConnectionBodyConfig
+from .create_integration_connection_response_201 import CreateIntegrationConnectionResponse201
 from .create_mandate_body import CreateMandateBody
 from .create_mandate_body_frequency import CreateMandateBodyFrequency
 from .create_mandate_response_201 import CreateMandateResponse201
@@ -144,14 +172,12 @@ from .customer_risk_factors_type_0 import CustomerRiskFactorsType0
 from .delete_cancel_flow_step_response_200 import DeleteCancelFlowStepResponse200
 from .delete_dunning_campaign_step_response_200 import DeleteDunningCampaignStepResponse200
 from .delete_entity_response_200 import DeleteEntityResponse200
+from .delete_gateway_connection_provider import DeleteGatewayConnectionProvider
+from .delete_integration_connection_category import DeleteIntegrationConnectionCategory
 from .delete_organization_response_200 import DeleteOrganizationResponse200
 from .delete_quote_response_200 import DeleteQuoteResponse200
+from .delete_sso_connection_response_200 import DeleteSSOConnectionResponse200
 from .delete_user_response_200 import DeleteUserResponse200
-from .delete_v1_gateway_connections_provider_provider import DeleteV1GatewayConnectionsProviderProvider
-from .delete_v1_integration_connections_category_provider_category import (
-    DeleteV1IntegrationConnectionsCategoryProviderCategory,
-)
-from .delete_v1_sso_connection_response_200 import DeleteV1SsoConnectionResponse200
 from .delete_webhook_endpoint_response_200 import DeleteWebhookEndpointResponse200
 from .disconnect_accounting_response_200 import DisconnectAccountingResponse200
 from .dunning_campaign import DunningCampaign
@@ -194,9 +220,6 @@ from .generate_referral_code_response_200_data import GenerateReferralCodeRespon
 from .get_account_response_200 import GetAccountResponse200
 from .get_accounting_sync_status_response_200 import GetAccountingSyncStatusResponse200
 from .get_accounting_sync_status_status import GetAccountingSyncStatusStatus
-from .get_auth_oauth_provider_callback_provider import GetAuthOauthProviderCallbackProvider
-from .get_auth_oauth_provider_start_provider import GetAuthOauthProviderStartProvider
-from .get_auth_oauth_providers_response_200 import GetAuthOauthProvidersResponse200
 from .get_billable_metric_response_200 import GetBillableMetricResponse200
 from .get_billing_plans_response_200 import GetBillingPlansResponse200
 from .get_billing_plans_response_200_plans_item import GetBillingPlansResponse200PlansItem
@@ -210,6 +233,8 @@ from .get_collections_queue_managed_by import GetCollectionsQueueManagedBy
 from .get_collections_queue_response_200 import GetCollectionsQueueResponse200
 from .get_collections_queue_response_200_meta import GetCollectionsQueueResponse200Meta
 from .get_collections_queue_status import GetCollectionsQueueStatus
+from .get_compare_report_response_200 import GetCompareReportResponse200
+from .get_compare_report_response_200_data import GetCompareReportResponse200Data
 from .get_credit_statement_response_200 import GetCreditStatementResponse200
 from .get_credit_statement_response_200_data import GetCreditStatementResponse200Data
 from .get_credit_statement_response_200_data_applications_item import GetCreditStatementResponse200DataApplicationsItem
@@ -249,6 +274,7 @@ from .get_gstr3b_response_200_data import GetGSTR3BResponse200Data
 from .get_gstr3b_response_200_gov_schema import GetGSTR3BResponse200GovSchema
 from .get_invoice_aging_response_200 import GetInvoiceAgingResponse200
 from .get_invoice_aging_response_200_data import GetInvoiceAgingResponse200Data
+from .get_invoice_branding_response_200 import GetInvoiceBrandingResponse200
 from .get_irp_config_response_200 import GetIRPConfigResponse200
 from .get_mandate_response_200 import GetMandateResponse200
 from .get_mcp_settings_response_200 import GetMCPSettingsResponse200
@@ -274,6 +300,7 @@ from .get_revenue_by_plan_response_200 import GetRevenueByPlanResponse200
 from .get_revenue_by_plan_response_200_data import GetRevenueByPlanResponse200Data
 from .get_revenue_waterfall_response_200 import GetRevenueWaterfallResponse200
 from .get_revenue_waterfall_response_200_data import GetRevenueWaterfallResponse200Data
+from .get_sso_connection_response_200 import GetSSOConnectionResponse200
 from .get_subscription_response_200 import GetSubscriptionResponse200
 from .get_subscription_usage_amount_response_200 import GetSubscriptionUsageAmountResponse200
 from .get_tax_liability_report_response_200 import GetTaxLiabilityReportResponse200
@@ -304,11 +331,6 @@ from .get_unit_economics_response_200 import GetUnitEconomicsResponse200
 from .get_unit_economics_response_200_data import GetUnitEconomicsResponse200Data
 from .get_us_tax_config_response_200 import GetUSTaxConfigResponse200
 from .get_usage_stats_response_200 import GetUsageStatsResponse200
-from .get_v1_gateway_connections_response_200 import GetV1GatewayConnectionsResponse200
-from .get_v1_gateway_connections_response_200_data import GetV1GatewayConnectionsResponse200Data
-from .get_v1_integration_connections_response_200 import GetV1IntegrationConnectionsResponse200
-from .get_v1_integration_connections_response_200_data import GetV1IntegrationConnectionsResponse200Data
-from .get_v1_sso_connection_response_200 import GetV1SsoConnectionResponse200
 from .get_version_response_200 import GetVersionResponse200
 from .get_version_response_200_gateway_mode import GetVersionResponse200GatewayMode
 from .get_wallet_response_200 import GetWalletResponse200
@@ -351,6 +373,7 @@ from .invite_user_body import InviteUserBody
 from .invite_user_body_role import InviteUserBodyRole
 from .invite_user_response_201 import InviteUserResponse201
 from .invoice import Invoice
+from .invoice_branding import InvoiceBranding
 from .invoice_dispute import InvoiceDispute
 from .invoice_dispute_status import InvoiceDisputeStatus
 from .invoice_item import InvoiceItem
@@ -373,6 +396,8 @@ from .list_billable_metrics_response_200 import ListBillableMetricsResponse200
 from .list_cancellation_reasons_response_200 import ListCancellationReasonsResponse200
 from .list_cancellation_reasons_response_200_data_item import ListCancellationReasonsResponse200DataItem
 from .list_churn_alerts_response_200 import ListChurnAlertsResponse200
+from .list_compare_reports_response_200 import ListCompareReportsResponse200
+from .list_compare_reports_response_200_data_item import ListCompareReportsResponse200DataItem
 from .list_coupons_response_200 import ListCouponsResponse200
 from .list_credit_notes_response_200 import ListCreditNotesResponse200
 from .list_customer_consents_response_200 import ListCustomerConsentsResponse200
@@ -385,12 +410,17 @@ from .list_entities_response_200 import ListEntitiesResponse200
 from .list_event_deliveries_response_200 import ListEventDeliveriesResponse200
 from .list_event_types_response_200 import ListEventTypesResponse200
 from .list_events_response_200 import ListEventsResponse200
+from .list_gateway_connections_response_200 import ListGatewayConnectionsResponse200
+from .list_gateway_connections_response_200_data import ListGatewayConnectionsResponse200Data
 from .list_gifts_response_200 import ListGiftsResponse200
 from .list_high_risk_customers_response_200 import ListHighRiskCustomersResponse200
+from .list_integration_connections_response_200 import ListIntegrationConnectionsResponse200
+from .list_integration_connections_response_200_data import ListIntegrationConnectionsResponse200Data
 from .list_invoices_response_200 import ListInvoicesResponse200
 from .list_ledger_accounts_response_200 import ListLedgerAccountsResponse200
 from .list_ledger_entries_response_200 import ListLedgerEntriesResponse200
 from .list_mandates_response_200 import ListMandatesResponse200
+from .list_o_auth_providers_response_200 import ListOAuthProvidersResponse200
 from .list_offline_payments_response_200 import ListOfflinePaymentsResponse200
 from .list_organization_tenants_response_200 import ListOrganizationTenantsResponse200
 from .list_organizations_response_200 import ListOrganizationsResponse200
@@ -432,6 +462,7 @@ from .mrr_entity_breakdown import MRREntityBreakdown
 from .mrr_metrics import MRRMetrics
 from .o_auth_provider_status import OAuthProviderStatus
 from .o_auth_provider_status_name import OAuthProviderStatusName
+from .oauth_callback_provider import OauthCallbackProvider
 from .offline_payment import OfflinePayment
 from .offline_payment_payment_type import OfflinePaymentPaymentType
 from .org_mrr_metrics import OrgMRRMetrics
@@ -461,15 +492,6 @@ from .portal_start_payment_method_setup_response_200 import PortalStartPaymentMe
 from .portal_start_payment_method_setup_response_200_data import PortalStartPaymentMethodSetupResponse200Data
 from .portal_update_payment_method_body import PortalUpdatePaymentMethodBody
 from .portal_update_payment_method_response_200 import PortalUpdatePaymentMethodResponse200
-from .post_auth_saml_tenant_id_acs_body import PostAuthSamlTenantIDAcsBody
-from .post_v1_gateway_connections_body import PostV1GatewayConnectionsBody
-from .post_v1_gateway_connections_body_mode import PostV1GatewayConnectionsBodyMode
-from .post_v1_gateway_connections_body_provider import PostV1GatewayConnectionsBodyProvider
-from .post_v1_gateway_connections_response_201 import PostV1GatewayConnectionsResponse201
-from .post_v1_integration_connections_body import PostV1IntegrationConnectionsBody
-from .post_v1_integration_connections_body_category import PostV1IntegrationConnectionsBodyCategory
-from .post_v1_integration_connections_body_config import PostV1IntegrationConnectionsBodyConfig
-from .post_v1_integration_connections_response_201 import PostV1IntegrationConnectionsResponse201
 from .preview_chargebee_import_body import PreviewChargebeeImportBody
 from .preview_chargebee_import_body_customers_item import PreviewChargebeeImportBodyCustomersItem
 from .preview_chargebee_import_body_plans_item import PreviewChargebeeImportBodyPlansItem
@@ -499,11 +521,6 @@ from .preview_stripe_import_response_200_summary import PreviewStripeImportRespo
 from .price import Price
 from .price_type import PriceType
 from .purchase_gift_body import PurchaseGiftBody
-from .put_v1_gateway_connections_provider_webhook_secret_body import PutV1GatewayConnectionsProviderWebhookSecretBody
-from .put_v1_gateway_connections_provider_webhook_secret_provider import (
-    PutV1GatewayConnectionsProviderWebhookSecretProvider,
-)
-from .put_v1_sso_connection_response_200 import PutV1SsoConnectionResponse200
 from .qualify_referral_response_200 import QualifyReferralResponse200
 from .query_usage_granularity import QueryUsageGranularity
 from .query_usage_response_200 import QueryUsageResponse200
@@ -555,7 +572,10 @@ from .revoke_mandate_response_200 import RevokeMandateResponse200
 from .revoke_other_sessions_response_200 import RevokeOtherSessionsResponse200
 from .revoke_session_response_200 import RevokeSessionResponse200
 from .run_reconciliation_response_200 import RunReconciliationResponse200
+from .saml_acs_body import SamlACSBody
 from .send_invoice_email_response_200 import SendInvoiceEmailResponse200
+from .set_gateway_webhook_secret_body import SetGatewayWebhookSecretBody
+from .set_gateway_webhook_secret_provider import SetGatewayWebhookSecretProvider
 from .set_plan_entitlements_response_200 import SetPlanEntitlementsResponse200
 from .set_subscription_commitment_body import SetSubscriptionCommitmentBody
 from .set_subscription_commitment_response_200 import SetSubscriptionCommitmentResponse200
@@ -578,6 +598,7 @@ from .sso_connection_upsert_request import SSOConnectionUpsertRequest
 from .start_cancel_flow_session_body import StartCancelFlowSessionBody
 from .start_demo_session_response_200 import StartDemoSessionResponse200
 from .start_demo_session_response_200_data import StartDemoSessionResponse200Data
+from .start_o_auth_login_provider import StartOAuthLoginProvider
 from .start_session_result import StartSessionResult
 from .submit_cancel_flow_step_body import SubmitCancelFlowStepBody
 from .submit_step_result import SubmitStepResult
@@ -622,6 +643,7 @@ from .update_dunning_campaign_step_body_channel import UpdateDunningCampaignStep
 from .update_entity_response_200 import UpdateEntityResponse200
 from .update_eue_invoice_config_response_200 import UpdateEUEInvoiceConfigResponse200
 from .update_gst_config_response_200 import UpdateGSTConfigResponse200
+from .update_invoice_branding_response_200 import UpdateInvoiceBrandingResponse200
 from .update_irp_config_response_200 import UpdateIRPConfigResponse200
 from .update_mcp_settings_response_200 import UpdateMCPSettingsResponse200
 from .update_organization_body import UpdateOrganizationBody
@@ -641,6 +663,7 @@ from .update_wallet_auto_recharge_body import UpdateWalletAutoRechargeBody
 from .update_wallet_auto_recharge_response_200 import UpdateWalletAutoRechargeResponse200
 from .update_webhook_endpoint_status_body import UpdateWebhookEndpointStatusBody
 from .update_webhook_endpoint_status_body_status import UpdateWebhookEndpointStatusBodyStatus
+from .upsert_sso_connection_response_200 import UpsertSSOConnectionResponse200
 from .us_tax_config import USTaxConfig
 from .usage_alert import UsageAlert
 from .usage_alert_threshold_type import UsageAlertThresholdType
@@ -655,6 +678,8 @@ from .validate_gstin_body import ValidateGSTINBody
 from .validate_gstin_response_200 import ValidateGSTINResponse200
 from .verify_email_body import VerifyEmailBody
 from .verify_email_response_200 import VerifyEmailResponse200
+from .verify_portal_magic_link_post_body import VerifyPortalMagicLinkPostBody
+from .verify_portal_magic_link_post_response_200 import VerifyPortalMagicLinkPostResponse200
 from .verify_portal_magic_link_response_200 import VerifyPortalMagicLinkResponse200
 from .virtual_account import VirtualAccount
 from .void_credit_note_response_200 import VoidCreditNoteResponse200
@@ -748,6 +773,26 @@ __all__ = (
     "CommitStripeImportResponse200Created",
     "CommitStripeImportResponse200FailuresItem",
     "CommitStripeImportResponse200Plan",
+    "CompareChargebeeImportBody",
+    "CompareChargebeeImportBodyCustomersItem",
+    "CompareChargebeeImportBodyPlansItem",
+    "CompareChargebeeImportBodySubscriptionsItem",
+    "CompareChargebeeImportResponse200",
+    "CompareChargebeeImportResponse200IssuesItem",
+    "CompareCount",
+    "CompareRevenueCatImportBody",
+    "CompareRevenueCatImportBodyProductsItem",
+    "CompareRevenueCatImportBodySubscribersItem",
+    "CompareRevenueCatImportResponse200",
+    "CompareRevenueCatImportResponse200IssuesItem",
+    "CompareStripeImportBody",
+    "CompareStripeImportBodyCustomersItem",
+    "CompareStripeImportBodyPaymentMethodsItem",
+    "CompareStripeImportBodyPricesItem",
+    "CompareStripeImportBodyProductsItem",
+    "CompareStripeImportBodySubscriptionsItem",
+    "CompareStripeImportResponse200",
+    "CompareStripeImportResponse200IssuesItem",
     "ConnectAccountingProviderProvider",
     "ConnectAccountingProviderResponse200",
     "ConnectAccountingProviderTokenBody",
@@ -776,6 +821,14 @@ __all__ = (
     "CreateDunningCampaignStepBody",
     "CreateDunningCampaignStepBodyChannel",
     "CreateEntityResponse201",
+    "CreateGatewayConnectionBody",
+    "CreateGatewayConnectionBodyMode",
+    "CreateGatewayConnectionBodyProvider",
+    "CreateGatewayConnectionResponse201",
+    "CreateIntegrationConnectionBody",
+    "CreateIntegrationConnectionBodyCategory",
+    "CreateIntegrationConnectionBodyConfig",
+    "CreateIntegrationConnectionResponse201",
     "CreateMandateBody",
     "CreateMandateBodyFrequency",
     "CreateMandateResponse201",
@@ -809,12 +862,12 @@ __all__ = (
     "DeleteCancelFlowStepResponse200",
     "DeleteDunningCampaignStepResponse200",
     "DeleteEntityResponse200",
+    "DeleteGatewayConnectionProvider",
+    "DeleteIntegrationConnectionCategory",
     "DeleteOrganizationResponse200",
     "DeleteQuoteResponse200",
+    "DeleteSSOConnectionResponse200",
     "DeleteUserResponse200",
-    "DeleteV1GatewayConnectionsProviderProvider",
-    "DeleteV1IntegrationConnectionsCategoryProviderCategory",
-    "DeleteV1SsoConnectionResponse200",
     "DeleteWebhookEndpointResponse200",
     "DisconnectAccountingResponse200",
     "DunningCampaign",
@@ -857,9 +910,6 @@ __all__ = (
     "GetAccountingSyncStatusResponse200",
     "GetAccountingSyncStatusStatus",
     "GetAccountResponse200",
-    "GetAuthOauthProviderCallbackProvider",
-    "GetAuthOauthProvidersResponse200",
-    "GetAuthOauthProviderStartProvider",
     "GetBillableMetricResponse200",
     "GetBillingPlansResponse200",
     "GetBillingPlansResponse200PlansItem",
@@ -873,6 +923,8 @@ __all__ = (
     "GetCollectionsQueueResponse200",
     "GetCollectionsQueueResponse200Meta",
     "GetCollectionsQueueStatus",
+    "GetCompareReportResponse200",
+    "GetCompareReportResponse200Data",
     "GetCreditStatementResponse200",
     "GetCreditStatementResponse200Data",
     "GetCreditStatementResponse200DataApplicationsItem",
@@ -910,6 +962,7 @@ __all__ = (
     "GetGSTR3BResponse200GovSchema",
     "GetInvoiceAgingResponse200",
     "GetInvoiceAgingResponse200Data",
+    "GetInvoiceBrandingResponse200",
     "GetIRPConfigResponse200",
     "GetMandateResponse200",
     "GetMCPSettingsResponse200",
@@ -935,6 +988,7 @@ __all__ = (
     "GetRevenueWaterfallResponse200Data",
     "GetRevRecReportResponse200",
     "GetRevRecReportResponse200Data",
+    "GetSSOConnectionResponse200",
     "GetSubscriptionResponse200",
     "GetSubscriptionUsageAmountResponse200",
     "GetTaxLiabilityReportResponse200",
@@ -957,11 +1011,6 @@ __all__ = (
     "GetUnitEconomicsResponse200Data",
     "GetUsageStatsResponse200",
     "GetUSTaxConfigResponse200",
-    "GetV1GatewayConnectionsResponse200",
-    "GetV1GatewayConnectionsResponse200Data",
-    "GetV1IntegrationConnectionsResponse200",
-    "GetV1IntegrationConnectionsResponse200Data",
-    "GetV1SsoConnectionResponse200",
     "GetVersionResponse200",
     "GetVersionResponse200GatewayMode",
     "GetWalletResponse200",
@@ -1000,6 +1049,7 @@ __all__ = (
     "InviteUserBodyRole",
     "InviteUserResponse201",
     "Invoice",
+    "InvoiceBranding",
     "InvoiceDispute",
     "InvoiceDisputeStatus",
     "InvoiceItem",
@@ -1022,6 +1072,8 @@ __all__ = (
     "ListCancellationReasonsResponse200",
     "ListCancellationReasonsResponse200DataItem",
     "ListChurnAlertsResponse200",
+    "ListCompareReportsResponse200",
+    "ListCompareReportsResponse200DataItem",
     "ListCouponsResponse200",
     "ListCreditNotesResponse200",
     "ListCustomerConsentsResponse200",
@@ -1034,12 +1086,17 @@ __all__ = (
     "ListEventDeliveriesResponse200",
     "ListEventsResponse200",
     "ListEventTypesResponse200",
+    "ListGatewayConnectionsResponse200",
+    "ListGatewayConnectionsResponse200Data",
     "ListGiftsResponse200",
     "ListHighRiskCustomersResponse200",
+    "ListIntegrationConnectionsResponse200",
+    "ListIntegrationConnectionsResponse200Data",
     "ListInvoicesResponse200",
     "ListLedgerAccountsResponse200",
     "ListLedgerEntriesResponse200",
     "ListMandatesResponse200",
+    "ListOAuthProvidersResponse200",
     "ListOfflinePaymentsResponse200",
     "ListOrganizationsResponse200",
     "ListOrganizationTenantsResponse200",
@@ -1079,6 +1136,7 @@ __all__ = (
     "MRRCurrencyBreakdown",
     "MRREntityBreakdown",
     "MRRMetrics",
+    "OauthCallbackProvider",
     "OAuthProviderStatus",
     "OAuthProviderStatusName",
     "OfflinePayment",
@@ -1110,15 +1168,6 @@ __all__ = (
     "PortalStartPaymentMethodSetupResponse200Data",
     "PortalUpdatePaymentMethodBody",
     "PortalUpdatePaymentMethodResponse200",
-    "PostAuthSamlTenantIDAcsBody",
-    "PostV1GatewayConnectionsBody",
-    "PostV1GatewayConnectionsBodyMode",
-    "PostV1GatewayConnectionsBodyProvider",
-    "PostV1GatewayConnectionsResponse201",
-    "PostV1IntegrationConnectionsBody",
-    "PostV1IntegrationConnectionsBodyCategory",
-    "PostV1IntegrationConnectionsBodyConfig",
-    "PostV1IntegrationConnectionsResponse201",
     "PreviewChargebeeImportBody",
     "PreviewChargebeeImportBodyCustomersItem",
     "PreviewChargebeeImportBodyPlansItem",
@@ -1148,9 +1197,6 @@ __all__ = (
     "Price",
     "PriceType",
     "PurchaseGiftBody",
-    "PutV1GatewayConnectionsProviderWebhookSecretBody",
-    "PutV1GatewayConnectionsProviderWebhookSecretProvider",
-    "PutV1SsoConnectionResponse200",
     "QualifyReferralResponse200",
     "QueryUsageGranularity",
     "QueryUsageResponse200",
@@ -1202,7 +1248,10 @@ __all__ = (
     "RevokeOtherSessionsResponse200",
     "RevokeSessionResponse200",
     "RunReconciliationResponse200",
+    "SamlACSBody",
     "SendInvoiceEmailResponse200",
+    "SetGatewayWebhookSecretBody",
+    "SetGatewayWebhookSecretProvider",
     "SetPlanEntitlementsResponse200",
     "SetSubscriptionCommitmentBody",
     "SetSubscriptionCommitmentResponse200",
@@ -1225,6 +1274,7 @@ __all__ = (
     "StartCancelFlowSessionBody",
     "StartDemoSessionResponse200",
     "StartDemoSessionResponse200Data",
+    "StartOAuthLoginProvider",
     "StartSessionResult",
     "SubmitCancelFlowStepBody",
     "SubmitStepResult",
@@ -1269,6 +1319,7 @@ __all__ = (
     "UpdateEntityResponse200",
     "UpdateEUEInvoiceConfigResponse200",
     "UpdateGSTConfigResponse200",
+    "UpdateInvoiceBrandingResponse200",
     "UpdateIRPConfigResponse200",
     "UpdateMCPSettingsResponse200",
     "UpdateOrganizationBody",
@@ -1288,6 +1339,7 @@ __all__ = (
     "UpdateWalletAutoRechargeResponse200",
     "UpdateWebhookEndpointStatusBody",
     "UpdateWebhookEndpointStatusBodyStatus",
+    "UpsertSSOConnectionResponse200",
     "UsageAlert",
     "UsageAlertThresholdType",
     "UsageAmount",
@@ -1302,6 +1354,8 @@ __all__ = (
     "ValidateGSTINResponse200",
     "VerifyEmailBody",
     "VerifyEmailResponse200",
+    "VerifyPortalMagicLinkPostBody",
+    "VerifyPortalMagicLinkPostResponse200",
     "VerifyPortalMagicLinkResponse200",
     "VirtualAccount",
     "VoidCreditNoteResponse200",

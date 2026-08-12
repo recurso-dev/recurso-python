@@ -14,6 +14,8 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
+    limit: int | Unset = 50,
+    offset: int | Unset = UNSET,
     status: GetCollectionsQueueStatus | Unset = UNSET,
     managed_by: GetCollectionsQueueManagedBy | Unset = UNSET,
     page: int | Unset = 1,
@@ -21,6 +23,10 @@ def _get_kwargs(
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
+
+    params["limit"] = limit
+
+    params["offset"] = offset
 
     json_status: str | Unset = UNSET
     if not isinstance(status, Unset):
@@ -82,6 +88,8 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 50,
+    offset: int | Unset = UNSET,
     status: GetCollectionsQueueStatus | Unset = UNSET,
     managed_by: GetCollectionsQueueManagedBy | Unset = UNSET,
     page: int | Unset = 1,
@@ -94,6 +102,8 @@ def sync_detailed(
     scheduled retry, which engine owns it, and the latest ACH attempt status. Read-only.
 
     Args:
+        limit (int | Unset):  Default: 50.
+        offset (int | Unset):
         status (GetCollectionsQueueStatus | Unset):
         managed_by (GetCollectionsQueueManagedBy | Unset):
         page (int | Unset):  Default: 1.
@@ -108,6 +118,8 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
+        limit=limit,
+        offset=offset,
         status=status,
         managed_by=managed_by,
         page=page,
@@ -124,6 +136,8 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 50,
+    offset: int | Unset = UNSET,
     status: GetCollectionsQueueStatus | Unset = UNSET,
     managed_by: GetCollectionsQueueManagedBy | Unset = UNSET,
     page: int | Unset = 1,
@@ -136,6 +150,8 @@ def sync(
     scheduled retry, which engine owns it, and the latest ACH attempt status. Read-only.
 
     Args:
+        limit (int | Unset):  Default: 50.
+        offset (int | Unset):
         status (GetCollectionsQueueStatus | Unset):
         managed_by (GetCollectionsQueueManagedBy | Unset):
         page (int | Unset):  Default: 1.
@@ -151,6 +167,8 @@ def sync(
 
     return sync_detailed(
         client=client,
+        limit=limit,
+        offset=offset,
         status=status,
         managed_by=managed_by,
         page=page,
@@ -161,6 +179,8 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 50,
+    offset: int | Unset = UNSET,
     status: GetCollectionsQueueStatus | Unset = UNSET,
     managed_by: GetCollectionsQueueManagedBy | Unset = UNSET,
     page: int | Unset = 1,
@@ -173,6 +193,8 @@ async def asyncio_detailed(
     scheduled retry, which engine owns it, and the latest ACH attempt status. Read-only.
 
     Args:
+        limit (int | Unset):  Default: 50.
+        offset (int | Unset):
         status (GetCollectionsQueueStatus | Unset):
         managed_by (GetCollectionsQueueManagedBy | Unset):
         page (int | Unset):  Default: 1.
@@ -187,6 +209,8 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
+        limit=limit,
+        offset=offset,
         status=status,
         managed_by=managed_by,
         page=page,
@@ -201,6 +225,8 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 50,
+    offset: int | Unset = UNSET,
     status: GetCollectionsQueueStatus | Unset = UNSET,
     managed_by: GetCollectionsQueueManagedBy | Unset = UNSET,
     page: int | Unset = 1,
@@ -213,6 +239,8 @@ async def asyncio(
     scheduled retry, which engine owns it, and the latest ACH attempt status. Read-only.
 
     Args:
+        limit (int | Unset):  Default: 50.
+        offset (int | Unset):
         status (GetCollectionsQueueStatus | Unset):
         managed_by (GetCollectionsQueueManagedBy | Unset):
         page (int | Unset):  Default: 1.
@@ -229,6 +257,8 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            limit=limit,
+            offset=offset,
             status=status,
             managed_by=managed_by,
             page=page,

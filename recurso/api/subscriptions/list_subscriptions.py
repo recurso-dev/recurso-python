@@ -1,5 +1,7 @@
+import datetime
 from http import HTTPStatus
 from typing import Any
+from uuid import UUID
 
 import httpx
 
@@ -14,6 +16,8 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     status: SubscriptionStatus | Unset = UNSET,
+    plan_id: UUID | Unset = UNSET,
+    started_after: datetime.datetime | Unset = UNSET,
     q: str | Unset = UNSET,
     limit: int | Unset = 50,
     page: int | Unset = 1,
@@ -26,6 +30,16 @@ def _get_kwargs(
         json_status = status.value
 
     params["status"] = json_status
+
+    json_plan_id: str | Unset = UNSET
+    if not isinstance(plan_id, Unset):
+        json_plan_id = str(plan_id)
+    params["plan_id"] = json_plan_id
+
+    json_started_after: str | Unset = UNSET
+    if not isinstance(started_after, Unset):
+        json_started_after = started_after.isoformat()
+    params["started_after"] = json_started_after
 
     params["q"] = q
 
@@ -78,6 +92,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
+    plan_id: UUID | Unset = UNSET,
+    started_after: datetime.datetime | Unset = UNSET,
     q: str | Unset = UNSET,
     limit: int | Unset = 50,
     page: int | Unset = 1,
@@ -86,6 +102,8 @@ def sync_detailed(
 
     Args:
         status (SubscriptionStatus | Unset):
+        plan_id (UUID | Unset):
+        started_after (datetime.datetime | Unset):
         q (str | Unset):
         limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
@@ -100,6 +118,8 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         status=status,
+        plan_id=plan_id,
+        started_after=started_after,
         q=q,
         limit=limit,
         page=page,
@@ -116,6 +136,8 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
+    plan_id: UUID | Unset = UNSET,
+    started_after: datetime.datetime | Unset = UNSET,
     q: str | Unset = UNSET,
     limit: int | Unset = 50,
     page: int | Unset = 1,
@@ -124,6 +146,8 @@ def sync(
 
     Args:
         status (SubscriptionStatus | Unset):
+        plan_id (UUID | Unset):
+        started_after (datetime.datetime | Unset):
         q (str | Unset):
         limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
@@ -139,6 +163,8 @@ def sync(
     return sync_detailed(
         client=client,
         status=status,
+        plan_id=plan_id,
+        started_after=started_after,
         q=q,
         limit=limit,
         page=page,
@@ -149,6 +175,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
+    plan_id: UUID | Unset = UNSET,
+    started_after: datetime.datetime | Unset = UNSET,
     q: str | Unset = UNSET,
     limit: int | Unset = 50,
     page: int | Unset = 1,
@@ -157,6 +185,8 @@ async def asyncio_detailed(
 
     Args:
         status (SubscriptionStatus | Unset):
+        plan_id (UUID | Unset):
+        started_after (datetime.datetime | Unset):
         q (str | Unset):
         limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
@@ -171,6 +201,8 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         status=status,
+        plan_id=plan_id,
+        started_after=started_after,
         q=q,
         limit=limit,
         page=page,
@@ -185,6 +217,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     status: SubscriptionStatus | Unset = UNSET,
+    plan_id: UUID | Unset = UNSET,
+    started_after: datetime.datetime | Unset = UNSET,
     q: str | Unset = UNSET,
     limit: int | Unset = 50,
     page: int | Unset = 1,
@@ -193,6 +227,8 @@ async def asyncio(
 
     Args:
         status (SubscriptionStatus | Unset):
+        plan_id (UUID | Unset):
+        started_after (datetime.datetime | Unset):
         q (str | Unset):
         limit (int | Unset):  Default: 50.
         page (int | Unset):  Default: 1.
@@ -209,6 +245,8 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             status=status,
+            plan_id=plan_id,
+            started_after=started_after,
             q=q,
             limit=limit,
             page=page,

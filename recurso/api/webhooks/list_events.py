@@ -12,11 +12,14 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
+    type_: str | Unset = UNSET,
     limit: int | Unset = 50,
-    offset: int | Unset = 0,
+    offset: int | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
+
+    params["type"] = type_
 
     params["limit"] = limit
 
@@ -66,16 +69,18 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
+    type_: str | Unset = UNSET,
     limit: int | Unset = 50,
-    offset: int | Unset = 0,
+    offset: int | Unset = UNSET,
 ) -> Response[Error | ListEventsResponse200]:
     """List events
 
      Chronological feed of billing events emitted for this tenant.
 
     Args:
+        type_ (str | Unset):
         limit (int | Unset):  Default: 50.
-        offset (int | Unset):  Default: 0.
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -86,6 +91,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
+        type_=type_,
         limit=limit,
         offset=offset,
     )
@@ -100,16 +106,18 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
+    type_: str | Unset = UNSET,
     limit: int | Unset = 50,
-    offset: int | Unset = 0,
+    offset: int | Unset = UNSET,
 ) -> Error | ListEventsResponse200 | None:
     """List events
 
      Chronological feed of billing events emitted for this tenant.
 
     Args:
+        type_ (str | Unset):
         limit (int | Unset):  Default: 50.
-        offset (int | Unset):  Default: 0.
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -121,6 +129,7 @@ def sync(
 
     return sync_detailed(
         client=client,
+        type_=type_,
         limit=limit,
         offset=offset,
     ).parsed
@@ -129,16 +138,18 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
+    type_: str | Unset = UNSET,
     limit: int | Unset = 50,
-    offset: int | Unset = 0,
+    offset: int | Unset = UNSET,
 ) -> Response[Error | ListEventsResponse200]:
     """List events
 
      Chronological feed of billing events emitted for this tenant.
 
     Args:
+        type_ (str | Unset):
         limit (int | Unset):  Default: 50.
-        offset (int | Unset):  Default: 0.
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -149,6 +160,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
+        type_=type_,
         limit=limit,
         offset=offset,
     )
@@ -161,16 +173,18 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
+    type_: str | Unset = UNSET,
     limit: int | Unset = 50,
-    offset: int | Unset = 0,
+    offset: int | Unset = UNSET,
 ) -> Error | ListEventsResponse200 | None:
     """List events
 
      Chronological feed of billing events emitted for this tenant.
 
     Args:
+        type_ (str | Unset):
         limit (int | Unset):  Default: 50.
-        offset (int | Unset):  Default: 0.
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -183,6 +197,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            type_=type_,
             limit=limit,
             offset=offset,
         )

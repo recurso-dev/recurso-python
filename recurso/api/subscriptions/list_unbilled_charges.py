@@ -9,18 +9,30 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.list_unbilled_charges_response_200 import ListUnbilledChargesResponse200
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     id: UUID,
+    *,
+    limit: int | Unset = 1000,
+    offset: int | Unset = UNSET,
 ) -> dict[str, Any]:
+
+    params: dict[str, Any] = {}
+
+    params["limit"] = limit
+
+    params["offset"] = offset
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/subscriptions/{id}/charges".format(
             id=quote(str(id), safe=""),
         ),
+        "params": params,
     }
 
     return _kwargs
@@ -65,11 +77,15 @@ def sync_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 1000,
+    offset: int | Unset = UNSET,
 ) -> Response[Error | ListUnbilledChargesResponse200]:
     """List unbilled charges for a subscription
 
     Args:
         id (UUID):
+        limit (int | Unset):  Default: 1000.
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -81,6 +97,8 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         id=id,
+        limit=limit,
+        offset=offset,
     )
 
     response = client.get_httpx_client().request(
@@ -94,11 +112,15 @@ def sync(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 1000,
+    offset: int | Unset = UNSET,
 ) -> Error | ListUnbilledChargesResponse200 | None:
     """List unbilled charges for a subscription
 
     Args:
         id (UUID):
+        limit (int | Unset):  Default: 1000.
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,6 +133,8 @@ def sync(
     return sync_detailed(
         id=id,
         client=client,
+        limit=limit,
+        offset=offset,
     ).parsed
 
 
@@ -118,11 +142,15 @@ async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 1000,
+    offset: int | Unset = UNSET,
 ) -> Response[Error | ListUnbilledChargesResponse200]:
     """List unbilled charges for a subscription
 
     Args:
         id (UUID):
+        limit (int | Unset):  Default: 1000.
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -134,6 +162,8 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         id=id,
+        limit=limit,
+        offset=offset,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -145,11 +175,15 @@ async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
+    limit: int | Unset = 1000,
+    offset: int | Unset = UNSET,
 ) -> Error | ListUnbilledChargesResponse200 | None:
     """List unbilled charges for a subscription
 
     Args:
         id (UUID):
+        limit (int | Unset):  Default: 1000.
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,5 +197,7 @@ async def asyncio(
         await asyncio_detailed(
             id=id,
             client=client,
+            limit=limit,
+            offset=offset,
         )
     ).parsed
