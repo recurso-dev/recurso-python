@@ -47,7 +47,7 @@ By default, when you're calling an HTTPS API it will attempt to verify that SSL 
 
 ```python
 client = AuthenticatedClient(
-    base_url="https://internal_api.example.com",
+    base_url="https://internal_api.example.com", 
     token="SuperSecretToken",
     verify_ssl="/path/to/certificate_bundle.pem",
 )
@@ -56,7 +56,11 @@ client = AuthenticatedClient(
 You can also disable certificate validation altogether, but beware that **this is a security risk**.
 
 ```python
-client = AuthenticatedClient(base_url="https://internal_api.example.com", token="SuperSecretToken", verify_ssl=False)
+client = AuthenticatedClient(
+    base_url="https://internal_api.example.com", 
+    token="SuperSecretToken", 
+    verify_ssl=False
+)
 ```
 
 Things to know:
@@ -77,15 +81,12 @@ There are more settings on the generated `Client` class which let you control mo
 ```python
 from recurso import Client
 
-
 def log_request(request):
     print(f"Request event hook: {request.method} {request.url} - Waiting for response")
-
 
 def log_response(response):
     request = response.request
     print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
-
 
 client = Client(
     base_url="https://api.example.com",
@@ -121,3 +122,50 @@ If you want to install this client into another project without publishing it (e
 1. If that project is not using Poetry:
     1. Build a wheel with `poetry build -f wheel`
     1. Install that wheel from the other project `pip install <path-to-wheel>`
+
+## Idempotency
+
+Mutating endpoints support idempotency via the `X-Idempotency-Key` header, so a retried request
+settles at most once:
+
+```python
+client = client.with_headers({"X-Idempotency-Key": "order-1234"})
+```
+
+## Regenerating
+
+This package is generated — do not hand-edit files under `recurso/`. To regenerate after a spec
+change (with the main [recurso](https://github.com/recurso-dev/recurso) repo checked out as a
+sibling directory, run from this repo's root):
+
+```bash
+pipx run openapi-python-client generate \
+  --path ../recur-so/cmd/api/openapi.yaml \
+  --config <(printf 'project_name_override: recurso\npackage_name_override: recurso\n') \
+  --output-path . \
+  --overwrite
+```
+
+Note: the generator emits benign warnings for the `GET /openapi.yaml` and SAML-metadata endpoints
+(non-JSON response bodies), and for `GET /v1/plans/{id}/charges` (a generator model-resolution
+quirk, present since the first generation); those responses are simply omitted from the generated
+client — the endpoints still work, returning the raw response.
+
+The generator also overwrites this README and `pyproject.toml` — restore both from git
+(`git checkout origin/main -- README.md pyproject.toml`) before re-applying intentional changes.
+
+After regenerating, re-apply the one intentional deviation from the generated output:
+`raise_on_unexpected_status` must default to `True` in both clients in `recurso/client.py`
+(the generator emits `False`, which makes API errors silently return `None`).
+
+## Testing
+
+A no-network smoke test verifies the package imports and key endpoint signatures exist:
+
+```bash
+python3 tests/smoke_test.py
+```
+
+## License
+
+MIT
