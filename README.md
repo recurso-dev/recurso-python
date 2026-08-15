@@ -1,170 +1,115 @@
-# recurso
-A client library for accessing Recurso API
+# recurso — Python SDK
 
-## Usage
-First, create a client:
+Official Python SDK for the [Recurso](https://github.com/recurso-dev/recurso)
+billing API — a typed client generated from Recurso's OpenAPI 3.1 spec, covering
+40+ resource groups: plans, customers, the full subscription lifecycle
+(pause/resume/cancel, add-ons, plan-change preview, commitments), invoices,
+usage-based billing (metering, prepaid wallets, usage alerts), payments, coupons,
+quotes, entitlements, credit notes, disputes, dunning, tax & e-invoicing, the
+ledger, analytics, webhooks, and more.
 
-```python
-from recurso import Client
+Monetary amounts are integers in the currency's smallest unit (cents/paise).
+Requires **Python 3.11+**.
 
-client = Client(base_url="https://api.example.com")
+## Install
+
+Not yet published on PyPI — install from a checkout:
+
+```bash
+git clone https://github.com/recurso-dev/recurso-python.git
+pip install ./recurso-python
 ```
 
-If the endpoints you're going to hit require authentication, use `AuthenticatedClient` instead:
+## Usage
+
+Authenticate with your Recurso API key (used as a bearer token), then call an
+operation. Each resource group lives under `recurso.api.<group>`, and request
+bodies are typed dataclasses under `recurso.models`:
 
 ```python
 from recurso import AuthenticatedClient
+from recurso.api.plans import create_plan
+from recurso.api.customers import create_customer
+from recurso.api.subscriptions import create_subscription
+from recurso.models import (
+    CreatePlanRequest,
+    CreatePlanRequestIntervalUnit,
+    CreateCustomerRequest,
+    CreateSubscriptionRequest,
+)
 
-client = AuthenticatedClient(base_url="https://api.example.com", token="SuperSecretToken")
-```
-
-Now call your endpoint and use your models:
-
-```python
-from recurso.models import MyDataModel
-from recurso.api.my_tag import get_my_data_model
-from recurso.types import Response
+client = AuthenticatedClient(
+    base_url="https://api.recurso.dev",  # your Recurso API (cloud or self-hosted)
+    token="sk_live_your_api_key",
+)
 
 with client as client:
-    my_data: MyDataModel = get_my_data_model.sync(client=client)
-    # or if you need more info (e.g. status_code)
-    response: Response[MyDataModel] = get_my_data_model.sync_detailed(client=client)
+    plan = create_plan.sync(client=client, body=CreatePlanRequest(
+        name="Pro Plan",
+        code="PRO-USD",
+        amount=2900,                       # minor units → $29.00
+        currency="USD",
+        interval_unit=CreatePlanRequestIntervalUnit.MONTH,
+        interval_count=1,
+    ))
+
+    customer = create_customer.sync(client=client, body=CreateCustomerRequest(
+        name="Jane User",
+        email="jane@example.com",
+        country="US",
+    ))
+
+    subscription = create_subscription.sync(client=client, body=CreateSubscriptionRequest(
+        customer_id=customer.id,
+        plan_id=plan.id,
+    ))
 ```
 
-Or do the same thing with an async version:
+Every operation exposes `.sync()` / `.sync_detailed()` and async
+`.asyncio()` / `.asyncio_detailed()`. The `*_detailed` variants return a
+`Response` carrying the `status_code`, `headers`, and parsed body:
 
 ```python
-from recurso.models import MyDataModel
-from recurso.api.my_tag import get_my_data_model
+from recurso.api.subscriptions import list_subscriptions
 from recurso.types import Response
 
+resp: Response = list_subscriptions.sync_detailed(client=client)
+print(resp.status_code, resp.parsed)
+```
+
+### Async
+
+```python
+from recurso.api.subscriptions import list_subscriptions
+
 async with client as client:
-    my_data: MyDataModel = await get_my_data_model.asyncio(client=client)
-    response: Response[MyDataModel] = await get_my_data_model.asyncio_detailed(client=client)
+    subs = await list_subscriptions.asyncio(client=client)
 ```
 
-By default, when you're calling an HTTPS API it will attempt to verify that SSL is working correctly. Using certificate verification is highly recommended most of the time, but sometimes you may need to authenticate to a server (especially an internal server) using a custom certificate bundle.
+### Unauthenticated client
 
-```python
-client = AuthenticatedClient(
-    base_url="https://internal_api.example.com", 
-    token="SuperSecretToken",
-    verify_ssl="/path/to/certificate_bundle.pem",
-)
-```
-
-You can also disable certificate validation altogether, but beware that **this is a security risk**.
-
-```python
-client = AuthenticatedClient(
-    base_url="https://internal_api.example.com", 
-    token="SuperSecretToken", 
-    verify_ssl=False
-)
-```
-
-Things to know:
-1. Every path/method combo becomes a Python module with four functions:
-    1. `sync`: Blocking request that returns parsed data (if successful) or `None`
-    1. `sync_detailed`: Blocking request that always returns a `Request`, optionally with `parsed` set if the request was successful.
-    1. `asyncio`: Like `sync` but async instead of blocking
-    1. `asyncio_detailed`: Like `sync_detailed` but async instead of blocking
-
-1. All path/query params, and bodies become method arguments.
-1. If your endpoint had any tags on it, the first tag will be used as a module name for the function (my_tag above)
-1. Any endpoint which did not have a tag will be in `recurso.api.default`
-
-## Advanced customizations
-
-There are more settings on the generated `Client` class which let you control more runtime behavior, check out the docstring on that class for more info. You can also customize the underlying `httpx.Client` or `httpx.AsyncClient` (depending on your use-case):
+For endpoints that don't require auth, use `Client` instead of
+`AuthenticatedClient`:
 
 ```python
 from recurso import Client
-
-def log_request(request):
-    print(f"Request event hook: {request.method} {request.url} - Waiting for response")
-
-def log_response(response):
-    request = response.request
-    print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
-
-client = Client(
-    base_url="https://api.example.com",
-    httpx_args={"event_hooks": {"request": [log_request], "response": [log_response]}},
-)
-
-# Or get the underlying httpx client to modify directly with client.get_httpx_client() or client.get_async_httpx_client()
+client = Client(base_url="https://api.recurso.dev")
 ```
 
-You can even set the httpx client directly, but beware that this will override any existing settings (e.g., base_url):
+## Typed models
+
+Request and response types are generated dataclasses under `recurso.models`, so
+editors autocomplete fields and enums (e.g. `CreatePlanRequestIntervalUnit`).
+Import them to annotate your own code:
 
 ```python
-import httpx
-from recurso import Client
-
-client = Client(
-    base_url="https://api.example.com",
-)
-# Note that base_url needs to be re-set, as would any shared cookies, headers, etc.
-client.set_httpx_client(httpx.Client(base_url="https://api.example.com", proxies="http://localhost:8030"))
+from recurso.models import Subscription, Customer, Invoice
 ```
 
-## Building / publishing this package
-This project uses [Poetry](https://python-poetry.org/) to manage dependencies  and packaging.  Here are the basics:
-1. Update the metadata in pyproject.toml (e.g. authors, version)
-1. If you're using a private repository, configure it with Poetry
-    1. `poetry config repositories.<your-repository-name> <url-to-your-repository>`
-    1. `poetry config http-basic.<your-repository-name> <username> <password>`
-1. Publish the client with `poetry publish --build -r <your-repository-name>` or, if for public PyPI, just `poetry publish --build`
+TLS verification is on by default; pass `verify_ssl="/path/to/bundle.pem"` (or
+`verify_ssl=False`, a security risk) to `AuthenticatedClient` for custom certs.
 
-If you want to install this client into another project without publishing it (e.g. for development) then:
-1. If that project **is using Poetry**, you can simply do `poetry add <path-to-this-client>` from that project
-1. If that project is not using Poetry:
-    1. Build a wheel with `poetry build -f wheel`
-    1. Install that wheel from the other project `pip install <path-to-wheel>`
-
-## Idempotency
-
-Mutating endpoints support idempotency via the `X-Idempotency-Key` header, so a retried request
-settles at most once:
-
-```python
-client = client.with_headers({"X-Idempotency-Key": "order-1234"})
-```
-
-## Regenerating
-
-This package is generated — do not hand-edit files under `recurso/`. To regenerate after a spec
-change (with the main [recurso](https://github.com/recurso-dev/recurso) repo checked out as a
-sibling directory, run from this repo's root):
-
-```bash
-pipx run openapi-python-client generate \
-  --path ../recur-so/cmd/api/openapi.yaml \
-  --config <(printf 'project_name_override: recurso\npackage_name_override: recurso\n') \
-  --output-path . \
-  --overwrite
-```
-
-Note: the generator emits benign warnings for the `GET /openapi.yaml` and SAML-metadata endpoints
-(non-JSON response bodies), and for `GET /v1/plans/{id}/charges` (a generator model-resolution
-quirk, present since the first generation); those responses are simply omitted from the generated
-client — the endpoints still work, returning the raw response.
-
-The generator also overwrites this README and `pyproject.toml` — restore both from git
-(`git checkout origin/main -- README.md pyproject.toml`) before re-applying intentional changes.
-
-After regenerating, re-apply the one intentional deviation from the generated output:
-`raise_on_unexpected_status` must default to `True` in both clients in `recurso/client.py`
-(the generator emits `False`, which makes API errors silently return `None`).
-
-## Testing
-
-A no-network smoke test verifies the package imports and key endpoint signatures exist:
-
-```bash
-python3 tests/smoke_test.py
-```
+Full method reference and guides: **[docs.recurso.dev](https://docs.recurso.dev)**.
 
 ## License
 
