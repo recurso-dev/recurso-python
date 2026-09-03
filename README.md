@@ -6,14 +6,19 @@ billing API — a typed client generated from Recurso's OpenAPI 3.1 spec, coveri
 (pause/resume/cancel, add-ons, plan-change preview, commitments), invoices,
 usage-based billing (metering, prepaid wallets, usage alerts), payments, coupons,
 quotes, entitlements, credit notes, disputes, dunning, tax & e-invoicing, the
-ledger, analytics, webhooks, and more.
+ledger, analytics, webhooks, and more — including the accounting drill-downs
+(invoice/credit-note journal entries, payment attempts, invoice status history,
+subscription history, customer/subscription financial summaries, reconciliation
+runs, and single ledger transactions). Coverage is checked against the spec by
+`scripts/sdk_drift.py` in the API repo; as of 1.11.0 every in-scope spec path
+has a module here.
 
 Monetary amounts are integers in the currency's smallest unit (cents/paise).
 Requires **Python 3.11+**.
 
 ## Install
 
-Not yet published on PyPI — install from a checkout:
+Not yet published on PyPI (see [Releasing](#releasing)) — install from a checkout:
 
 ```bash
 git clone https://github.com/recurso-dev/recurso-python.git
@@ -110,6 +115,29 @@ TLS verification is on by default; pass `verify_ssl="/path/to/bundle.pem"` (or
 `verify_ssl=False`, a security risk) to `AuthenticatedClient` for custom certs.
 
 Full method reference and guides: **[docs.recurso.dev](https://docs.recurso.dev)**.
+
+## Development
+
+No-network checks, also run by CI (`.github/workflows/ci.yml`, Python 3.11 and
+3.12 on every push and pull request):
+
+```bash
+pip install -e . pytest
+python3 tests/smoke_test.py   # signature/serialization smoke test
+python3 -m pytest -q          # the same, plus an httpx.MockTransport round-trip
+```
+
+Changes are tracked in [CHANGELOG.md](CHANGELOG.md).
+
+## Releasing
+
+Publishing to PyPI is **release-triggered**: `.github/workflows/publish.yml`
+runs `poetry publish` only when a GitHub release is published, and it needs the
+`PYPI_API_TOKEN` repository secret. The package is **not yet on PyPI** — the
+`recurso` name is unclaimed (`https://pypi.org/pypi/recurso/json` returns 404),
+so the first publish claims it and requires the founder's PyPI token to be added
+as that secret before the first release is cut. Until then, install from a
+checkout as shown above.
 
 ## License
 

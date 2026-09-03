@@ -7,6 +7,7 @@ authenticated client sends a Bearer token — all without making a single
 HTTP request.
 
 Run:  pip install . && python3 tests/smoke_test.py
+      (or via pytest: python3 -m pytest -q, see tests/test_smoke.py)
 """
 
 import inspect
@@ -454,6 +455,115 @@ def main() -> int:
         assert GatewayConnectionViewProvider("gocardless").value == "gocardless"
 
     check("mandate currency + gocardless provider (bank debit)", mandate_currency_field)
+
+    # --- accounting/finance drill-downs (API sync 2026-09, SDK 1.11.0) ---
+    # These 15 spec paths were the whole python "missing" list in
+    # scripts/sdk_drift.py; every verb on each is covered here.
+    def finance_drilldown_endpoints():
+        from recurso.api.coupons import get_coupon
+        from recurso.api.credit_notes import get_credit_note_journal_entries
+        from recurso.api.customers import get_customer_financial_summary
+        from recurso.api.disputes import get_dispute
+        from recurso.api.finance import (
+            get_ledger_transaction,
+            get_reconciliation_run,
+            list_reconciliation_runs,
+            record_reconciliation,
+        )
+        from recurso.api.invoices import (
+            get_invoice_journal_entries,
+            get_invoice_payment_attempts,
+            get_invoice_status_history,
+        )
+        from recurso.api.metering import get_metric_charges
+        from recurso.api.payments import get_payment_attempt, list_payment_attempts
+        from recurso.api.subscriptions import (
+            get_subscription_cancel_preview,
+            get_subscription_financial_summary,
+            get_subscription_history,
+        )
+
+        assert_endpoint(get_metric_charges, sync_params=["id", "client"])
+        assert_endpoint(get_credit_note_journal_entries, sync_params=["id", "client"])
+        assert_endpoint(get_customer_financial_summary, sync_params=["id", "client"])
+        assert_endpoint(get_dispute, sync_params=["id", "client"])
+        assert_endpoint(list_reconciliation_runs, sync_params=["client", "limit"])
+        assert_endpoint(record_reconciliation, sync_params=["client"])
+        assert_endpoint(get_reconciliation_run, sync_params=["id", "client"])
+        assert_endpoint(get_invoice_journal_entries, sync_params=["id", "client"])
+        assert_endpoint(get_invoice_payment_attempts, sync_params=["id", "client"])
+        assert_endpoint(get_invoice_status_history, sync_params=["id", "client"])
+        assert_endpoint(get_ledger_transaction, sync_params=["id", "client"])
+        assert_endpoint(list_payment_attempts, sync_params=["client", "status", "q", "page", "per_page"])
+        assert_endpoint(get_payment_attempt, sync_params=["id", "client"])
+        assert_endpoint(get_subscription_cancel_preview, sync_params=["id", "client", "immediately"])
+        assert_endpoint(get_subscription_financial_summary, sync_params=["id", "client"])
+        assert_endpoint(get_subscription_history, sync_params=["id", "client"])
+        # New verb on an already-covered path.
+        assert_endpoint(get_coupon, sync_params=["id", "client"])
+
+    check("accounting/finance drill-down endpoints exist with expected signatures", finance_drilldown_endpoints)
+
+    def finance_drilldown_kwargs():
+        from uuid import UUID
+
+        from recurso.api.finance import get_reconciliation_run, list_reconciliation_runs, record_reconciliation
+        from recurso.api.payments import list_payment_attempts
+        from recurso.api.subscriptions import get_subscription_cancel_preview
+        from recurso.models import ListPaymentAttemptsStatus
+
+        run_id = UUID("00000000-0000-0000-0000-000000000006")
+        kwargs = get_reconciliation_run._get_kwargs(id=run_id)
+        assert kwargs["method"] == "get"
+        assert kwargs["url"] == f"/v1/finance/reconciliation/runs/{run_id}"
+        assert list_reconciliation_runs._get_kwargs(limit=5) == {
+            "method": "get",
+            "url": "/v1/finance/reconciliation/runs",
+            "params": {"limit": 5},
+        }
+        assert record_reconciliation._get_kwargs() == {"method": "post", "url": "/v1/finance/reconciliation/runs"}
+
+        kwargs = list_payment_attempts._get_kwargs(status=ListPaymentAttemptsStatus.FAILED, per_page=25)
+        assert kwargs["method"] == "get"
+        assert kwargs["url"] == "/v1/payment-attempts"
+        # Enum query params serialize to their wire value; unset ones are dropped.
+        assert kwargs["params"] == {"status": "failed", "per_page": 25}, kwargs["params"]
+
+        kwargs = get_subscription_cancel_preview._get_kwargs(id=run_id, immediately=True)
+        assert kwargs["url"] == f"/v1/subscriptions/{run_id}/cancel-preview"
+        assert kwargs["params"] == {"immediately": True}
+
+    check("finance drill-down modules build the right method/URL/params", finance_drilldown_kwargs)
+
+    def finance_drilldown_models():
+        from recurso.models import (
+            GetReconciliationRunResponse200,
+            GetSubscriptionHistoryResponse200DataHistoryItemChangeType,
+            ListPaymentAttemptsResponse200,
+            ListPaymentAttemptsStatus,
+            ReconciliationReport,
+        )
+
+        assert {s.value for s in ListPaymentAttemptsStatus} == {
+            "failed",
+            "initiated",
+            "processing",
+            "returned",
+            "succeeded",
+        }
+        assert GetSubscriptionHistoryResponse200DataHistoryItemChangeType is not None
+        assert GetReconciliationRunResponse200 is not None
+        # reporting_currency landed alongside the reconciliation-runs endpoints.
+        assert "reporting_currency" in {f.name for f in ReconciliationReport.__attrs_attrs__}
+        parsed = ListPaymentAttemptsResponse200.from_dict(
+            {"data": [{"amount": 2900, "status": "succeeded"}], "pagination": {"page": 1, "total": 1}}
+        )
+        assert parsed.data[0].amount == 2900
+        assert parsed.data[0].status.value == "succeeded"
+        assert parsed.pagination.total == 1
+        assert parsed.to_dict()["data"][0]["status"] == "succeeded"
+
+    check("finance drill-down models parse and round-trip", finance_drilldown_models)
 
     print()
     if FAILURES:
