@@ -31,6 +31,8 @@ class ReconciliationReport:
         truncated (bool | Unset): True when more discrepancies exist than are listed.
         tb_compared (bool | Unset): Whether TigerBeetle was included in the comparison.
         tb_skip_reason (str | Unset):
+        reporting_currency (str | Unset): The tenant's reporting currency; discrepancy amounts are minor units of this
+            currency so clients can format them as money.
     """
 
     tenant_id: UUID | Unset = UNSET
@@ -43,6 +45,7 @@ class ReconciliationReport:
     truncated: bool | Unset = UNSET
     tb_compared: bool | Unset = UNSET
     tb_skip_reason: str | Unset = UNSET
+    reporting_currency: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -77,6 +80,8 @@ class ReconciliationReport:
 
         tb_skip_reason = self.tb_skip_reason
 
+        reporting_currency = self.reporting_currency
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -100,6 +105,8 @@ class ReconciliationReport:
             field_dict["tb_compared"] = tb_compared
         if tb_skip_reason is not UNSET:
             field_dict["tb_skip_reason"] = tb_skip_reason
+        if reporting_currency is not UNSET:
+            field_dict["reporting_currency"] = reporting_currency
 
         return field_dict
 
@@ -150,6 +157,8 @@ class ReconciliationReport:
 
         tb_skip_reason = d.pop("tb_skip_reason", UNSET)
 
+        reporting_currency = d.pop("reporting_currency", UNSET)
+
         reconciliation_report = cls(
             tenant_id=tenant_id,
             started_at=started_at,
@@ -161,6 +170,7 @@ class ReconciliationReport:
             truncated=truncated,
             tb_compared=tb_compared,
             tb_skip_reason=tb_skip_reason,
+            reporting_currency=reporting_currency,
         )
 
         reconciliation_report.additional_properties = d

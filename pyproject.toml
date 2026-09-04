@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "recurso"
-version = "1.10.0"
+version = "1.11.0"
 description = "A client library for accessing Recurso API"
 authors = []
 readme = "README.md"
@@ -23,3 +23,8 @@ line-length = 120
 
 [tool.ruff.lint]
 select = ["F", "I", "UP"]
+
+[tool.pytest.ini_options]
+# Only collect tests/; generated model modules such as
+# recurso/models/test_irp_connection_response_200.py match test_*.py by name.
+testpaths = ["tests"]
